@@ -1,5 +1,4 @@
-import AuthProvider from "@/components/Providers/AuthProvider";
-import PrivateWrapper from "../components/Wrappers/index";
+import AuthProvider from "@/components/Provider/AuthProvider";
 import "../styles/globals.css";
 import { color } from "../theme/theme.config";
 import { App as AppProvider, ConfigProvider } from "antd";
@@ -25,9 +24,7 @@ export default function App({ Component, pageProps }) {
     <ConfigProvider theme={theme}>
       <AppProvider>
         <AuthProvider>
-          <PrivateWrapper>
-            <Component {...pageProps} />
-          </PrivateWrapper>
+          <Component {...pageProps} />
         </AuthProvider>
       </AppProvider>
     </ConfigProvider>
