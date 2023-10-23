@@ -10,19 +10,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 svg {
   display: inline;
   vertical-align: baseline;
 }
+
 span.anticon.ant-notification-notice-icon {
   padding-top: 30px;
   display: inline;
   vertical-align: baseline;
 }
+
 a,
 Link {
   cursor: pointer;
 }
+
 dl,
 ol,
 ul {
@@ -91,7 +95,7 @@ body {
   justify-items: center !important;
 }
 
-.ant-collapse-header > .ant-collapse-expand-icon > .anticon-right {
+.ant-collapse-header>.ant-collapse-expand-icon>.anticon-right {
   margin-right: 10px !important;
 }
 
@@ -102,7 +106,7 @@ body {
   width: 100% !important;
 }
 
-.ant-notification-notice-with-icon > .anticon {
+.ant-notification-notice-with-icon>.anticon {
   padding: 0px !important;
 }
 
@@ -120,4 +124,12 @@ body {
   background: transparent !important;
   display: relative !important;
   z-index: 50 !important;
+}
+
+.search:focuss {
+  box-shadow: none !important;
+}
+
+.search .ant-input {
+  background: transparent !important;
 }
