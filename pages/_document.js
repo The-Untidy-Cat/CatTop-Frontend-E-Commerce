@@ -16,7 +16,7 @@ const MyDocument = () => (
         rel="stylesheet"
       />
     </Head>
-    <body>
+    <body className="bg-gray-100/[.5]">
       <Main />
       <NextScript />
     </body>

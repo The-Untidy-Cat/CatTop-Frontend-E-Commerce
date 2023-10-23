@@ -141,134 +141,161 @@
 //   );
 // };
 
-import {  Dropdown, Pagination  } from 'antd';
-import {  AiOutlineLeft, AiOutlineRight, AiOutlineUnorderedList } from "react-icons/ai";
+import { Dropdown, Pagination } from "antd";
+import {
+  AiOutlineLeft,
+  AiOutlineRight,
+  AiOutlineUnorderedList,
+} from "react-icons/ai";
 import Link from "next/link";
-import {GiLaptop} from "react-icons/gi"
+import { GiLaptop } from "react-icons/gi";
 
 const categories = [
   {
     key: 1,
-    label:
-      (
-        <div className="flex flex-col w-56">
-          <p>Thương hiệu</p>
-          <ol className="ml-5">
-            <li><Link href='#'>Dell</Link></li>
-            <li><Link href='#'>HP</Link></li>
-            <li><Link href='#'>Asus</Link></li>
-            <li><Link href='#'>LG</Link></li>
-            <li><Link href='#'>Microsoft</Link></li>
-          </ol>
-        </div>
-      ),
+    label: (
+      <div className="flex flex-col w-56">
+        <p>Thương hiệu</p>
+        <ol className="ml-5">
+          <li>
+            <Link href="#">Dell</Link>
+          </li>
+          <li>
+            <Link href="#">HP</Link>
+          </li>
+          <li>
+            <Link href="#">Asus</Link>
+          </li>
+          <li>
+            <Link href="#">LG</Link>
+          </li>
+          <li>
+            <Link href="#">Microsoft</Link>
+          </li>
+        </ol>
+      </div>
+    ),
   },
   {
     key: 2,
-    label:
-      (
-        <div className="flex flex-col w-56">
-          <p className="">Nhu cầu</p>
-          <ol className="ml-5">
-            <li><Link href='#'>Văn phòng</Link></li>
-            <li><Link href='#'>Lập trình</Link></li>
-            <li><Link href='#'>Gaming</Link></li>
-            <li><Link href='#'>2D Design</Link></li>
-            <li><Link href='#'>3D Design</Link></li>
-          </ol>
-        </div>
-      ),
+    label: (
+      <div className="flex flex-col w-56">
+        <p className="">Nhu cầu</p>
+        <ol className="ml-5">
+          <li>
+            <Link href="#">Văn phòng</Link>
+          </li>
+          <li>
+            <Link href="#">Lập trình</Link>
+          </li>
+          <li>
+            <Link href="#">Gaming</Link>
+          </li>
+          <li>
+            <Link href="#">2D Design</Link>
+          </li>
+          <li>
+            <Link href="#">3D Design</Link>
+          </li>
+        </ol>
+      </div>
+    ),
   },
   {
     key: 3,
-    label:
-      (
-        <div className="flex flex-col w-56">
-          <p className="">Khoảng giá</p>
-          <ol className="ml-5">
-            <li><Link href='#'>Dưới 10 triệu</Link></li>
-            <li><Link href='#'>Từ 10 - 20 triệu</Link></li>
-            <li><Link href='#'>Từ 20 - 30 triệu</Link></li>
-            <li><Link href='#'>Từ 30 - 40 triệu</Link></li>
-            <li><Link href='#'>Trên 40 triệu</Link></li>
-          </ol>
-        </div>
-      ),
-  }
-]
-
+    label: (
+      <div className="flex flex-col w-56">
+        <p className="">Khoảng giá</p>
+        <ol className="ml-5">
+          <li>
+            <Link href="#">Dưới 10 triệu</Link>
+          </li>
+          <li>
+            <Link href="#">Từ 10 - 20 triệu</Link>
+          </li>
+          <li>
+            <Link href="#">Từ 20 - 30 triệu</Link>
+          </li>
+          <li>
+            <Link href="#">Từ 30 - 40 triệu</Link>
+          </li>
+          <li>
+            <Link href="#">Trên 40 triệu</Link>
+          </li>
+        </ol>
+      </div>
+    ),
+  },
+];
 
 export default function Categories() {
   return (
-    <header className="flex justify-center px-5 gap-3">
-      <div>
+    <header className="flex justify-center px-5 gap-3 sticky top-0 bg-white shrink-0">
+      <div className="flex justify-between lg:max-w-4xl w-full items-center align-center gap-2 py-2">
         <Dropdown
           menu={{
             items: categories,
-            className: 'hover:bg-transparent'
           }}
+          trigger={["click", 'hover']}
         >
-          <span
-            className="hover:bg-gray-100 rounded py-5 px-2 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
+          <span className="hover:bg-gray-100 rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit">
             <AiOutlineUnorderedList className="text-xl text-gray-600" />
             <span className="hidden lg:block text-sm">Danh mục</span>
           </span>
         </Dropdown>
-      </div>
-      <div className='flex gap-2'>
-        <Link
+        <div className="flex gap-2">
+          <Link
+            href="#"
+            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+          >
+            <GiLaptop className="text-2xl text-gray-600" />
+            <span className="hidden lg:block">DELL</span>
+          </Link>
+          <Link
+            href="#"
+            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+          >
+            <GiLaptop className="text-2xl text-gray-600" />
+            <span className="hidden lg:block">HP</span>
+          </Link>
+          <Link
+            href="#"
+            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+          >
+            <GiLaptop className="text-2xl text-gray-600" />
+            <span className="hidden lg:block">ASUS</span>
+          </Link>
+          <Link
+            href="#"
+            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+          >
+            <GiLaptop className="text-2xl text-gray-600" />
+            <span className="hidden lg:block">LG</span>
+          </Link>
+          <Link
+            href="#"
+            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+          >
+            <GiLaptop className="text-2xl text-gray-600" />
+            <span className="hidden lg:block">Microsoft</span>
+          </Link>
+          <Link
+            href="#"
+            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+          >
+            <GiLaptop className="text-2xl text-gray-600" />
+            <span className="hidden lg:block">ACER</span>
+          </Link>
+          <Link
+            href="#"
+            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+          >
+            <GiLaptop className="text-2xl text-gray-600" />
+            <span className="hidden lg:block">Lenovo</span>
+          </Link>
+          {/* <Link
           href="#"
-          className="hover:bg-secondary/[.5] rounded py-5 px-3 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-        >
-          <GiLaptop className="text-2xl text-gray-600" />
-          <span className="hidden lg:block">DELL</span>
-        </Link>
-        <Link
-          href="#"
-          className="hover:bg-secondary/[.5] rounded py-5 px-3 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-        >
-          <GiLaptop className="text-2xl text-gray-600" />
-          <span className="hidden lg:block">HP</span>
-        </Link>
-        <Link
-          href="#"
-          className="hover:bg-secondary/[.5] rounded py-5 px-3 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-        >
-          <GiLaptop className="text-2xl text-gray-600" />
-          <span className="hidden lg:block">ASUS</span>
-        </Link>
-        <Link
-          href="#"
-          className="hover:bg-secondary/[.5] rounded py-5 px-3 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-        >
-          <GiLaptop className="text-2xl text-gray-600" />
-          <span className="hidden lg:block">LG</span>
-        </Link>
-        <Link
-          href="#"
-          className="hover:bg-secondary/[.5] rounded py-5 px-3 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-        >
-          <GiLaptop className="text-2xl text-gray-600" />
-          <span className="hidden lg:block">Microsoft</span>
-        </Link>
-        <Link
-          href="#"
-          className="hover:bg-secondary/[.5] rounded py-5 px-3 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-        >
-          <GiLaptop className="text-2xl text-gray-600" />
-          <span className="hidden lg:block">ACER</span>
-        </Link>
-        <Link
-          href="#"
-          className="hover:bg-secondary/[.5] rounded py-5 px-3 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-        >
-          <GiLaptop className="text-2xl text-gray-600" />
-          <span className="hidden lg:block">Lenovo</span>
-        </Link>
-        {/* <Link
-          href="#"
-          className="hover:bg-secondary/[.5] font-thin flex justify-center items-center align-center text-gray-900 gap-2"
+          className="hover:bg-secondary/[.2] font-thin flex justify-center items-center align-center text-gray-900 gap-2"
         >
           <AiOutlineLeft className="hover:bg-blue text-2xl text-gray-600" />
         </Link>
@@ -278,6 +305,7 @@ export default function Categories() {
         >
           <AiOutlineRight className="text-2xl text-gray-600" />
         </Link> */}
+        </div>
       </div>
     </header>
   );
