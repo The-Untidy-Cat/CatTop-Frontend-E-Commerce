@@ -5,8 +5,11 @@ import Cart from "@/components/Cart/cart";
 import Login from "@/components/Login/login";
 import ForgetPassword from "@/components/Login/forgot";
 import ResetPassword from "@/components/Login/reset";
+import RegistrationForm from "@/components/SignUp/index";
+// const App = () => {
+//   return <ResetPassword></ResetPassword>;
 
 const App = () => {
-  return <ResetPassword></ResetPassword>;
+  return <Login></Login>
 };
 export default App;
