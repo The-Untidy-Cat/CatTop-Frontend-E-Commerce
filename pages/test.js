@@ -10,6 +10,6 @@ import RegistrationForm from "@/components/SignUp/index";
 //   return <ResetPassword></ResetPassword>;
 
 const App = () => {
-  return <Login></Login>
+  return <Cart></Cart>
 };
 export default App;
