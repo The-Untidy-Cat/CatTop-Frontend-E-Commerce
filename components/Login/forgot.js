@@ -134,7 +134,7 @@ export default function ForgetPassword() {
               >
                 <Input className="w-full" placeholder="example@domain.com" />
               </Form.Item>
-              <Form.Item className="w-full">
+              <Form.Item className="w-full mt-2">
                 <Button htmlType="submit" className="w-full" type="primary">
                   Gửi OTP
                 </Button>
@@ -148,7 +148,11 @@ export default function ForgetPassword() {
             animate={{ x: 0, y: 0, opacity: 1 }}
             className="flex w-full h-full"
           >
-            <Form className="flex flex-col w-full gap-2" form={checkOTPForm} onFinish={handleCheckOTP}>
+            <Form
+              className="flex flex-col w-full gap-2"
+              form={checkOTPForm}
+              onFinish={handleCheckOTP}
+            >
               <p className="m-0">
                 Nhập mã OTP gửi đến{" "}
                 <span className="font-semibold">{email}</span>
@@ -186,7 +190,7 @@ export default function ForgetPassword() {
                   Gửi lại mã OTP
                 </Button>
               )}
-              <div className="flex flex-col gap-2 w-full">
+              <div className="flex flex-col gap-2 w-full mt-2">
                 <Form.Item className="m-0">
                   <Button type="primary" htmlType="submit" className="w-full">
                     Xác thực
@@ -222,7 +226,8 @@ export default function ForgetPassword() {
                   rules={[
                     {
                       required: true,
-                      message: "",
+                      message: "Mật khẩu tối thiểu 8 ký tự",
+                      min: 8,
                     },
                   ]}
                   className="m-0 w-full"
@@ -234,12 +239,26 @@ export default function ForgetPassword() {
                 <p className="m-0">Xác nhận mật khẩu mới</p>
                 <Form.Item
                   label=""
-                  name="password"
+                  name="confirm-password"
+                  dependencies={["password"]}
+                  hasFeedback
                   rules={[
                     {
                       required: true,
-                      message: "",
+                      message: "Vui lòng xác nhận mật khẩu",
                     },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "The new password that you entered do not match!"
+                          )
+                        );
+                      },
+                    }),
                   ]}
                   className="m-0 w-full"
                 >
@@ -247,7 +266,7 @@ export default function ForgetPassword() {
                 </Form.Item>
               </div>
               <Form.Item className="w-full mt-2">
-                <Button className="bg-primary/[.9] text-white font-bold rounded-md hover:bg-primary w-full">
+                <Button type="primary" className="w-full">
                   Đổi mật khẩu
                 </Button>
               </Form.Item>
