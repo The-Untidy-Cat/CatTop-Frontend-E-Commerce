@@ -239,7 +239,7 @@ export default function ForgetPassword() {
                 <p className="m-0">Xác nhận mật khẩu mới</p>
                 <Form.Item
                   label=""
-                  name="confirm-password"
+                  name="confirm_password"
                   dependencies={["password"]}
                   hasFeedback
                   rules={[
@@ -254,7 +254,7 @@ export default function ForgetPassword() {
                         }
                         return Promise.reject(
                           new Error(
-                            "The new password that you entered do not match!"
+                            "Xác nhận mật khẩu không khớp!"
                           )
                         );
                       },
