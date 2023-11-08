@@ -5,16 +5,20 @@ import { useEffect, useState } from "react";
 import { InputOTP } from "antd-input-otp";
 import moment from "moment/moment";
 import { motion } from "framer-motion";
+import { forgotPassword } from "@/services/auth";
 
 export default function ForgetPassword() {
   const [step, setStep] = useState(1);
   const [remainingTime, setRemainingTime] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [code, setCode] = useState(null);
   const [checkEmailForm] = Form.useForm();
   const [checkOTPForm] = Form.useForm();
   const [resetPasswordForm] = Form.useForm();
-  const sendOTP = async () => {
+
+  const sendOTP = async (data = email) => {
+    setLoading(true);
     try {
       if (remainingTime > 0) {
         notification.error({
@@ -23,47 +27,49 @@ export default function ForgetPassword() {
         });
         return;
       }
-
+      const response = await forgotPassword(data);
       // const response = await api.post(`/web/auth/forgot-password`, {
       //     email,
       // });
-      // if (response.status === 200) {
-      //     setIsRequested(true);
-      // }
-      setRemainingTime(10);
-      notification.success({
-        message: "Thành công",
-        description: "Gửi mã OTP thành công. Vui lòng kiểm tra hộp thư",
-      });
-      checkOTPForm.setFieldValue("code", null);
+      if (response.status === 200) {
+        setRemainingTime(10);
+        notification.success({
+          message: "Thành công",
+          description: "Gửi mã OTP thành công. Vui lòng kiểm tra hộp thư",
+        });
+        checkOTPForm.setFieldValue("code", null);
+      }
+      setLoading(false);
     } catch (e) {
-      notification.error({
-        message: "Error",
-        description: error.message,
-      });
+      setLoading(false);
+      throw e;
     }
   };
 
   const handleRequestOTP = async (values) => {
-    const { email } = values;
-    setEmail(email);
     try {
-      await sendOTP();
-      //   const response = await api.post(`/web/auth/forgot-password`, {
-      //     email,
-      //   });
-      //   if (response.status === 200) {
-      //     setIsRequested(true);
-      //   }
-      setStep(2);
-    } catch (error) {
-      checkEmailForm.setFields([
-        {
-          name: "email",
-          errors: ["Email không tồn tại"],
-        },
-      ]);
-    }
+      setEmail(values.email);
+      sendOTP(values.email)
+        .then(() => {
+          setStep(2);
+          setRemainingTime(300);
+        })
+        .catch((e) => {
+          if (e?.email) {
+            checkEmailForm.setFields([
+              {
+                name: "email",
+                errors: e?.email || ["Lỗi không xác định"],
+              },
+            ]);
+          } else {
+            notification.error({
+              message: "Lỗi",
+              description: e,
+            });
+          }
+        });
+    } catch (error) {}
   };
 
   const handleCheckOTP = async (values) => {
@@ -135,7 +141,12 @@ export default function ForgetPassword() {
                 <Input className="w-full" placeholder="example@domain.com" />
               </Form.Item>
               <Form.Item className="w-full mt-2">
-                <Button htmlType="submit" className="w-full" type="primary">
+                <Button
+                  htmlType="submit"
+                  className="w-full"
+                  type="primary"
+                  loading={loading}
+                >
                   Gửi OTP
                 </Button>
               </Form.Item>
@@ -184,15 +195,21 @@ export default function ForgetPassword() {
               ) : (
                 <Button
                   type="link"
-                  onClick={() => sendOTP()}
+                  onClick={() => sendOTP(email)}
                   className="font-semibold"
+                  loading={loading}
                 >
                   Gửi lại mã OTP
                 </Button>
               )}
               <div className="flex flex-col gap-2 w-full mt-2">
                 <Form.Item className="m-0">
-                  <Button type="primary" htmlType="submit" className="w-full">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="w-full"
+                    loading={loading}
+                  >
                     Xác thực
                   </Button>
                 </Form.Item>
@@ -200,6 +217,7 @@ export default function ForgetPassword() {
                   <Button
                     className="w-full"
                     onClick={() => handleChangeEmail()}
+                    loading={loading}
                   >
                     Thay đổi email
                   </Button>
@@ -253,9 +271,7 @@ export default function ForgetPassword() {
                           return Promise.resolve();
                         }
                         return Promise.reject(
-                          new Error(
-                            "Xác nhận mật khẩu không khớp!"
-                          )
+                          new Error("Xác nhận mật khẩu không khớp!")
                         );
                       },
                     }),
@@ -266,7 +282,7 @@ export default function ForgetPassword() {
                 </Form.Item>
               </div>
               <Form.Item className="w-full mt-2">
-                <Button type="primary" className="w-full">
+                <Button type="primary" className="w-full" loading={loading}>
                   Đổi mật khẩu
                 </Button>
               </Form.Item>
