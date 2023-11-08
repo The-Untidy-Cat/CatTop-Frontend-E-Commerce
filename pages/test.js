@@ -3,6 +3,6 @@ import DefaultLayout from "@/components/Layout";
 import RegistrationForm from "@/components/SignUp/index";
 
 const App = () => {
-  return <DefaultLayout></DefaultLayout>
+  return <RegistrationForm></RegistrationForm>
 };
 export default App;
