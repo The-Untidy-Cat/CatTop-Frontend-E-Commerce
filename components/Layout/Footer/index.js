@@ -7,13 +7,13 @@ import uit from '@/public/uit.png';
 export default function Footer() {
     return (
         <footer>
-            <div className='p-10 bg-secondary/[.5]'>
+            <div className='flex  bg-secondary/[.5]'>
                 <div className='grid grid-cols-2'>
                     <div className='pl-10'>
-                        <p className='flex'>
+                        <div className='flex items-center align-center'>
                             <Image src={logo} className='w-16'></Image>
-                            <span className="text-primary font-bold text-3xl pt-3 pl-3">CATTOP</span>
-                        </p>
+                            <span className="text-primary font-bold text-xl md:text-3xl pt-3 pl-3">CATTOP</span>
+                        </div>
                         <p className="text-primary font-bold text-lg py-3">HỆ THỐNG CỬA HÀNG</p>
                         <p className="font-bold text-lg">MIỀN NAM</p>
                         <p className='flex items-center align-center gap-1 text-sm pt-2'>
