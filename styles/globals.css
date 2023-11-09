@@ -4,13 +4,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
-body {
-  margin: 0;
-  font-family: Montserrat, sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 svg {
   display: inline;
   vertical-align: baseline;
@@ -35,6 +28,8 @@ ul {
 }
 
 html {
+  box-sizing: border-box;
+  width: 100vw;
   scroll-behavior: smooth;
   font-family: Montserrat, sans-serif !important;
   /* -webkit-touch-callout: none; /* iOS Safari */
@@ -65,8 +60,15 @@ html {
 }
 
 body {
+  margin: 0;
+  font-family: Montserrat, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   overscroll-behavior-y: contain;
   background: transparent !important;
+  padding: 0;
 }
 
 #__next {
@@ -95,7 +97,7 @@ body {
   justify-items: center !important;
 }
 
-.ant-collapse-header>.ant-collapse-expand-icon>.anticon-right {
+.ant-collapse-header > .ant-collapse-expand-icon > .anticon-right {
   margin-right: 10px !important;
 }
 
@@ -106,7 +108,7 @@ body {
   width: 100% !important;
 }
 
-.ant-notification-notice-with-icon>.anticon {
+.ant-notification-notice-with-icon > .anticon {
   padding: 0px !important;
 }
 

@@ -1,6 +1,6 @@
 import { notification } from "antd";
 
-const { api } = require("@/utils/axios");
+import { api } from "@/utils/axios";
 
 const forgotPassword = async (email) => {
   try {
@@ -9,8 +9,33 @@ const forgotPassword = async (email) => {
     });
     return response.data;
   } catch (e) {
-    throw e?.response?.data?.message || "Lỗi máy chủ";
+    throw e?.response?.data?.errors || e?.response?.data?.message || "Lỗi không xác định. Vui lòng thử lại sau";
   }
 };
 
-export { forgotPassword };
+const verifyOTP = async (email, code) => {
+  try {
+    const response = await api.post(`/auth/verify-otp`, {
+      email,
+      token: String(code).replaceAll(/\s/g, "").replaceAll(",", "").trim(),
+    });
+    return response.data;
+  } catch (e) {
+    throw e?.response?.data?.errors || e?.response?.data?.message || "Lỗi không xác định. Vui lòng thử lại sau";
+  }
+};
+
+const resetPassword = async (email, code, password) => {
+  try {
+    const response = await api.post(`/auth/reset-password`, {
+      email,
+      token: String(code).replaceAll(/\s/g, "").replaceAll(",", "").trim(),
+      password,
+    });
+    return response.data;
+  } catch (e) {
+    throw e?.response?.data?.errors || e?.response?.data?.message || "Lỗi không xác định. Vui lòng thử lại sau";
+  }
+}
+
+export { forgotPassword, verifyOTP, resetPassword };

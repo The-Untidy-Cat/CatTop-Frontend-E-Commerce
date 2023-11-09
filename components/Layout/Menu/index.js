@@ -230,70 +230,72 @@ const categories = [
 
 export default function Categories() {
   return (
-    <header className="flex justify-center px-5 gap-3 sticky top-0 bg-white shrink-0">
+    <header className="flex justify-center px-5 gap-3 bg-white shrink-0">
       <div className="flex justify-between lg:max-w-4xl w-full items-center align-center gap-2 py-2">
         <Dropdown
           menu={{
             items: categories,
           }}
-          trigger={["click", 'hover']}
+          trigger={["click"]}
+
         >
-          <span className="hover:bg-gray-100 rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit">
+          <span className="hover:bg-gray-100 rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit lg:w-36 cursor-pointer">
             <AiOutlineUnorderedList className="text-xl text-gray-600" />
-            <span className="hidden lg:block text-sm">Danh mục</span>
+            <span className="hidden lg:block text-sm w-full">Danh mục</span>
           </span>
         </Dropdown>
-        <div className="flex gap-2">
-          <Link
-            href="#"
-            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
-            <GiLaptop className="text-2xl text-gray-600" />
-            <span className="hidden lg:block">DELL</span>
-          </Link>
-          <Link
-            href="#"
-            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
-            <GiLaptop className="text-2xl text-gray-600" />
-            <span className="hidden lg:block">HP</span>
-          </Link>
-          <Link
-            href="#"
-            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
-            <GiLaptop className="text-2xl text-gray-600" />
-            <span className="hidden lg:block">ASUS</span>
-          </Link>
-          <Link
-            href="#"
-            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
-            <GiLaptop className="text-2xl text-gray-600" />
-            <span className="hidden lg:block">LG</span>
-          </Link>
-          <Link
-            href="#"
-            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
-            <GiLaptop className="text-2xl text-gray-600" />
-            <span className="hidden lg:block">Microsoft</span>
-          </Link>
-          <Link
-            href="#"
-            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
-            <GiLaptop className="text-2xl text-gray-600" />
-            <span className="hidden lg:block">ACER</span>
-          </Link>
-          <Link
-            href="#"
-            className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-          >
-            <GiLaptop className="text-2xl text-gray-600" />
-            <span className="hidden lg:block">Lenovo</span>
-          </Link>
-          {/* <Link
+        <div className="flex relative w-full overflow-x-auto">
+          <div className="flex gap-2 w-fit min-w-full justify-between">
+            <Link
+              href="#"
+              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+            >
+              <GiLaptop className="text-2xl text-gray-600" />
+              <span className="hidden lg:block">DELL</span>
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+            >
+              <GiLaptop className="text-2xl text-gray-600" />
+              <span className="hidden lg:block">HP</span>
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+            >
+              <GiLaptop className="text-2xl text-gray-600" />
+              <span className="hidden lg:block">ASUS</span>
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+            >
+              <GiLaptop className="text-2xl text-gray-600" />
+              <span className="hidden lg:block">LG</span>
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+            >
+              <GiLaptop className="text-2xl text-gray-600" />
+              <span className="hidden lg:block">Microsoft</span>
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+            >
+              <GiLaptop className="text-2xl text-gray-600" />
+              <span className="hidden lg:block">ACER</span>
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+            >
+              <GiLaptop className="text-2xl text-gray-600" />
+              <span className="hidden lg:block">Lenovo</span>
+            </Link>
+            {/* <Link
           href="#"
           className="hover:bg-secondary/[.2] font-thin flex justify-center items-center align-center text-gray-900 gap-2"
         >
@@ -305,6 +307,7 @@ export default function Categories() {
         >
           <AiOutlineRight className="text-2xl text-gray-600" />
         </Link> */}
+          </div>
         </div>
       </div>
     </header>

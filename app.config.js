@@ -4,6 +4,7 @@ const OFFLINE_STORES = [
         name: "Miền Nam",
         address: "KP6, P.Linh Trung, TP. Thủ Đức, TP. Hồ Chí Minh",
         phone: "1900633579",
+        openTime: "00:00 - 23:59"
     }
 ]
 
