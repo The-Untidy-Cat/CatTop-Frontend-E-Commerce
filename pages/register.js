@@ -1,8 +1,8 @@
 import { FullWidthLayout } from "@/components/Layout";
-import Login from "@/components/Login/login";
+import RegistrationForm from "@/components/Register";
 import { AnonymousWrapper } from "@/components/Wrapper";
 
-export default function LoginPage() {
+export default function RegistrationPage() {
   return (
     <AnonymousWrapper>
       <FullWidthLayout
@@ -10,9 +10,9 @@ export default function LoginPage() {
         showFooter={false}
         showSearch={false}
         // showAccountBar={false}
-        title="Đăng nhập vào CatTop"
+        title="Đăng ký thành viên CatTop"
       >
-        <Login />
+        <RegistrationForm />
       </FullWidthLayout>
     </AnonymousWrapper>
   );

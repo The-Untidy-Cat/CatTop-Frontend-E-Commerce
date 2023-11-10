@@ -1,16 +1,33 @@
 import { Spin } from "antd";
-import Login from "../Authentication";
-import { useAuth } from "../Providers/AuthProvider";
+import { useRouter } from "next/router";
+import { useAuth } from "../Provider/AuthProvider";
 
 export default function PrivateWrapper({ children }) {
-  const { user, loadingAuth } = useAuth();
-  return (
-    <>
-      {loadingAuth && (
-        <Spin spinning={true} className="fixed w-screen h-screen z-50" />
-      )}
-      {!loadingAuth && !user && <Login/>}
-      {!loadingAuth && user && children}
-    </>
-  );
+  const { user, loadingUser } = useAuth();
+  const router = useRouter();
+  if (loadingUser)
+    return (
+      <Spin
+        spinning={true}
+        className="flex items-center align-center justify-center fixed w-screen h-screen z-50"
+        size="large"
+      />
+    );
+  if (!user) router.push("/login");
+  return children;
+}
+
+export function AnonymousWrapper({ children }) {
+  const { user, loadingUser } = useAuth();
+  const router = useRouter();
+  if (loadingUser)
+    return (
+      <Spin
+        spinning={true}
+        className="flex items-center align-center justify-center fixed w-screen h-screen z-50"
+        size="large"
+      />
+    );
+  if (user) router.push("/");
+  return children;
 }

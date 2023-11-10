@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { InputOTP } from "antd-input-otp";
 import moment from "moment/moment";
 import { motion } from "framer-motion";
-import { forgotPassword, resetPassword, verifyOTP } from "@/services/auth";
 import { useRouter } from "next/router";
+import { useAuth } from "../Provider/AuthProvider";
 
 export default function ForgetPassword() {
+  const { forgotPassword, resetPassword, verifyOTP } = useAuth()
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [remainingTime, setRemainingTime] = useState(0);
