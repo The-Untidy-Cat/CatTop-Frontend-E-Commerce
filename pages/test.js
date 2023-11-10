@@ -6,6 +6,6 @@ import Login from "@/components/Login/login";
 import ForgetPassword from "@/components/Login/forgot";
 
 const App = () => {
-  return <ForgetPassword/>;
+  return <RegistrationForm></RegistrationForm>
 };
 export default App;
