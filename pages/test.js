@@ -6,10 +6,8 @@ import Login from "@/components/Login/login";
 import ForgetPassword from "@/components/Login/forgot";
 import ResetPassword from "@/components/Login/reset";
 import RegistrationForm from "@/components/SignUp/index";
-// const App = () => {
-//   return <ResetPassword></ResetPassword>;
-
+import ProductPage from "@/components/Product/display";
 const App = () => {
-  return <Cart></Cart>
+  return <ProductPage></ProductPage>
 };
 export default App;
