@@ -3,15 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --experimental-https",
+    "dev-http": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.0",
+<<<<<<< HEAD
     "antd": "^5.11.1",
+=======
+    "antd": "^5.9.4",
+    "antd-input-otp": "^2.0.4",
+>>>>>>> 9817af9bb589a3e0b0651edcd00a3946f83e3f29
     "axios": "^1.5.1",
+    "framer-motion": "^10.16.4",
+    "moment": "^2.29.4",
     "next": "^13.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

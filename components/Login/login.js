@@ -1,49 +1,81 @@
-import { Form, Input, Button } from 'antd';
-import Image from 'next/image';
-import cat from '@/public/logo.png';
+import { Form, Input, Button } from "antd";
+import Image from "next/image";
+import cat from "@/public/logo.png";
+import Link from "next/link";
+import { useAuth } from "../Provider/AuthProvider";
 export default function Login() {
-    return (
-        <main className='bg-secondary/[.4]'>
-            <div class="flex flex-col items-center justify-center h-screen">
-                <div className="flex flex-col items-center bg-white w-[450px] h-[380px] rounded-2xl">
-                <Image src={cat} className='w-14 mt-4'></Image> 
-                    <div><h1 className='font-bold text-lg text-center pt-2 pb-4'>ĐĂNG NHẬP</h1></div>
-                    <div className='w-10/12 mt-2'>
-                        <p className='mb-2'>Email/Số điện thoại</p>
-                        <Form.Item
-                            label=""
-                            name="fullname"
-                            rules={[{
-                                required: true,
-                                message: "Vui lòng nhập email/số điện thoại"
-                            }]}
-                            className=''
-                        >
-                            <Input className='border'></Input>
-                        </Form.Item>
-                    </div>
-                    <div className='w-10/12'>
-                        <p className='float-left'>Mật khẩu</p><p className='float-right text-primary/[.9] font-semibold hover:text-primary'>Quên mật khẩu?</p>
-                        <br></br>
-                        <Form.Item
-                            label=""
-                            name="password"
-                            rules={[{
-                                required: true,
-                                message: ""
-                            }]}
-                            className=''
-                        >
-                            <Input.Password className='border mt-2'></Input.Password>
-                        </Form.Item>
-                    </div>
-                    <div className='mt-2'>
-                        <Form.Item>
-                            <Button className='bg-primary/[.9] text-white font-bold h-9 rounded-md hover:bg-primary'>Đăng nhập</Button>
-                        </Form.Item>
-                    </div>
-                </div>
-            </div>
-        </main>
-    )
+  const { login, loadingAuth } = useAuth();
+  const [form] = Form.useForm();
+  const handleSubmmit = async (values) => {
+    login(values)
+      .then((res) => {})
+      .catch((err) => {
+        // err?.map((e) => {
+        //   form.setFields([
+        //     {
+        //       name: Object.keys(e),
+        //       errors: e[Object.keys(e)],
+        //     },
+        //   ]);
+        // });
+      });
+  };
+  return (
+    <main className="flex flex-col items-center justify-center align-center bg-secondary/[.4] h-full w-full p-2 md:px-10">
+      <div className="flex flex-col items-center bg-white w-full max-w-[450px] h-fit rounded-2xl gap-2 px-5 md:px-10 py-3 md:py-5">
+        <Image src={cat} className="w-14 mt-4" alt="logo" />
+        <div>
+          <h1 className="font-bold text-lg text-center pt-2 pb-4">ĐĂNG NHẬP</h1>
+        </div>
+        <Form
+          className="flex flex-col w-full gap-2"
+          form={form}
+          onFinish={handleSubmmit}
+        >
+          <p className="m-0">Tên đăng nhập</p>
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Không được để trống",
+              },
+            ]}
+            className="m-0"
+          >
+            <Input placeholder="account" />
+          </Form.Item>
+          <div className="flex justify-between">
+            <p className="m-0">Mật khẩu</p>
+            <Link href="/forgot-password" className="font-medium">
+              Quên mật khẩu?
+            </Link>
+          </div>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập mật khẩu",
+              },
+            ]}
+            className="m-0"
+          >
+            <Input.Password placeholder="account" />
+          </Form.Item>
+          <Form.Item className="m-0 mt-2">
+            <Button type="primary" htmlType="submit" className="w-full" loading={loadingAuth}>
+              Đăng nhập
+            </Button>
+          </Form.Item>
+          <Link
+            className="w-full text-center font-medium mb-2"
+            href="/register"
+          >
+            Chưa có tài khoản? Đăng ký ngay
+          </Link>
+        </Form>
+      </div>
+    </main>
+  );
 }

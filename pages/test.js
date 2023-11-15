@@ -9,5 +9,5 @@ import RegistrationForm from "@/components/SignUp/index";
 import ProductPage from "@/components/Product/display";
 const App = () => {
   return <ProductPage></ProductPage>
-};
+}
 export default App;

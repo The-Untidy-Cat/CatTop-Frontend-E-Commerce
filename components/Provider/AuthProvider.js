@@ -4,8 +4,8 @@ import { useAuthController, useFakeAuthController } from "./controllers/auth";
 const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
-//   const auth = useAuthController();
-    const auth = useFakeAuthController();
+  const auth = useAuthController();
+  // const auth = useFakeAuthController();
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
