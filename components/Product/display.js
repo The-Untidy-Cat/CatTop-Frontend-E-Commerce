@@ -323,7 +323,7 @@ const ProductPage = () => {
             <div className='mt-8 flex space-x-3 overflow-x-auto'>
                 <Dropdown menu={{
                     items: brands
-                }} className='h-10 border-white text-xs font-semibold'>
+                }} className='h-10 border-white bg-white text-xs font-semibold'>
                     <Button>
                         Thương hiệu <DownOutlined />
                     </Button>
@@ -331,7 +331,7 @@ const ProductPage = () => {
 
                 <Dropdown menu={{
                     items: demands
-                }} className='h-10 border-white text-xs font-semibold'>
+                }} className='h-10 border-white bg-white text-xs font-semibold'>
                     <Button>
                         Nhu cầu <DownOutlined />
                     </Button>
@@ -339,7 +339,7 @@ const ProductPage = () => {
 
                 <Dropdown menu={{
                     items: prices
-                }} className=' h-10 border-white text-xs font-semibold'>
+                }} className=' h-10 border-white bg-white text-xs font-semibold'>
                     <Button>
                         Khoảng giá <DownOutlined />
                     </Button>
@@ -347,7 +347,7 @@ const ProductPage = () => {
 
                 <Dropdown menu={{
                     items: sources
-                }} className='h-10 border-white text-xs font-semibold'>
+                }} className='h-10 border-white bg-white text-xs font-semibold'>
                     <Button>
                         Nguồn hàng <DownOutlined />
                     </Button>
@@ -360,7 +360,7 @@ const ProductPage = () => {
                 </Button>
                 <Dropdown menu={{
                     items: status
-                }} className='h-10 border-white text-xs font-semibold'>
+                }} className='h-10 border-white bg-white text-xs font-semibold'>
                     <Button>
                         Tình trạng <DownOutlined />
                     </Button>
@@ -368,7 +368,7 @@ const ProductPage = () => {
 
                 <Dropdown menu={{
                     items: color
-                }} className='h-10 border-white text-xs font-semibold'>
+                }} className='h-10 border-white bg-white text-xs font-semibold'>
                     <Button>
                         Màu sắc <DownOutlined />
                     </Button>
@@ -377,7 +377,7 @@ const ProductPage = () => {
             <div className='mt-4'>
                 <Dropdown menu={{
                     items: optionsSX
-                }} className='float-right h-10 border-white text-xs font-semibold'>
+                }} className='float-right h-10 border-white bg-white text-xs font-semibold'>
                     <Button>
                         Sắp xếp <DownOutlined />
                     </Button>
@@ -389,7 +389,7 @@ const ProductPage = () => {
                 })}
             </div>
             <div className='mt-10 flex justify-center'>
-                <Button size='large' className='border-white w-96 text-base font-bold text-primary'>Xem thêm</Button>
+                <Button size='large' className='border-white bg-white w-96 text-base font-bold text-primary'>Xem thêm</Button>
             </div>
         </div>
 

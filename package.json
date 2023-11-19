@@ -11,12 +11,9 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.0",
-<<<<<<< HEAD
     "antd": "^5.11.1",
-=======
     "antd": "^5.9.4",
     "antd-input-otp": "^2.0.4",
->>>>>>> 9817af9bb589a3e0b0651edcd00a3946f83e3f29
     "axios": "^1.5.1",
     "framer-motion": "^10.16.4",
     "moment": "^2.29.4",
