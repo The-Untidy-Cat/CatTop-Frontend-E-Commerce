@@ -1,147 +1,4 @@
-// import { Collapse } from "antd";
-// import Link from "next/link";
-// import { AiOutlineHome } from "react-icons/ai";
-// import { BiRightArrow, BiDownArrow } from "react-icons/bi";
-
-// const NAVBAR_MENU = [
-//   {
-//     key: "home",
-//     name: "Home",
-//     path: "/",
-//   },
-//   {
-//     key: "chat",
-//     name: "Chat",
-//     path: "#",
-//   },
-//   {
-//     key: "order",
-//     name: "Đơn hàng",
-//     path: "#",
-//   },
-// ];
-
-// const SIDEBAR_MENU = [
-//   {
-//     key: "home",
-//     name: "Home",
-//     path: "/",
-//     type: "link",
-//     icon: <AiOutlineHome />,
-//   },
-//   {
-//     key: "separator-1",
-//     type: "separator",
-//   },
-//   {
-//     key: "section-1",
-//     name: "Section 1",
-//     type: "section",
-//     icon: <AiOutlineHome />,
-//     children: [
-//       {
-//         key: "home1",
-//         name: "Home",
-//         path: "/",
-//         type: "sub-menu",
-//       },
-//     ],
-//   },
-// ];
-
-// const NavbarMenu = () => {
-//   return (
-//     <div className="flex items-center align-center gap-2 ml-2">
-//       {NAVBAR_MENU?.map((item, index) => (
-//         <Link
-//           className="text-gray-500 text-sm font-medium hover:text-primary transition-all duration-300 px-3"
-//           key={item.key}
-//           href={item.path}
-//         >
-//           {item.name}
-//         </Link>
-//       ))}
-//     </div>
-//   );
-// };
-
-// const MenuItem = ({ item }) => {
-//   switch (item.type) {
-//     case "link":
-//       return (
-//         <Link
-//           className="flex items-center align-center w-full gap-2 text-sm hover:text-primary transition-all duration-300 px-5 py-3 font-normal text-gray-900"
-//           key={item.key}
-//           href={item.path}
-//         >
-//           <span className="flex text-primary text-lg  h-fit">{item.icon}</span>
-//           {item.name}
-//         </Link>
-//       );
-//     case "separator":
-//       return (
-//         <span
-//           className="flex w-full h-px bg-gray-200 my-1"
-//           key={item.key}
-//         ></span>
-//       );
-//     case "section":
-//       return (
-//         <Collapse
-//           items={[
-//             {
-//               ...item,
-//               icon: undefined,
-//               label: (
-//                 <p className="flex items-center align-center w-full gap-2 text-sm hover:text-primary transition-all duration-300 px-5 py-3 font-normal text-gray-900">
-//                   <span className="text-primary text-lg flex h-fit">
-//                     {item.icon}
-//                   </span>
-//                   {item.name}
-//                 </p>
-//               ),
-//               type: undefined,
-//               children: item?.children?.map((child) => (
-//                 <MenuItem item={child} key={child.key} />
-//               )),
-//               className:
-//                 "flex flex-wrap items-center align-center w-full h-fit hover:text-primary transition-all duration-300",
-//             },
-//           ]}
-//           className="w-full h-fit border-0 drop-sahdow-none bg-transparent p-0 m-0 "
-//           ghost
-//           expandIconPosition="end"
-//           expandIcon={({ isActive }) => (
-//             <span className="pr-4">{isActive ? <BiDownArrow /> : <BiRightArrow />}</span>
-//           )}
-//         />
-//       );
-//     case "sub-menu":
-//       return (
-//         <Link
-//           className="flex items-center align-center w-full gap-2 hover:bg-primary/[.1] transition-all duration-300 pl-12 pr-3 py-1"
-//           key={item.key}
-//           href={item.path}
-//         >
-//           <span className="w-full text-gray-600 hover:text-primary">
-//             {item.name}
-//           </span>
-//         </Link>
-//       );
-//   }
-// };
-
-// const SidebarMenu = () => {
-//   return (
-//     <div className="flex flex-col h-fit w-full">
-//       {SIDEBAR_MENU?.map((item, index) => {
-//         return <MenuItem item={item} key={item.key} />;
-//       })}
-//     </div>
-//   );
-// };
-
-import { Dropdown, Pagination } from "antd";
+import { Dropdown, Image, Pagination } from "antd";
 import {
   AiOutlineLeft,
   AiOutlineRight,
@@ -149,6 +6,8 @@ import {
 } from "react-icons/ai";
 import Link from "next/link";
 import { GiLaptop } from "react-icons/gi";
+import { getAllBrand } from "@/services/brand";
+import { useEffect, useState } from "react";
 
 const categories = [
   {
@@ -228,7 +87,19 @@ const categories = [
   },
 ];
 
-export default function Categories() {
+export default function Categories({ data }) {
+  const [brands, setBrands] = useState([]);
+  const handleGetAllBrand = async () => {
+    const { data } = await getAllBrand();
+    setBrands(data);
+  };
+  useEffect(() => {
+    if (data) {
+      setBrands(data);
+    } else {
+      handleGetAllBrand();
+    }
+  }, [data]);
   return (
     <header className="flex justify-center px-5 gap-3 bg-white shrink-0">
       <div className="flex justify-between lg:max-w-4xl w-full items-center align-center gap-2 py-2">
@@ -237,7 +108,6 @@ export default function Categories() {
             items: categories,
           }}
           trigger={["click"]}
-
         >
           <span className="hover:bg-gray-100 rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit lg:w-36 cursor-pointer">
             <AiOutlineUnorderedList className="text-xl text-gray-600" />
@@ -245,68 +115,24 @@ export default function Categories() {
           </span>
         </Dropdown>
         <div className="flex relative w-full overflow-x-auto">
-          <div className="flex gap-2 w-fit min-w-full justify-between">
-            <Link
-              href="#"
-              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-            >
-              <GiLaptop className="text-2xl text-gray-600" />
-              <span className="hidden lg:block">DELL</span>
-            </Link>
-            <Link
-              href="#"
-              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-            >
-              <GiLaptop className="text-2xl text-gray-600" />
-              <span className="hidden lg:block">HP</span>
-            </Link>
-            <Link
-              href="#"
-              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-            >
-              <GiLaptop className="text-2xl text-gray-600" />
-              <span className="hidden lg:block">ASUS</span>
-            </Link>
-            <Link
-              href="#"
-              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-            >
-              <GiLaptop className="text-2xl text-gray-600" />
-              <span className="hidden lg:block">LG</span>
-            </Link>
-            <Link
-              href="#"
-              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-            >
-              <GiLaptop className="text-2xl text-gray-600" />
-              <span className="hidden lg:block">Microsoft</span>
-            </Link>
-            <Link
-              href="#"
-              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-            >
-              <GiLaptop className="text-2xl text-gray-600" />
-              <span className="hidden lg:block">ACER</span>
-            </Link>
-            <Link
-              href="#"
-              className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
-            >
-              <GiLaptop className="text-2xl text-gray-600" />
-              <span className="hidden lg:block">Lenovo</span>
-            </Link>
-            {/* <Link
-          href="#"
-          className="hover:bg-secondary/[.2] font-thin flex justify-center items-center align-center text-gray-900 gap-2"
-        >
-          <AiOutlineLeft className="hover:bg-blue text-2xl text-gray-600" />
-        </Link>
-        <Link
-          href="#"
-          className=" font-semibold flex justify-center items-center align-center text-gray-900 gap-2"
-        >
-          <AiOutlineRight className="text-2xl text-gray-600" />
-        </Link> */}
+          <div className="flex gap-2 w-fit min-w-full">
+            {brands?.map((brand) => {
+              return (
+                <Link
+                  href={`/search?brand=${brand?.name|| "#"}`}
+                  className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+                  key={brand.id}
+                >
+                  <Image
+                    src={brand?.image}
+                    alt={brand?.name}
+                    className="w-8 h-8 object-contain"
+                    preview={false}
+                  />
+                  <span className="hidden md:block">{brand?.name}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

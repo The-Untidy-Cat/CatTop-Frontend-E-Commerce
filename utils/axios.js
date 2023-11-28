@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const Axios = axios.create({
+export const Axios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
   withCredentials: true,
+  headers: {
+    origin: process.env.NEXT_PUBLIC_CLIENT_URL,
+  }
 });
 
 const getCSRFToken = async () => {

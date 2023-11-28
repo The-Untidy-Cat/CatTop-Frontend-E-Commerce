@@ -29,7 +29,7 @@ ul {
 
 html {
   box-sizing: border-box;
-  width: 100vw;
+  /* width: 100vw; */
   scroll-behavior: smooth;
   font-family: Montserrat, sans-serif !important;
   /* -webkit-touch-callout: none; /* iOS Safari */
@@ -128,10 +128,20 @@ body {
   z-index: 50 !important;
 }
 
-.search:focuss {
+.search:focus {
   box-shadow: none !important;
 }
 
 .search .ant-input {
   background: transparent !important;
+}
+
+.search .ant-input-wrapper.ant-input-group .ant-input-affix-wrapper{
+  background: transparent !important;
+  border: 0px !important;
+}
+
+.search .ant-input-wrapper.ant-input-group .ant-input-affix-wrapper-focused{
+  box-shadow: none !important;
+  border: 0px !important;
 }
