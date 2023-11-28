@@ -246,7 +246,7 @@ export default function ForgetPassword() {
                 <Button
                   type="link"
                   onClick={() => sendOTP(email)}
-                  className="font-semibold"
+                  className="font-semibold "
                   loading={loading}
                 >
                   Gửi lại mã OTP
@@ -257,7 +257,7 @@ export default function ForgetPassword() {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="w-full"
+                    className="w-full bg-primary text-white"
                     loading={loading}
                   >
                     Xác thực
@@ -265,7 +265,7 @@ export default function ForgetPassword() {
                 </Form.Item>
                 <Form.Item>
                   <Button
-                    className="w-full"
+                    className="w-full "
                     onClick={() => handleChangeEmail()}
                     loading={loading}
                   >
