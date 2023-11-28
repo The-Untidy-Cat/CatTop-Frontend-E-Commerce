@@ -193,7 +193,7 @@ export default function ForgetPassword() {
               <Form.Item className="w-full mt-2">
                 <Button
                   htmlType="submit"
-                  className="w-full"
+                  className="w-full bg-primary text-white"
                   type="primary"
                   loading={loading}
                 >

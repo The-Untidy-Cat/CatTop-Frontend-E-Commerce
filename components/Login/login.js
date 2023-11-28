@@ -64,7 +64,7 @@ export default function Login() {
             <Input.Password placeholder="account" />
           </Form.Item>
           <Form.Item className="m-0 mt-2">
-            <Button type="primary" htmlType="submit" className="w-full" loading={loadingAuth}>
+            <Button type="primary" htmlType="submit" className="w-full bg-primary text-white" loading={loadingAuth}>
               Đăng nhập
             </Button>
           </Form.Item>

@@ -144,7 +144,7 @@ function RegistrationForm() {
           <Form.Item className="m-0 mt-2">
             <Button
               type="primary"
-              className="w-full"
+              className="w-full bg-primary text-white"
               htmlType="submit"
               loading={loadingAuth}
             >
