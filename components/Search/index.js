@@ -153,7 +153,7 @@ export function SearchBox({ data }) {
         />
       </Form.Item>
       {showDropdown && (
-        <div className="absolute top-12 left-[-1/2] h-80 w-96 border bg-white shadow rounded z-[100]">
+        <div className="absolute top-12 left-[-1/2] h-80 w-96 border bg-white shadow rounded z-[1000]">
           <SearchResults
             form={form}
             open={[showDropdown, setShowDropdown]}
