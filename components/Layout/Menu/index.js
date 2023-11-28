@@ -114,7 +114,7 @@ export default function Categories({ data }) {
             <span className="hidden lg:block text-sm w-full">Danh mục</span>
           </span>
         </Dropdown>
-        <div className="flex relative w-full overflow-x-auto">
+        <div className="flex w-full overflow-x-auto">
           <div className="flex gap-2 w-fit min-w-full">
             {brands?.map((brand) => {
               return (
@@ -126,7 +126,7 @@ export default function Categories({ data }) {
                   <Image
                     src={brand?.image}
                     alt={brand?.name}
-                    className="w-8 h-8 object-contain"
+                    className="w-8 h-8 object-contain c-brand-logo"
                     preview={false}
                   />
                   <span className="hidden md:block">{brand?.name}</span>

@@ -111,7 +111,7 @@ const DefaultLayout = ({
         <title>{title}</title>
       </Head>
       {showAccountBar && <AccountBar />}
-      <div className="sticky top-0 z-50">
+      <div className="sticky top-0 z-10">
         <Header showSearch={showSearch} data={data}/>
         {showCategories == true && <Categories data={data?.brands} />}
       </div>

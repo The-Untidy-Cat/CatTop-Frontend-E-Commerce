@@ -127,7 +127,7 @@ export function SearchBox({ data }) {
   return (
     <Form
       form={form}
-      className="flex justify-center items-center align-center gap-3 w-full max-w-md px-2 shrink-0 relative sticky top-0"
+      className="flex justify-center items-center align-center gap-3 w-full max-w-md px-2 shrink-0 relative sticky top-0 z-10"
       onFinish={handleSearchSubmit}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) {
@@ -153,7 +153,7 @@ export function SearchBox({ data }) {
         />
       </Form.Item>
       {showDropdown && (
-        <div className="absolute top-12 left-[-1/2] h-80 w-96 border bg-white shadow rounded z-[1000]">
+        <div className="absolute top-12 left-[-1/2] h-80 w-96 border bg-white shadow rounded c-search-dropdown">
           <SearchResults
             form={form}
             open={[showDropdown, setShowDropdown]}

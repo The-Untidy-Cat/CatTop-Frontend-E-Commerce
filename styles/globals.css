@@ -136,6 +136,13 @@ body {
   background: transparent !important;
 }
 
+/* .c-search-dropdown {
+  z-index: 100 !important;
+} */
+.ant-image .c-brand-logo {
+  z-index: 0 !important;
+}
+
 .search .ant-input-wrapper.ant-input-group .ant-input-affix-wrapper{
   background: transparent !important;
   border: 0px !important;
