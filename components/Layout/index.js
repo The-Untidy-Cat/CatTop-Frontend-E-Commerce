@@ -106,7 +106,7 @@ const DefaultLayout = ({
   data
 }) => {
   return (
-    <main className="flex flex-col justify-between h-full min-h-screen w-full m-0 p-0">
+    <main className="h-fit min-h-screen w-full m-0 p-0">
       <Head>
         <title>{title}</title>
       </Head>
@@ -116,11 +116,11 @@ const DefaultLayout = ({
         {showCategories == true && <Categories data={data?.brands} />}
       </div>
       {!fullWidth ? (
-        <div className="m-auto mt-0 w-full px-5 py-5 md:py-8 md:px-0 lg:max-w-4xl h-fit shrink-0 grow-0">
+        <div className="m-auto mt-0 w-full px-5 py-5 md:py-8 md:px-0 lg:max-w-4xl h-fit shrink-0">
           {children}
         </div>
       ) : (
-        <div className="m-auto mt-0 w-full h-full shrink-0 grow-0">{children}</div>
+        <div className="m-auto mt-0 w-full h-full shrink-0">{children}</div>
       )}
       {showFooter && <Footer />}
     </main>

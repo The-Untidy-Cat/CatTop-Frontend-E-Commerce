@@ -6,7 +6,7 @@ export default function SearchItems({ data }) {
   return (
     <Link
       key={data?.slug}
-      href={`/${data?.slug}`}
+      href={`/products/${data?.slug}`}
       className="flex gap-1 w-full py-2"
     >
       <Image

@@ -152,3 +152,7 @@ body {
   box-shadow: none !important;
   border: 0px !important;
 }
+.ant-input-number-input {
+  background: transparent !important;
+  text-align: center !important;
+}

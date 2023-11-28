@@ -5,10 +5,10 @@ import Link from "next/link";
 export default function ProductItems({ data }) {
   return (
     <div className="bg-white rounded-lg p-4">
-      <Link href="#" className="flex flex-col items-center text-gray-900">
+      <Link href={`/products/${data?.slug}`} className="flex flex-col items-center text-gray-900">
         <Image src={data?.image} alt={data?.name} preview={false} />
         <div className="mt-2">
-          <p className="font-semibold text-black text-sm mb-2">{data?.name}</p>
+          <p className="font-semibold text-black text-xs md:text-sm mb-2">{data?.name}</p>
           <p className="flex gap-1 items-center align-center">
             Từ:
             <span className="text-base text-red-500 font-semibold">

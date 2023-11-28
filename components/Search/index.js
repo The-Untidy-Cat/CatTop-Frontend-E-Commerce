@@ -92,7 +92,7 @@ function SearchResults({ data, form, open, keyword = "" }) {
             {searchResult?.length > 0 ? (
               <div className="flex flex-col divide-y w-full">
                 {searchResult?.map((item) => {
-                  return <SearchItems data={item} />;
+                  return <SearchItems data={item} key={item?.slug}/>;
                 })}
               </div>
             ) : (
@@ -117,7 +117,7 @@ export function SearchBox({ data }) {
     dispatch(addKeyword(keyword));
     setShowDropdown(false);
     router.push({
-      pathname: "/search",
+      pathname: "/products",
       query: { ...router.query, name: keyword },
     });
   };
@@ -180,7 +180,7 @@ export function SearchBoxMobile({ data }) {
     dispatch(addKeyword(keyword));
     setShowDropdown(false);
     router.push({
-      pathname: "/search",
+      pathname: "/products",
       query: { ...router.query, name: keyword },
     });
   };

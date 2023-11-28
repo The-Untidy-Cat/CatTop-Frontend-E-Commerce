@@ -52,7 +52,7 @@ export default function Home({ data }) {
             >
               {brands?.map((brand) => (
                 <Link
-                  href={`/search?brand=${brand.name}`}
+                  href={`/products?brand=${brand.name}`}
                   className="flex flex-col items-center justify-center"
                   key={brand.name}
                 >
@@ -73,7 +73,7 @@ export default function Home({ data }) {
         </div>
         <div className="flex flex-col gap-2 w-full h-fit">
           <p className="m-0 text-lg font-semibold">Sản phẩm mới</p>
-          <div className="grid grid-cols-3 md:grid-cols-4 gap-2 bg-secondary/[.2] rounded-lg p-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 bg-secondary/[.2] rounded-lg p-5">
             <Skeleton
               loading={loading}
               active
@@ -92,16 +92,28 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const [brands, newProducts] = await Promise.all([
-    await Axios.get("/web/brands"),
-    await Axios.get("/web/search?limit=10&order_by=created_at&order=desc"),
-  ]);
-  return {
-    props: {
-      data: {
-        brands: brands.data.data,
-        newProducts: newProducts?.data?.data?.records || [],
+  try {
+    const [brands, newProducts] = await Promise.all([
+      await Axios.get("/web/brands"),
+      await Axios.get("/web/search?limit=10&order_by=created_at&order=desc"),
+    ]);
+    return {
+      props: {
+        data: {
+          brands: brands.data.data || [],
+          newProducts: newProducts?.data?.data?.records || [],
+        },
       },
-    },
-  };
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        data: {
+          brands: [],
+          newProducts: [],
+        },
+      },
+    };
+  }
 }

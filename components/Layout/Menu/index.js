@@ -119,7 +119,7 @@ export default function Categories({ data }) {
             {brands?.map((brand) => {
               return (
                 <Link
-                  href={`/search?brand=${brand?.name|| "#"}`}
+                  href={`/products?brand=${brand?.name|| "#"}`}
                   className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
                   key={brand.id}
                 >
