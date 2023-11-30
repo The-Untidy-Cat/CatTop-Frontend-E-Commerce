@@ -9,8 +9,9 @@ import ForgetPassword from "@/components/Login/forgot";
 import ProductPage from "@/components/Product/display";
 import Search from "@/components/SearchProduct/index";
 import Profile from "@/components/ManageProfile/index";
+import RateProduct from "@/components/Rate/index";
 
 const App = () => {
-  return <Profile/>
+  return <RateProduct/>
 }
 export default App;
