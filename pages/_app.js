@@ -1,32 +1,23 @@
 import AuthProvider from "@/components/Provider/AuthProvider";
 import "../styles/globals.css";
-import { color } from "../theme/theme.config";
+import { antdTheme } from "../theme/theme.config";
 import { App as AppProvider, ConfigProvider } from "antd";
-
-const theme = {
-  token: {
-    fontsizeBase: "14px",
-    fontFamily: "Montserrat",
-    colorPrimary: color.primary,
-    colorSecondary: color.secondary,
-    colorSuccess: color.success,
-    colorWarning: color.warning,
-    colorError: color.error,
-    colorInfo: color.info,
-    colorTextBase: color.textBase,
-    colorBgBase: color.bgBase,
-    colorWhite: color.white,
-  },
-};
+import ReduxProvider from "@/utils/redux/provider";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   return (
-    <ConfigProvider theme={theme}>
-      <AppProvider>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      </AppProvider>
-    </ConfigProvider>
+    <ReduxProvider>
+      <Head>
+        <title>CatTop - Chuyên Laptop</title>
+      </Head>
+      <ConfigProvider theme={antdTheme}>
+        <AppProvider>
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </AppProvider>
+      </ConfigProvider>
+    </ReduxProvider>
   );
 }
