@@ -2,11 +2,13 @@ import React from "react";
 import { Form, Input, Button, notification } from "antd";
 import Image from "next/image";
 import cat from "@/public/logo.png";
-import { useAuth } from "../Provider/AuthProvider";
+import { useUser } from "../Provider/AuthProvider";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function RegistrationForm() {
-  const { register, loadingAuth } = useAuth();
+  const { register, loadingAuth } = useUser();
+  const router = useRouter();
   const [form] = Form.useForm();
   const handleSubmmit = async (values) => {
     register(values)
@@ -143,7 +145,7 @@ function RegistrationForm() {
           </Form.Item>
           <Form.Item className="m-0 mt-2">
             <Button
-              type="primary"
+              
               className="w-full bg-primary text-white"
               htmlType="submit"
               loading={loadingAuth}
@@ -151,7 +153,10 @@ function RegistrationForm() {
               Đăng ký
             </Button>
           </Form.Item>
-          <Link className="w-full text-center font-medium mb-2" href="/login">
+          <Link className="w-full text-center font-medium mb-2" href={{
+            pathname: "/login",
+            query: { ...router.query },
+          }}>
             Đã có tài khoản? Đăng nhập
           </Link>
         </Form>

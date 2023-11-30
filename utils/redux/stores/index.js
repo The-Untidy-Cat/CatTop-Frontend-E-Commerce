@@ -1,5 +1,4 @@
 const { combineReducers, applyMiddleware, createStore } = require("redux");
-import thunkMiddleware from "redux-thunk";
 import cartReducer from "../reducers/cart";
 import searchReducer from "../reducers/search";
 import { persistReducer, persistStore } from "redux-persist";
@@ -17,4 +16,4 @@ const persistedReducer = persistReducer(
 const store = createStore(persistedReducer);
 const persistor = persistStore(store);
 
-export { store, persistor };
+export { store, persistor, persistedReducer, combinedReducers };

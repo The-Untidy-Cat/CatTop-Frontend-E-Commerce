@@ -156,3 +156,7 @@ body {
   background: transparent !important;
   text-align: center !important;
 }
+
+.c-variant-radio-group .ant-radio-button-wrapper.ant-radio-button-wrapper-in-form-item::before {
+  display: none !important;
+}

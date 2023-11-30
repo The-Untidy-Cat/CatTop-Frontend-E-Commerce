@@ -1,9 +1,9 @@
 import { Spin } from "antd";
 import { useRouter } from "next/router";
-import { useAuth } from "../Provider/AuthProvider";
+import { useUser } from "../Provider/AuthProvider";
 
 export default function PrivateWrapper({ children }) {
-  const { user, loadingUser } = useAuth();
+  const { user, loadingUser } = useUser();
   const router = useRouter();
   if (loadingUser)
     return (
@@ -13,12 +13,16 @@ export default function PrivateWrapper({ children }) {
         size="large"
       />
     );
-  if (!user) router.push("/login");
+  if (!user)
+    router.push({
+      pathname: "/login",
+      query: { redirect: router.asPath },
+    });
   return children;
 }
 
 export function AnonymousWrapper({ children }) {
-  const { user, loadingUser } = useAuth();
+  const { user, loadingUser } = useUser();
   const router = useRouter();
   if (loadingUser)
     return (

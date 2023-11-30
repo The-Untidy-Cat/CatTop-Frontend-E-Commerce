@@ -36,6 +36,10 @@ export async function getServerSideProps(context) {
     console.log(error);
     context.res.statusCode = 404;
     return {
+      redirect: {
+        permanent: false,
+        destination: "/products",
+      },
       props: {
         data: {
           brands: [],

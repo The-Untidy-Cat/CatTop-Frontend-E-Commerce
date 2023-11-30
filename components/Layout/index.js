@@ -3,14 +3,13 @@ import Categories from "./Menu";
 import Header from "./Header";
 import Footer from "./Footer";
 import Link from "next/link";
-import { useAuth } from "../Provider/AuthProvider";
+import { useUser } from "../Provider/AuthProvider";
 import Head from "next/head";
 import { Dropdown, Skeleton } from "antd";
 import { FaUser } from "react-icons/fa";
 
-
 const AccountBar = () => {
-  const { user, loadingUser, logout } = useAuth();
+  const { user, loadingUser, logout } = useUser();
   const accountMenu = [
     {
       key: "account-info",
@@ -43,7 +42,7 @@ const AccountBar = () => {
 
   return (
     <div className="flex justify-center px-5 bg-transparent shrink-0">
-      <div className="flex w-full lg:max-w-4xl justify-between py-1.5 gap-3">
+      <div className="flex w-full lg:max-w-5xl justify-between py-1.5 gap-3">
         <div className="flex items-center align-center gap-1 w-full">
           {/* <Link
               href="/register"
@@ -106,7 +105,7 @@ const DefaultLayout = ({
   data
 }) => {
   return (
-    <main className="h-fit min-h-screen w-full m-0 p-0">
+    <main className="flex flex-col h-fit min-h-screen w-full m-0 p-0">
       <Head>
         <title>{title}</title>
       </Head>
@@ -116,7 +115,7 @@ const DefaultLayout = ({
         {showCategories == true && <Categories data={data?.brands} />}
       </div>
       {!fullWidth ? (
-        <div className="m-auto mt-0 w-full px-5 py-5 md:py-8 md:px-0 lg:max-w-4xl h-fit shrink-0">
+        <div className="m-auto mt-0 w-full px-5 py-5 md:py-8 lg:max-w-5xl h-fit shrink-0">
           {children}
         </div>
       ) : (

@@ -170,7 +170,7 @@ const BrandsFilter = ({ data }) => {
     const { query } = router;
     router.push({
       query: {
-        ...query,
+        ...router.query,
       },
     });
   };
@@ -179,7 +179,7 @@ const BrandsFilter = ({ data }) => {
     const brand = form.getFieldValue("brand");
     router.push({
       query: {
-        ...query,
+        ...router.query,
         brand: brand?.length > 0 ? brand?.join(",") : undefined,
       },
     });
@@ -221,7 +221,7 @@ const PriceFilter = () => {
     const selectedPrice = PRICE_LIST.find((item) => item.key == price);
     router.push({
       query: {
-        ...query,
+        ...router.query,
         price: selectedPrice?.key || undefined,
       },
     });

@@ -1,10 +1,10 @@
-import { useAuth } from "../Providers/AuthProvider";
+import { useUser } from "../Providers/AuthProvider";
 import { Button, Form, Input } from "antd";
 import Link from "next/link";
 import { AiOutlineLaptop } from "react-icons/ai";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login } = useUser();
   const onFinish = (values) => {
     login(values);
   };
@@ -64,7 +64,7 @@ export default function Login() {
           <div className="flex flex-wrap items-center justify-end gap-3 mt-2">
             <Link href="#forgot-password">Quên mật khẩu?</Link>
             <Form.Item className="m-0 p-0">
-              <Button type="primary" htmlType="submit">
+              <Button  htmlType="submit">
                 Xác thực
               </Button>
             </Form.Item>

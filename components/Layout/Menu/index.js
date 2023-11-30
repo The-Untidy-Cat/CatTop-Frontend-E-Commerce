@@ -102,7 +102,7 @@ export default function Categories({ data }) {
   }, [data]);
   return (
     <header className="flex justify-center px-5 gap-3 bg-white shrink-0">
-      <div className="flex justify-between lg:max-w-4xl w-full items-center align-center gap-2 py-2">
+      <div className="flex justify-between lg:max-w-5xl w-full items-center align-center gap-2 py-2">
         <Dropdown
           menu={{
             items: categories,

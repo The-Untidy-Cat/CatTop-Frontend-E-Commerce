@@ -14,7 +14,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="flex justify-center border-b px-5 py-4 md:py-7 bg-primary/[.4] w-full h-fit grow-0">
-      <div className="grid grid-cols-1 md:grid-cols-2 content-center lg:max-w-4xl w-full gap-3 md:gap-5 h-fit">
+      <div className="grid grid-cols-1 md:grid-cols-2 content-center lg:max-w-5xl w-full gap-3 md:gap-5 h-fit">
         <div className="flex flex-col">
           <div className="flex items-center align-center gap-2">
             <Image src={logo} className="w-10 md:w-16" alt="logo" />

@@ -5,14 +5,21 @@ export const REMOVE_ITEM = "REMOVE_ITEM";
 export const CLEAR_CART = "CLEAR_CART";
 export const GET_TOTAL = "GET_TOTAL";
 export const CHANGE_AMOUNT = "CHANGE_AMOUNT";
+export const SET_CART = "SET_CART";
 
-export function increaseQuantity(payload) {
+export function setCart(payload) {
+  return {
+    type: "SET_CART",
+    payload,
+  };
+}
+export function increaseAmount(payload) {
   return {
     type: "INCREASE_AMOUNT",
     payload,
   };
 }
-export function decreaseQuantity(payload) {
+export function decreaseAmount(payload) {
   return {
     type: "DECREASE_AMOUNT",
     payload,
@@ -39,6 +46,12 @@ export function clearCart(payload) {
 export function getTotal(payload) {
   return {
     type: "GET_TOTAL",
+    payload,
+  };
+}
+export function changeAmount(payload) {
+  return {
+    type: "CHANGE_AMOUNT",
     payload,
   };
 }
