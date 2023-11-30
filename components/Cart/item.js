@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight, FaTrashAlt } from "react-icons/fa";
 import { useUser } from "../Provider/AuthProvider";
 
-export const CartItem = ({ item }) => {
+export const CartItem = ({ item, editable = true }) => {
   const {
     decreaseItemFromCart,
     incresaseItemFromCart,
@@ -31,10 +31,6 @@ export const CartItem = ({ item }) => {
     setLoading(true);
     updateItemFromCart(item, value).finally(() => setLoading(false));
   };
-  const handleClear = () => {
-    setLoading(true);
-    clearCart().finally(() => setLoading(false));
-  };
   return (
     <Spin
       spinning={loading}
@@ -50,12 +46,18 @@ export const CartItem = ({ item }) => {
             rootClassName="w-20 shrink-0 h-20 object-cover rounded"
           />
           <div className="flex flex-col gap-1 w-full grow-0">
-            <Link
-              className="font-semibold w-full break-words"
-              href={`/products/${item?.variant?.product?.slug}`}
-            >
-              {item?.variant?.product?.name}
-            </Link>
+            {editable ? (
+              <Link
+                className="font-semibold w-full break-words"
+                href={`/products/${item?.variant?.product?.slug}`}
+              >
+                {item?.variant?.product?.name}
+              </Link>
+            ) : (
+              <p className="font-semibold w-full break-words">
+                {item?.variant?.product?.name}
+              </p>
+            )}
             <p className="break-words bg-gray-100 w-fit p-2 text-sm rounded">
               {item?.variant?.name}
             </p>
@@ -76,12 +78,15 @@ export const CartItem = ({ item }) => {
             </div>
             <div className="flex justify-between items-center align-center gap-1 w-full">
               <div className="flex items-center align-center h-fit w-fit border rounded">
-                <Button
-                  type="text"
-                  className="rounded-none h-full flex items-center justify-center align-center"
-                  onClick={handleDecrease}
-                  icon={<FaChevronLeft />}
-                />
+                {editable && (
+                  <Button
+                    type="text"
+                    className="rounded-none h-full flex items-center justify-center align-center"
+                    onClick={handleDecrease}
+                    icon={<FaChevronLeft />}
+                    disabled={item?.amount <= 1 || !editable}
+                  />
+                )}
                 <InputNumber
                   value={item?.amount}
                   min={1}
@@ -91,22 +96,29 @@ export const CartItem = ({ item }) => {
                   className="rounded-none font-semibold w-12 border-x"
                   bordered={false}
                   onChange={handleUpdate}
+                  disabled={!editable}
                 />
+                {editable && (
+                  <Button
+                    type="text"
+                    className="rounded-none h-full flex items-center justify-center align-center"
+                    onClick={handleIncrease}
+                    icon={<FaChevronRight />}
+                    disabled={item?.amount >= 10 || !editable}
+                  />
+                )}
+              </div>
+              {editable && (
                 <Button
                   type="text"
-                  className="rounded-none h-full flex items-center justify-center align-center"
-                  onClick={handleIncrease}
-                  icon={<FaChevronRight />}
-                />
-              </div>
-              <Button
-                type="text"
-                onClick={handleRemove}
-                icon={<FaTrashAlt />}
-                className="flex items-center text-red-500"
-              >
-                Xoá
-              </Button>
+                  onClick={handleRemove}
+                  icon={<FaTrashAlt />}
+                  className="flex items-center text-red-500"
+                  disabled={!editable}
+                >
+                  Xoá
+                </Button>
+              )}
             </div>
           </div>
         </div>

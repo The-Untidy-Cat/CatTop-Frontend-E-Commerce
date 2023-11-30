@@ -20,6 +20,8 @@ export default function ProductDetail({ data }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [img, setImg] = useState(0);
   const [currentVariant, setCurrentVariant] = useState(data?.variants?.[0]);
+  const [loading, setLoading] = useState(false);
+
   const increase = () => {
     const amount = form.getFieldValue("amount");
     if (amount < 10) form.setFieldsValue({ amount: amount + 1 });
@@ -28,6 +30,7 @@ export default function ProductDetail({ data }) {
     const amount = form.getFieldValue("amount");
     if (amount > 1) form.setFieldsValue({ amount: amount - 1 });
   };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -37,19 +40,28 @@ export default function ProductDetail({ data }) {
   const handleImage = (index) => {
     setImg(index);
   };
+
   const handleChangeVariant = (event) => {
     const variant = data?.variants?.find(
       (item) => item.id === event.target.value
     );
     setCurrentVariant(variant);
   };
+
   const handleBuy = (value) => {
-    console.log(value);
+    setLoading(true);
+    router.push({
+      pathname: "/checkouts",
+      query: {
+        variant_id: value?.variant_id,
+        amount: value?.amount,
+      },
+    });
   };
   const addToCart = async () => {
+    setLoading(true);
     const value = form.getFieldsValue();
-    await addItemToCart(value);
-    return;
+    addItemToCart(value).finally(() => setLoading(false));
   };
   useEffect(() => {}, [data]);
   return (
@@ -275,15 +287,16 @@ export default function ProductDetail({ data }) {
                   </p>
                 )}
               </div>
-              <div className="flex flex-col gap-1 lg:flex-row lg:gap-0 items-center">
+              <div className="flex flex-col gap-1 lg:flex-row items-center">
                 {user ? (
                   <Button
                     type="text"
-                    className="flex items-center gap-1 font-semibold text-primary"
+                    className="flex flex-col items-center gap-1 font-semibold text-primary text-sm h-fit"
                     icon={<FaCartPlus />}
-                    onClick={() => addToCart()}
+                    onClick={addToCart}
+                    loading={loading} 
                   >
-                    Thêm vào giỏ
+                    Thêm
                   </Button>
                 ) : (
                   <Popover
@@ -293,29 +306,28 @@ export default function ProductDetail({ data }) {
                   >
                     <Button
                       type="text"
-                      className="flex items-center gap-1 font-semibold text-primary"
+                      className="flex flex-col items-center gap-1 font-semibold text-primary text-sm h-fit"
                       icon={<FaCartPlus />}
                     >
-                      Thêm vào giỏ
+                      Thêm
                     </Button>
                   </Popover>
                 )}
                 {user ? (
                   <Button
-                    
                     htmlType="submit"
                     className="flex items-center gap-1 bg-primary text-white"
+                    loading={loading}
                   >
                     Mua ngay
                   </Button>
                 ) : (
                   <Popover
-                    content={<LoginForm/>}
+                    content={<LoginForm />}
                     title="Đăng nhập để mua hàng"
                     trigger={"click"}
                   >
                     <Button
-                      
                       htmlType="submit"
                       className="flex items-center gap-1 bg-primary text-white"
                     >
