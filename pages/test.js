@@ -7,10 +7,9 @@ import Login from "@/components/Login/login";
 // import Detail from "@/components/LapDetail/comp";
 // import Booking from "@/components/book/comp";
 // import Apps from "@/components/LapDetail/phone";
-import Apps from "@/components/invDetail/detail";
-// import Apps from "@/components/invDetail/t";
+// import Apps from "@/components/invDetail/detail";
 
 const App = () => {
-  return <Apps></Apps>;
+  // return <Apps></Apps>;
 };
 export default App;
