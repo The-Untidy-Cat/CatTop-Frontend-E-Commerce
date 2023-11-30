@@ -1,27 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Categories from "./Menu";
 import Header from "./Header";
 import Footer from "./Footer";
 import Link from "next/link";
-import { useAuth } from "../Provider/AuthProvider";
+import { useUser } from "../Provider/AuthProvider";
 import Head from "next/head";
 import { Dropdown, Skeleton } from "antd";
 import { FaUser } from "react-icons/fa";
 
-const accountMenu = [
-  {
-    key: "tracking-order",
-    label: (
-      <Link href="#" className="text-gray-600 text-xs font-medium">
-        Tra cứu đơn hàng
-      </Link>
-    ),
-  },
-];
-
 const AccountBar = () => {
-  const { user, loadingUser, logout } = useAuth();
+  const { user, loadingUser, logout } = useUser();
   const accountMenu = [
+    {
+      key: "account-info",
+      label: (
+        <Link href="#" className="text-gray-600 text-xs font-medium">
+          Thông tin tài khoản
+        </Link>
+      ),
+    },
     {
       key: "tracking-order",
       label: (
@@ -45,7 +42,7 @@ const AccountBar = () => {
 
   return (
     <div className="flex justify-center px-5 bg-transparent shrink-0">
-      <div className="flex w-full lg:max-w-4xl justify-between py-1.5 gap-3">
+      <div className="flex w-full lg:max-w-5xl justify-between py-1.5 gap-3">
         <div className="flex items-center align-center gap-1 w-full">
           {/* <Link
               href="/register"
@@ -105,23 +102,24 @@ const DefaultLayout = ({
   showSearch = true,
   showAccountBar = true,
   fullWidth = false,
+  data
 }) => {
   return (
-    <main className="flex flex-col justify-between h-full min-h-screen w-full m-0 p-0">
+    <main className="flex flex-col h-fit min-h-screen w-full m-0 p-0">
       <Head>
         <title>{title}</title>
       </Head>
       {showAccountBar && <AccountBar />}
-      <div className="sticky top-0">
-        <Header showSearch={showSearch} />
-        {showCategories == true && <Categories />}
+      <div className="sticky top-0 z-10">
+        <Header showSearch={showSearch} data={data}/>
+        {showCategories == true && <Categories data={data?.brands} />}
       </div>
       {!fullWidth ? (
-        <div className="m-auto w-full px-5 py-5 md:py-10 lg:max-w-4xl h-fit shrink-0 grow-0">
+        <div className="m-auto mt-0 w-full px-5 py-5 md:py-8 lg:max-w-5xl h-fit shrink-0">
           {children}
         </div>
       ) : (
-        <div className="m-auto w-full h-full shrink-0 grow-0">{children}</div>
+        <div className="m-auto mt-0 w-full h-full shrink-0">{children}</div>
       )}
       {showFooter && <Footer />}
     </main>

@@ -1,24 +1,35 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, notification } from "antd";
 import Image from "next/image";
 import cat from "@/public/logo.png";
-import { useAuth } from "../Provider/AuthProvider";
+import { useUser } from "../Provider/AuthProvider";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function RegistrationForm() {
-  const { register, loadingAuth } = useAuth();
+  const { register, loadingAuth } = useUser();
+  const router = useRouter();
   const [form] = Form.useForm();
   const handleSubmmit = async (values) => {
-    register(values).then((res) => {}).catch((err) => {
-      err?.map((e) => {
-        form.setFields([
-          {
-            name: Object.keys(e),
-            errors: e[Object.keys(e)],
-          },
-        ]);
+    register(values)
+      .then((res) => {})
+      .catch((err) => {
+        if (typeof err == "array") {
+          err?.map((e) => {
+            form.setFields([
+              {
+                name: Object.keys(e),
+                errors: e[Object.keys(e)],
+              },
+            ]);
+          });
+        } else {
+          notification.error({
+            message: "Lỗi",
+            description: err?.message || "Có lỗi xảy ra",
+          })
+        }
       });
-    });
   };
 
   return (
@@ -45,7 +56,8 @@ function RegistrationForm() {
                 rules={[
                   {
                     required: true,
-                    pattern: /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/u,
+                    pattern:
+                      /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/u,
                     message: "Không hợp lệ",
                   },
                 ]}
@@ -61,7 +73,8 @@ function RegistrationForm() {
                 rules={[
                   {
                     required: true,
-                    pattern: /[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+/u,
+                    pattern:
+                      /[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+/u,
                     message: "Không hợp lệ",
                   },
                 ]}
@@ -131,11 +144,19 @@ function RegistrationForm() {
             <Input.Password />
           </Form.Item>
           <Form.Item className="m-0 mt-2">
-            <Button type="primary" className="w-full" htmlType="submit" loading={loadingAuth}>
+            <Button
+              
+              className="w-full bg-primary text-white"
+              htmlType="submit"
+              loading={loadingAuth}
+            >
               Đăng ký
             </Button>
           </Form.Item>
-          <Link className="w-full text-center font-medium mb-2" href="/login">
+          <Link className="w-full text-center font-medium mb-2" href={{
+            pathname: "/login",
+            query: { ...router.query },
+          }}>
             Đã có tài khoản? Đăng nhập
           </Link>
         </Form>

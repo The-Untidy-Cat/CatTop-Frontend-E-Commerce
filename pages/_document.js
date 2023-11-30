@@ -5,6 +5,14 @@ import Document, { Head, Html, Main, NextScript } from "next/document";
 const MyDocument = () => (
   <Html lang="en">
     <Head>
+      <meta charSet="utf-8" />
+      {/* <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" /> */}
+      <meta name="description" content="CatTop - Chuyên cung cấp các sản phẩm công nghệ" />
+      <meta name="title" content="CatTop - Chuyên Laptop"/>
+      <meta name="keywords" content="cattop,CatTop,cattop.theuntydicat.tech,theuntidycat.tech"/>
+      <meta name="robots" content="index, follow"/>
+      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta name="author" content="The Untidy Cat"/>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link
         rel="preconnect"

@@ -6,10 +6,10 @@ import { InputOTP } from "antd-input-otp";
 import moment from "moment/moment";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useAuth } from "../Provider/AuthProvider";
+import { useUser } from "../Provider/AuthProvider";
 
 export default function ForgetPassword() {
-  const { forgotPassword, resetPassword, verifyOTP } = useAuth()
+  const { forgotPassword, resetPassword, verifyOTP } = useUser()
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [remainingTime, setRemainingTime] = useState(0);
@@ -123,14 +123,7 @@ export default function ForgetPassword() {
         ]);
         return;
       }
-      resetPassword(email, code, values.password).then((res) => {
-        setLoading(false);
-        notification.success({
-          message: "Thành công",
-          description: "Đổi mật khẩu thành công",
-        });
-        router.push("/")
-      }).catch((e) => {
+      resetPassword(email, code, values.password).catch((e) => {
         notification.error({
           message: "Lỗi",
           description: e?.message || "Lỗi không xác định",
@@ -193,8 +186,8 @@ export default function ForgetPassword() {
               <Form.Item className="w-full mt-2">
                 <Button
                   htmlType="submit"
-                  className="w-full"
-                  type="primary"
+                  className="w-full bg-primary text-white"
+                  
                   loading={loading}
                 >
                   Gửi OTP
@@ -246,7 +239,7 @@ export default function ForgetPassword() {
                 <Button
                   type="link"
                   onClick={() => sendOTP(email)}
-                  className="font-semibold"
+                  className="font-semibold "
                   loading={loading}
                 >
                   Gửi lại mã OTP
@@ -255,9 +248,9 @@ export default function ForgetPassword() {
               <div className="flex flex-col gap-2 w-full mt-2">
                 <Form.Item className="m-0">
                   <Button
-                    type="primary"
+                    
                     htmlType="submit"
-                    className="w-full"
+                    className="w-full bg-primary text-white"
                     loading={loading}
                   >
                     Xác thực
@@ -265,7 +258,7 @@ export default function ForgetPassword() {
                 </Form.Item>
                 <Form.Item>
                   <Button
-                    className="w-full"
+                    className="w-full "
                     onClick={() => handleChangeEmail()}
                     loading={loading}
                   >
@@ -333,7 +326,7 @@ export default function ForgetPassword() {
                 </Form.Item>
               </div>
               <Form.Item className="w-full mt-2">
-                <Button type="primary" htmlType='submit' className="w-full" loading={loading}>
+                <Button  htmlType='submit' className="w-full" loading={loading}>
                   Đổi mật khẩu
                 </Button>
               </Form.Item>

@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const Axios = axios.create({
+export const Axios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
   withCredentials: true,
+  headers: {
+    origin: process.env.NEXT_PUBLIC_CLIENT_URL,
+  }
 });
 
 const getCSRFToken = async () => {
@@ -40,7 +43,11 @@ class api {
   }
   static async delete(url, config) {
     try {
-      return Axios.delete(url, config);
+      const token = await getCSRFToken();
+      return Axios.delete(url, {
+        ...config,
+        data: { _token: token },
+      });
     } catch (error) {
       throw error;
     }
