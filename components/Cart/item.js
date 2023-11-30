@@ -58,7 +58,7 @@ export const CartItem = ({ item, editable = true }) => {
                 {item?.variant?.product?.name}
               </p>
             )}
-            <p className="break-words bg-gray-100 w-fit p-2 text-sm rounded">
+            <p className="break-words bg-gray-100 w-fit py-1 px-1.5 text-xs rounded">
               {item?.variant?.name}
             </p>
             <div className="flex gap-1 w-full">
@@ -76,38 +76,44 @@ export const CartItem = ({ item, editable = true }) => {
                 </p>
               )}
             </div>
+
             <div className="flex justify-between items-center align-center gap-1 w-full">
-              <div className="flex items-center align-center h-fit w-fit border rounded">
-                {editable && (
-                  <Button
-                    type="text"
-                    className="rounded-none h-full flex items-center justify-center align-center"
-                    onClick={handleDecrease}
-                    icon={<FaChevronLeft />}
-                    disabled={item?.amount <= 1 || !editable}
+              {item?.variant?.state !== "published" ||
+              item?.variant?.product?.state !== "published" ? (
+                <Tag color="red">Hết hàng</Tag>
+              ) : (
+                <div className="flex items-center align-center h-fit w-fit border rounded">
+                  {editable && (
+                    <Button
+                      type="text"
+                      className="rounded-none h-full flex items-center justify-center align-center"
+                      onClick={handleDecrease}
+                      icon={<FaChevronLeft />}
+                      disabled={item?.amount <= 1 || !editable}
+                    />
+                  )}
+                  <InputNumber
+                    value={item?.amount}
+                    min={1}
+                    max={10}
+                    step={1}
+                    controls={false}
+                    className="rounded-none font-semibold w-12 border-x"
+                    bordered={false}
+                    onChange={handleUpdate}
+                    disabled={!editable}
                   />
-                )}
-                <InputNumber
-                  value={item?.amount}
-                  min={1}
-                  max={10}
-                  step={1}
-                  controls={false}
-                  className="rounded-none font-semibold w-12 border-x"
-                  bordered={false}
-                  onChange={handleUpdate}
-                  disabled={!editable}
-                />
-                {editable && (
-                  <Button
-                    type="text"
-                    className="rounded-none h-full flex items-center justify-center align-center"
-                    onClick={handleIncrease}
-                    icon={<FaChevronRight />}
-                    disabled={item?.amount >= 10 || !editable}
-                  />
-                )}
-              </div>
+                  {editable && (
+                    <Button
+                      type="text"
+                      className="rounded-none h-full flex items-center justify-center align-center"
+                      onClick={handleIncrease}
+                      icon={<FaChevronRight />}
+                      disabled={item?.amount >= 10 || !editable}
+                    />
+                  )}
+                </div>
+              )}
               {editable && (
                 <Button
                   type="text"

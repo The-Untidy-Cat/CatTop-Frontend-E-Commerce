@@ -1,13 +1,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import { Cascader, Radio, Checkbox, Input, Select, Space, Button } from 'antd';
+import { Cascader, Radio, Checkbox, Input, Select, Space, Button, Form } from 'antd';
 import { Modal } from 'antd';
 import { FiPlus } from 'react-icons/fi';
 import logo from '@/public/uit.png'
-import StyleContext from '@ant-design/cssinjs/lib/StyleContext';
 
-
-export default function Booking() {
+export default function Checkout() {
     // Địa chỉ (ẩn/hiện Model)
     const [address, setAddress] = useState(false);
     const openAddress = () => {
@@ -89,10 +87,8 @@ export default function Booking() {
         dg: 25000000,
         sl: 2,
     }
-
-
     return (
-        <div className='flex flex-col bg-secondary w-full h-full gap-2 p-8 lg:p-40'>
+        <Form className='flex flex-col w-full h-full gap-2'>
             <div className='rounded bg-white p-4 grid gap-2'>
                 <div className='grid grid-cols-4'>
                     <p className='text-primary font-semibold'>Sản phẩm</p>
@@ -102,17 +98,17 @@ export default function Booking() {
                 </div>
                 <div className='grid grid-cols-4 pt-4 border-t pace-items-center'>
                     <div className=''>
-                        <Image src={SP.src} />
-                        <p>{SP.ten}</p>
+                        <Image src={SP?.src} />
+                        <p>{SP?.ten}</p>
                     </div>
                     <div className=''>
-                        {formatMoney(SP.dg)}
+                        {formatMoney(SP?.dg)}
                     </div>
                     <div className=''>
-                        {formatMoney(SP.sl)}
+                        {formatMoney(SP?.sl)}
                     </div>
                     <div className=''>
-                        {formatMoney(SP.dg * SP.sl)}
+                        {formatMoney(SP?.dg * SP?.sl)}
                     </div>
                 </div>
             </div>
@@ -313,6 +309,6 @@ export default function Booking() {
                     </div>
                 </div>
             </div >
-        </div >
+        </Form >
     );
 }

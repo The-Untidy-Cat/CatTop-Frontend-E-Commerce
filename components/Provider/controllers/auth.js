@@ -347,6 +347,7 @@ export const useUserController = () => {
     updateItemFromCart,
     clearCart,
     quickLogin,
+    refreshCart
   };
 };
 

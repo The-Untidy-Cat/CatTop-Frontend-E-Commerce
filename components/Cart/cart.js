@@ -18,15 +18,15 @@ export default function Cart() {
   }, []);
   return (
     <div className="flex flex-col md:flex-row gap-5 lg:gap-8 w-full">
-      <div className="bg-white rounded p-5 w-full md:w-7/12 shrink-0">
+      <div className="bg-white rounded p-5 w-full md:w-7/12 shrink-0 gap-2">
         <div className="flex justify-between items-center gap-2">
-          <p className="font-semibold text-lg mb-3">
+          <p className="font-semibold text-lg">
             Giỏ hàng ({cart?.length})
           </p>
           <Button
             type="link"
             icon={<MdOutlineRemoveShoppingCart />}
-            className="flex items-center align-center gap-1"
+            className="flex items-center align-center gap-1 p-0 m-0"
             onClick={() => handleClear()}
             disabled={cart?.length === 0}
           >
@@ -59,9 +59,9 @@ export default function Cart() {
                 ? cart
                     ?.map(
                       (item) =>
-                        item?.variant?.discount *
+                        item?.variant?.state == "published" ? item?.variant?.discount *
                         item?.amount *
-                        item?.variant?.standard_price
+                        item?.variant?.standard_price : 0
                     )
                     ?.reduce((total, item) => {
                       return total + item;
@@ -78,7 +78,7 @@ export default function Cart() {
             {formatCurrency(
               cart.length > 0
                 ? cart
-                    ?.map((item) => item?.amount * item?.variant?.sale_price)
+                    ?.map((item) => item?.variant?.state == "published" ? item?.amount * item?.variant?.sale_price : 0)
                     ?.reduce((total, item) => {
                       return total + item;
                     })

@@ -1,11 +1,11 @@
-import Cart from "@/components/Cart/cart";
+import Checkout from "@/components/Checkout";
 import { DefaultLayout } from "@/components/Layout";
 import PrivateWrapper from "@/components/Wrapper";
 import { Axios } from "@/utils/axios";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export default function CartPage({ data }) {
+export default function CheckoutsPage({ data }) {
   console.log(data);
   const router = useRouter();
   useEffect(() => {
@@ -20,7 +20,9 @@ export default function CartPage({ data }) {
   }, []);
   return (
     <PrivateWrapper>
-      <DefaultLayout data={data}>{/* <Cart /> */}</DefaultLayout>
+      <DefaultLayout data={data}>
+        <Checkout />
+      </DefaultLayout>
     </PrivateWrapper>
   );
 }
@@ -41,10 +43,12 @@ export async function getServerSideProps(context) {
         data: {
           brands: data[0]?.data?.data || [],
           newProducts: data[1]?.data?.data?.records || [],
-          item: {
-            variant: data[2]?.data?.data || {},
-            amount: query?.amount || 1,
-          },
+          item: query?.variant_id
+            ? {
+                variant: data[2]?.data?.data || {},
+                amount: query?.amount || 1,
+              }
+            : null,
         },
       },
     };
@@ -55,10 +59,7 @@ export async function getServerSideProps(context) {
         data: {
           brands: [],
           newProducts: [],
-          item: {
-            variant: {},
-            amount: 1,
-          },
+          item: null,
         },
       },
     };
