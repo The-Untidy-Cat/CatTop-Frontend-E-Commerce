@@ -51,16 +51,6 @@ export async function getServerSideProps(context) {
           },
         })
       );
-    } else
-      promiseArr.push(
-        await Axios.get("/customer/cart", {
-          headers: {
-            Cookie: context.req.headers.cookie,
-            Origin: process.env.NEXT_PUBLIC_CLIENT_URL,
-            Referer: process.env.NEXT_PUBLIC_CLIENT_URL,
-          },
-        })
-      );
     const data = await Promise.all(promiseArr);
     return {
       props: {
