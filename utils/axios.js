@@ -4,8 +4,8 @@ export const Axios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
   withCredentials: true,
   headers: {
-    origin: process.env.NEXT_PUBLIC_CLIENT_URL,
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 const getCSRFToken = async () => {

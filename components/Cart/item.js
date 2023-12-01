@@ -81,7 +81,7 @@ export const CartItem = ({ item, editable = true }) => {
               {item?.variant?.state !== "published" ||
               item?.variant?.product?.state !== "published" ? (
                 <Tag color="red">Hết hàng</Tag>
-              ) : (
+              ) : editable ? (
                 <div className="flex items-center align-center h-fit w-fit border rounded">
                   {editable && (
                     <Button
@@ -113,6 +113,8 @@ export const CartItem = ({ item, editable = true }) => {
                     />
                   )}
                 </div>
+              ) : (
+                <p className="font-semibold m-0">SL: {item?.amount}</p>
               )}
               {editable && (
                 <Button
