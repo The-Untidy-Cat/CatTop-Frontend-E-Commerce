@@ -36,19 +36,32 @@ export async function getServerSideProps(context) {
     ];
     if (query?.variant_id) {
       promiseArr.push(await Axios.get(`/web/variants/${query?.variant_id}`));
-    }
+    } else
+      promiseArr.push(
+        await Axios.get("/customer/cart", {
+          headers: {
+            Cookie: context.req.headers.cookie,
+            Origin: process.env.NEXT_PUBLIC_CLIENT_URL,
+            Referer: process.env.NEXT_PUBLIC_CLIENT_URL,
+          },
+        })
+      );
     const data = await Promise.all(promiseArr);
     return {
       props: {
         data: {
           brands: data[0]?.data?.data || [],
           newProducts: data[1]?.data?.data?.records || [],
+          type: query?.variant_id ? "variant" : "cart",
           item: query?.variant_id
-            ? {
-                variant: data[2]?.data?.data || {},
-                amount: query?.amount || 1,
-              }
-            : null,
+            ? [
+                {
+                  variant: data[2]?.data?.data || {},
+                  amount: query?.amount || 1,
+                  total: data[2]?.data?.data?.sale_price * query?.amount || data[2]?.data?.data?.sale_price,
+                },
+              ]
+            : data[2]?.data?.data?.cart || null,
         },
       },
     };
