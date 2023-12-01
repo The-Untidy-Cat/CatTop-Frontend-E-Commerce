@@ -175,3 +175,4 @@ export default function Checkout({cart, type}) {
     </>
   );
 }
+

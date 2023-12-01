@@ -51,12 +51,23 @@ export async function getServerSideProps(context) {
           },
         })
       );
+    } else
+      promiseArr.push(
+        await Axios.get("/customer/cart", {
+          headers: {
+            Cookie: context.req.headers.cookie,
+            Origin: process.env.NEXT_PUBLIC_CLIENT_URL,
+            Referer: process.env.NEXT_PUBLIC_CLIENT_URL,
+          },
+        })
+      );
     const data = await Promise.all(promiseArr);
     return {
       props: {
         data: {
           brands: data[0]?.data?.data || [],
           newProducts: data[1]?.data?.data?.records || [],
+          type: query?.variant_id ? "variant" : "cart",
           type: query?.variant_id ? "variant" : "cart",
           item: query?.variant_id
             ? [
