@@ -105,7 +105,8 @@ const DefaultLayout = ({
   data
 }) => {
   return (
-    <main className="flex flex-col h-fit min-h-screen w-full m-0 p-0">
+    <main className="flex flex-col h-fit min-h-screen w-full p-0 m-0"
+    >
       <Head>
         <title>{title}</title>
       </Head>

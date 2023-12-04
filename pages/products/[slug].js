@@ -1,4 +1,4 @@
-import ProductDetail from "@/components/LapDetail/comp";
+import ProductDetail from "@/components/Product/detail";
 import { DefaultLayout } from "@/components/Layout";
 import { Axios } from "@/utils/axios";
 import { useEffect } from "react";
@@ -9,7 +9,13 @@ export default function ProductDetailPage({ data }) {
   }, []);
 
   return (
-    <DefaultLayout data={data} title={data?.productDetail?.name}>
+    <DefaultLayout
+      data={data}
+      title={data?.productDetail?.name}
+      style={{
+        paddingBottom: "100px",
+      }}
+    >
       <ProductDetail data={data?.productDetail} />
     </DefaultLayout>
   );

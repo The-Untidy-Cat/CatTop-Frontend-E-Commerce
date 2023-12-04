@@ -13,17 +13,18 @@ export default function PrivateWrapper({ children }) {
         size="large"
       />
     );
-  if (!user)
+  else if (!user)
     router.push({
       pathname: "/login",
       query: { redirect: router.asPath },
     });
-  return children;
+  else return children;
 }
 
 export function AnonymousWrapper({ children }) {
   const { user, loadingUser } = useUser();
   const router = useRouter();
+  const { query } = router;
   if (loadingUser)
     return (
       <Spin
@@ -32,6 +33,8 @@ export function AnonymousWrapper({ children }) {
         size="large"
       />
     );
-  if (user) router.push("/");
-  return children;
+  else if (user) {
+    if (query?.redirect) router.push(query?.redirect);
+    else router.push("/");
+  } else return children;
 }
