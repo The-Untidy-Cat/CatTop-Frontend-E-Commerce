@@ -1,10 +1,17 @@
 import Cart from "@/components/Cart/cart";
 import { DefaultLayout } from "@/components/Layout";
+import { useUser } from "@/components/Provider/AuthProvider";
 import PrivateWrapper from "@/components/Wrapper";
 import { Axios } from "@/utils/axios";
+import { useEffect } from "react";
 
 export default function CartPage({ data }) {
+  const { refreshCart } = useUser();
   console.log(data);
+  useEffect(() => {
+    refreshCart();
+  }
+  , []);
   return (
     <PrivateWrapper>
       <DefaultLayout data={data}>

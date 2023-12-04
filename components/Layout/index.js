@@ -9,12 +9,12 @@ import { Dropdown, Skeleton } from "antd";
 import { FaUser } from "react-icons/fa";
 
 const AccountBar = () => {
-  const { user, loadingUser, logout } = useUser();
+  const { user, loadingUser, logout } = useUser(); 
   const accountMenu = [
     {
       key: "account-info",
       label: (
-        <Link href="#" className="text-gray-600 text-xs font-medium">
+        <Link href="/profile" className="text-gray-600 text-xs font-medium">
           Thông tin tài khoản
         </Link>
       ),
@@ -105,7 +105,8 @@ const DefaultLayout = ({
   data
 }) => {
   return (
-    <main className="flex flex-col h-fit min-h-screen w-full m-0 p-0">
+    <main className="flex flex-col h-fit min-h-screen w-full p-0 m-0"
+    >
       <Head>
         <title>{title}</title>
       </Head>

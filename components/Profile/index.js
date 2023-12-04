@@ -3,39 +3,45 @@ import { Form, Input, Button, Dropdown, DatePicker, Menu, Layout, Radio, Modal, 
 import Image from "next/image";
 import logo from "@/public/logo.png"
 import moment from 'moment';
-import { FaCheck, FaRegEdit } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { TfiMapAlt } from "react-icons/tfi";
-import { CiSearch } from "react-icons/ci";
 import {
     UserOutlined,
     FileTextOutlined,
-    BellOutlined,
-    DownOutlined
 } from '@ant-design/icons';
-import { LuTicket } from "react-icons/lu";
 import { IoSearch } from 'react-icons/io5';
 import { TbMoodEmpty } from 'react-icons/tb';
-import axios from 'axios';
+import { useUser } from '../Provider/AuthProvider';
 
+const { Sider, Content } = Layout;
 
 export default function Profile() {
-    const { Header, Sider, Content } = Layout;
-    const { SubMenu } = Menu;
-
+    const { user } = useUser();
     const [valueMenu, setValueMenu] = useState();
     const handleMenu = (e) => {
         setValueMenu(e.key);
     }
+
     const info = [
         {
-            name: 'theuntidycat',
-            email: 'cattop@gmail.com',
-            phone: '0123456789',
-            gender: 'female',
-            bday: '01/01/2023'
+            name: user?.username,
+            email: user?.email,
+            phone: user?.phone_number,
         }
     ];
+    const address = [
+        {
+            name: user?.last_name + ' ' + user?.first_name,
+            phone: user?.phone_number,
+            place: 'Ký Túc Xá A',
+            street: 'Đường Tạ Quang Bửu',
+            town: 'Khu Phố 6',
+            district: 'Thành Phố Thủ Đức',
+            ward: 'Phường Linh Trung',
+            city: 'TP. Hồ Chí Minh'
+        }
+    ]
     // const handleMenu = (e) => {
     //     console.log(e.key);
     //     console.log("đây là đơn mua");
@@ -54,12 +60,27 @@ export default function Profile() {
         setIsModalVisible(false);
     };
 
+    // update modal
+    const [isModalVisible1, setIsModalVisible1] = useState(false);
+
+    const showModal1 = () => {
+        setIsModalVisible1(true);
+    };
+
+    const handleOk1 = () => {
+        setIsModalVisible1(false);
+    };
+
+    const handleCancel1 = () => {
+        setIsModalVisible1(false);
+    };
+
     const onChange = (value) => {
-  console.log(`selected ${value}`);
-};
-const onSearch = (value) => {
-  console.log('search:', value);
-};
+        console.log(`selected ${value}`);
+    };
+    const onSearch = (value) => {
+        console.log('search:', value);
+    };
     const getItem = (label, key, icon, subItems) => {
         if (subItems) {
             return (
@@ -136,9 +157,11 @@ const onSearch = (value) => {
     ];
     const filterOption = (input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+    const filterOption1 = (input, option) =>
+        (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
     return (
-        <div className="bg-secondary/[.4] h-full w-full py-5">
+        <div className="h-full w-full py-5">
             <Layout className='bg-secondary/[.0] px-10'>
                 <Sider className='bg-secondary/[.0] pt-4'>
                     <p className='flex flex-col items-center'>
@@ -153,7 +176,7 @@ const onSearch = (value) => {
                         defaultSelectedKeys={['sub1']}
                     >
                         {items1.map(item => (
-                            <React.Fragment key={item.key} onClick={handleMenu}>
+                            <React.Fragment onClick={handleMenu}>
                                 {item}
                             </React.Fragment>
                         ))}
@@ -181,14 +204,14 @@ const onSearch = (value) => {
                                         phone_number: info[0].phone,
                                     }}
                                 >
-                                    <p>Tên người dùng</p>
+                                    <p>Tên đăng nhập</p>
                                     <Form.Item
                                         label=""
                                         name="user_name"
                                         rules={[{ required: true, pattern: /^[^\d`~!@#$%^&*()+_=|\\{}[\]:;"'<>,.?/]+$/, message: 'Không hợp lệ!' }]}
                                         className='mt-2'
                                     >
-                                        <Input className='w-full' />
+                                        <Input className='w-full' disabled />
                                     </Form.Item>
 
 
@@ -255,11 +278,11 @@ const onSearch = (value) => {
 
                 {/* Địa chỉ */}
                 {valueMenu === 'sub2' ? (
-                    <Content className='flex flex-col bg-white ml-12 pl-7 h-[590px] w-1/2' style={{ background: 'white', padding: '10px' }}>
+                    <Content className='flex flex-col bg-white ml-12 px-7 h-[590px] w-1/2' style={{ background: 'white', padding: '10px' }}>
                         <div>
-                            <p className='text-lg py-1 float-left mt-2'>Địa chỉ của tôi</p>
+                            <p className='text-lg float-left mt-2'>Địa chỉ của tôi</p>
                             <span className='float-right'>
-                                <Button className='px-4 h-10 bg-primary/[.4] hover:bg-primary/[.5] hover:text-white border-0 mr-4 mt-2' onClick={showModal}><FaPlus className='mr-2' />Thêm địa chỉ mới</Button>
+                                <Button className='px-4 h-10 rounded-none bg-primary/[.4] hover:bg-primary/[.5] hover:text-white border-0' onClick={showModal}><FaPlus className='mr-2' />Thêm địa chỉ mới</Button>
                                 <Modal
                                     open={isModalVisible}
                                     onOk={handleOk}
@@ -286,8 +309,8 @@ const onSearch = (value) => {
                                             onChange={onChange}
                                             onSearch={onSearch}
                                             filterOption={filterOption}
-                                            options={itemsTinh.map(item => ({ label: item.label, value:item.value }))}
-                            
+                                            options={itemsTinh.map(item => ({ label: item.label, value: item.value }))}
+
                                         />
                                         <p>Chọn quận/huyện</p>
                                         <Select
@@ -295,9 +318,7 @@ const onSearch = (value) => {
                                             placeholder="Chọn quận/huyện"
                                             optionFilterProp="children"
                                             filterOption={filterOption}
-                                            onChange={onChange}
-                                            onSearch={onSearch}
-                                            options={itemsHuyen.map(item => ({ label: item.label, value:item.value }))}
+                                            options={itemsHuyen.map(item => ({ label: item.label, value: item.value }))}
                                         />
                                         <p>Chọn phường/xã</p>
                                         <Select
@@ -307,7 +328,7 @@ const onSearch = (value) => {
                                             filterOption={filterOption}
                                             onChange={onChange}
                                             onSearch={onSearch}
-                                            options={itemsXa.map(item => ({ label: item.label, value:item.value }))}
+                                            options={itemsXa.map(item => ({ label: item.label, value: item.value }))}
                                         />
                                         <Input placeholder='Số nhà/Đường' className='col-span-2'></Input>
                                         <Checkbox className='text-base'>Đặt làm mặc định</Checkbox>
@@ -316,9 +337,73 @@ const onSearch = (value) => {
                             </span>
 
                         </div>
-                        <div className='flex flex-col h-full items-center justify-center mb-10'>
+                        {/* <div className='flex flex-col h-full items-center justify-center mb-10'>
                             <TfiMapAlt className='text-7xl text-secondary/[.4] mb-2' />
                             Bạn chưa có địa chỉ
+                        </div> */}
+                        <hr className='mt-4' />
+                        <div className='mt-4'>
+                            <p className='text-lg'>Địa chỉ</p>
+                            {address.map(add => (
+                                <div className='my-4'>
+                                    <div className='float-left'>
+                                        <p><span className='text-lg'>{add.name}</span> | {add.phone}</p>
+                                        <p>{add.town}, {add.street}</p>
+                                        <p>{add.ward}, {add.district}, {add.city}</p>
+                                    </div>
+                                    <div className='float-right flex gap-4 text-primary/[.6]'>
+                                        <p><a onClick={showModal1}>Cập nhật</a></p>
+                                        <Modal
+                                            open={isModalVisible1}
+                                            onOk={handleOk1}
+                                            onCancel={handleCancel1}
+                                            cancelText="Trở lại"
+                                            okText="Xác nhận"
+                                            cancelButtonProps={{
+                                                style: { color: 'black', height: '38px' },
+                                                className: 'hover:bg-secondary/[.6] text-black  bg-secondary/[.5] border-0'
+                                            }}
+                                            okButtonProps={{
+                                                style: { color: 'black', height: '38px' },
+                                                className: 'text-white hover:bg-primary/[.9] bg-primary/[.8] border-0 shadow-none'
+                                            }}
+                                        >
+                                            <p className='text-xl font-semibold text-center pb-3'>Cập nhật địa chỉ</p>
+                                            <hr />
+                                            <div className='grid grid-cols-2 flex items-center pt-4 gap-4'>
+                                                <p>Tỉnh/thành phố</p>
+                                                <Select
+                                                    showSearch
+                                                    optionFilterProp="children"
+                                                    filterOption={filterOption1}
+                                                    defaultValue={add?.city}
+                                                    options={itemsTinh.map(item => ({ label: item.label, value: item.value }))}
+
+                                                />
+                                                <p>Quận/huyện</p>
+                                                <Select
+                                                    showSearch
+                                                    optionFilterProp="children"
+                                                    filterOption={filterOption1}
+                                                    defaultValue={add?.district}
+                                                    options={itemsHuyen.map(item => ({ label: item.label, value: item.value }))}
+                                                />
+                                                <p>Phường/xã</p>
+                                                <Select
+                                                    showSearch
+                                                    optionFilterProp="children"
+                                                    filterOption={filterOption1}
+                                                    defaultValue={add?.ward}
+                                                    options={itemsXa.map(item => ({ label: item.label, value: item.value }))}
+                                                />
+                                                <Input placeholder='Số nhà/Đường' className='col-span-2' defaultValue={add?.place + ', ' + add?.street + ", " + add?.town}></Input>
+                                            </div>
+                                        </Modal>
+                                        <p><a>Xóa</a></p>
+                                    </div>
+                                </div>
+                            ))}
+
                         </div>
                     </Content>
                 ) : null}
@@ -327,9 +412,9 @@ const onSearch = (value) => {
                 {valueMenu === 'sub3' ? (
                     <Content className='bg-white flex items-center justify-center grid grid-cols-2 bg-white ml-12 px-16 h-[590px]'>
                         <div className='flex flex-col items-center gap-2 mr-8'>
-                        <Image src={logo} className='w-16'></Image>
-                        <p className='font-semibold text-xl'>ĐỔI MẬT KHẨU</p>
-                        {/* <p><FaCheck className='text-primary mr-2'/>Mật khẩu phải có ít nhất 8 ký tự</p> */}
+                            <Image src={logo} className='w-16'></Image>
+                            <p className='font-semibold text-xl'>ĐỔI MẬT KHẨU</p>
+                            {/* <p><FaCheck className='text-primary mr-2'/>Mật khẩu phải có ít nhất 8 ký tự</p> */}
                         </div>
                         <div>
                             <Form
@@ -346,7 +431,7 @@ const onSearch = (value) => {
                                         { min: 8, message: "Mật khẩu phải có ít nhất 8 ký tự!" },
                                     ]}
                                 >
-                                    <Input.Password/>
+                                    <Input.Password />
                                 </Form.Item>
                                 <p className='mb-1'>Mật khẩu mới</p>
                                 <Form.Item
@@ -357,7 +442,7 @@ const onSearch = (value) => {
                                         { min: 8, message: "Mật khẩu phải có ít nhất 8 ký tự!" },
                                     ]}
                                 >
-                                    <Input.Password/>
+                                    <Input.Password />
                                 </Form.Item>
                                 <p className='mb-1'>Xác nhận mật khẩu mới</p>
                                 <Form.Item
@@ -368,7 +453,7 @@ const onSearch = (value) => {
                                         { min: 8, message: "Mật khẩu phải có ít nhất 8 ký tự!" },
                                     ]}
                                 >
-                                    <Input.Password/>
+                                    <Input.Password />
                                 </Form.Item>
                                 <Form.Item >
                                     <Button type="primary" className="mt-2 bg-primary/[.8] hover:bg-primary/[.9] w-full border-none" htmlType="submit">
