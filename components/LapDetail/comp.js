@@ -13,6 +13,21 @@ import { useUser } from "../Provider/AuthProvider";
 import { LoginForm } from "../Login/login";
 import { useRouter } from "next/router";
 
+
+// export default function ProductDetail({ data }){
+//   // const [currentVariant, setCurrentVariant] = useState(data?.variants?.[0]);
+//   // data?.variants?.map((variant, index) =>
+//   // console.log("xuất\n" + variant?.specifications?.battery
+
+//   // + "\n"))
+//   console.log("xuat "+data?.variants[0]?.specifications?.battery)
+
+//   return (
+//     <div>abc</div>
+//   );
+// }
+
+
 export default function ProductDetail({ data }) {
   const [form] = Form.useForm();
   const router = useRouter();
@@ -51,7 +66,7 @@ export default function ProductDetail({ data }) {
     await addItemToCart(value);
     return;
   };
-  useEffect(() => {}, [data]);
+  useEffect(() => { }, [data]);
   return (
     <div className="flex gap-5 md:gap-8 w-full h-fit grow-0 shrink-0">
       <div className="flex flex-col gap-2 w-full h-fit grow-0">
@@ -91,24 +106,26 @@ export default function ProductDetail({ data }) {
               <p className="font-semibold text-lg">Cấu hình đặc điểm</p>
               <a onClick={openModal}>Xem cấu hình chi tiết</a>
               <Modal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                contentLabel="Example Modal"
-                className="h-screen w-screen bg-transparent flex justify-center items-center"
+                centered
+                open={isModalOpen}
+                onOk={closeModal}
+                onCancel={closeModal}
+                okText="Xác nhận"
+                cancelText="Trở lại"
+                okButtonProps={
+                  {
+                    className: 'bg-primary hover:bg-primary/[.8]'
+                  }
+                }
+                className=" w-[600px]"
               >
-                <div className="rounded-lg bg-white rounded h-5/6 w-full md:w-8/12 lg:w-1/2 border p-8 grid grid-cols-1 gap-4 overflow-y-auto">
-                  <div className=" flex justify-between items-start">
-                    <p className="font-semibold text-xl">Cấu hình chi tiết</p>
-                    <button className="ext-xl font-bold" onClick={closeModal}>
-                      X
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-2 grid-rows-6 gap-2">
+                <p className="bg-white sticky top-0 font-semibold text-xl text-center pb-2">Cấu hình chi tiết</p>
+
+                <div className="overflow-y-auto h-[500px]">
+                  <div className="grid grid-cols-2 grid-rows-6 gap-4 ">
                     <div className="">
                       <p className="font-semibold">Bộ xử lý</p>
-                      <p>Loại CPU: Intel Core i5 1240P, 12C/16T</p>
-                      <p>Tốc độ: 1.0GHz, Lên tới 4.4GHz</p>
-                      <p>Bộ nhớ đệm: 12MB</p>
+                      <p>a<br />b<br />b<br />b</p>
                     </div>
                     <div className="">
                       <p className="font-semibold">RAM</p>
@@ -144,33 +161,64 @@ export default function ProductDetail({ data }) {
                 </div>
               </Modal>
             </div>
-            <div className="grid grid-cols-2 grid-rows-4 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <p className="font-semibold">Bộ xử lý</p>
-                <p>Loại CPU: Intel Core i5 1240P, 12C/16T</p>
-                <p>Tốc độ: 1.0GHz, Lên tới 4.4GHz</p>
-                <p>Bộ nhớ đệm: 12MB</p>
+                {/* <div className="grid grid-cols-2">
+                  <p>Loại CPU</p>{currentVariant?.specifications?.cpu?.name === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.name}</p>)}
+                  <p>Tốc độ</p>{currentVariant?.specifications?.cpu?.x === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.x} GHz</p>)}
+                  <p>Bộ nhớ đệm</p>{currentVariant?.specifications?.cpu?.cache === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.cache} MB</p>)}
+                </div> */}
               </div>
               <div>
                 <p className="font-semibold">RAM</p>
+                <div className="grid grid-cols-2">
+                  <p>Dung lượng</p>{currentVariant?.specifications?.ram?.capacity === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.ram?.capacity / 1024} GB</p>)}
+                  <p>Loại</p>{currentVariant?.specifications?.ram?.type === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.ram?.type}</p>)}
+                  <p>Tần số</p>{currentVariant?.specifications?.ram?.frequency === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.ram?.frequency} MHz</p>)}
+                </div>
               </div>
               <div>
                 <p className="font-semibold">Màn hình</p>
+                <div className="grid grid-cols-2">
+                  <p>Độ phân giải</p>{currentVariant?.specifications?.display?.resolution === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.display?.resolution} px</p>)}
+                  <p>Tần số làm mới</p>{currentVariant?.specifications?.display?.refresh_rate === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.display?.refresh_rate} Hz</p>)}
+                  <p>Công nghệ</p>{currentVariant?.specifications?.display?.technology === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.display?.technology}</p>)}
+                  <p>Cảm ứng</p>{currentVariant?.specifications?.display?.touch === true ? (<p>Có</p>) : (<p>Không</p>)}
+                </div>
               </div>
               <div>
                 <p className="font-semibold">Pin</p>
+                <div className="grid grid-cols-2">
+                  <p>Dung lượng pin</p>{currentVariant?.specifications?.battery === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.battery} mAh</p>)}
+                </div>
               </div>
               <div>
                 <p className="font-semibold">Card đồ họa</p>
+                {/* <div className="grid grid-cols-2">
+                  {currentVariant?.specifications?.gpu?.type === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.name}</p>)}
+                </div> */}
               </div>
               <div>
                 <p className="font-semibold">Ổ cứng</p>
+                {/* <div className="grid grid-cols-2">
+                  {currentVariant?.specifications?.storage?.drive === undefined ? null: (<p>Dung lượng {currentVariant?.specifications?.storage?.drive</p><p>{currentVariant?.specifications?.storage?.capacity} GB</p>)}
+                </div> */}
               </div>
               <div>
                 <p className="font-semibold">Khối lượng và Kích thước</p>
+                {/* <div className="grid grid-cols-2">
+                  <p>Khối lượng</p>{currentVariant?.specifications?.cpu?.name === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.name}</p>)}
+                  <p>Kích thước</p>{currentVariant?.specifications?.cpu?.x === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.x} GHz</p>)}
+                  <p>Chất liệu vỏ</p>{currentVariant?.specifications?.cpu?.x === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.x} GHz</p>)}
+                </div> */}
               </div>
               <div>
                 <p className="font-semibold">Webcam và Âm thanh</p>
+                {/* <div className="grid grid-cols-2">
+                  <p>Webcam</p>{currentVariant?.specifications?.cpu?.name === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.name}</p>)}
+                  <p>Công nghệ âm thanh</p>{currentVariant?.specifications?.cpu?.x === undefined ? (<p>&nbsp;</p>) : (<p>{currentVariant?.specifications?.cpu?.x} GHz</p>)}
+                </div> */}
               </div>
             </div>
           </div>
@@ -302,7 +350,7 @@ export default function ProductDetail({ data }) {
                 )}
                 {user ? (
                   <Button
-                    
+
                     htmlType="submit"
                     className="flex items-center gap-1 bg-primary text-white"
                   >
@@ -310,12 +358,12 @@ export default function ProductDetail({ data }) {
                   </Button>
                 ) : (
                   <Popover
-                    content={<LoginForm/>}
+                    content={<LoginForm />}
                     title="Đăng nhập để mua hàng"
                     trigger={"click"}
                   >
                     <Button
-                      
+
                       htmlType="submit"
                       className="flex items-center gap-1 bg-primary text-white"
                     >
