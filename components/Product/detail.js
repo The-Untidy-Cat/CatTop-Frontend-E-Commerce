@@ -155,90 +155,25 @@ function VariantSpecification({ variant }) {
       children: variant?.specifications?.weight ? variant?.specifications?.weight + ' kg' : ''
     }
   ]
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <>
-      {/* <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Example Modal"
-        className="h-screen w-screen bg-transparent flex justify-center items-center"
-      >
-        <div className="rounded-lg bg-white rounded h-5/6 w-full md:w-8/12 lg:w-1/2 border p-8 grid grid-cols-1 gap-4 overflow-y-auto">
-          <div className=" flex justify-between items-start">
-            <p className="font-semibold text-xl">Cấu hình chi tiết</p>
-            <button className="ext-xl font-bold" onClick={closeModal}>
-              X
-            </button>
-          </div>
-          <div className="grid grid-cols-2 grid-rows-6 gap-2">
-            <div className="">
-              <p className="font-semibold">Bộ xử lý</p>
-              <p>Loại CPU: {variant?.cpu?.name}</p>
-              <p>Tốc độ: 1.0GHz, Lên tới 4.4GHz</p>
-              <p>Bộ nhớ đệm: 12MB</p>
-            </div>
-            <div className="">
-              <p className="font-semibold">RAM</p>
-            </div>
-            <div className="">
-              <p className="font-semibold">Màn hình</p>
-            </div>
-            <div>
-              <p className="font-semibold">Pin</p>
-            </div>
-            <div>
-              <p className="font-semibold">Card đồ họa</p>
-            </div>
-            <div>
-              <p className="font-semibold">Ổ cứng</p>
-            </div>
-            <div>
-              <p className="font-semibold">Khối lượng và Kích thước</p>
-            </div>
-            <div>
-              <p className="font-semibold">Webcam và Âm thanh</p>
-            </div>
-            <div className="">
-              <p className="font-semibold">Cổng kết nối</p>
-            </div>
-            <div className="">
-              <p className="font-semibold">Kết nối</p>
-            </div>
-            <div className="">
-              <p className="font-semibold">Hệ điều hành</p>
-            </div>
-          </div>
-        </div>
-      </Modal> */}
       <div className="flex flex-col bg-white rounded gap-2 p-4">
         <div className="border-b py-4">
           <div className="flex justify-between">
             <p className="font-semibold text-lg">Cấu hình đặc điểm</p>
-            {/* <Button type="text" onClick={openModal}>
-              Chi tiết
-            </Button> */}
           </div>
-          <div className="hidden md:grid grid-cols-2 grid-rows-4 gap-4">
+          <div className="hidden md:grid grid-cols-2 gap-2">
             <div>
               <p className="font-semibold">Bộ xử lý</p>
-              <div className="grid grid-cols-5">
-                <p className="col-span-2">{CPU[0].label}</p><p className="col-span-3">{CPU[0].children}</p>
-                <p className="col-span-2">{CPU[1].label}</p><p className=" col-span-3">{CPU[1].children}</p>
-                <p className="col-span-2">{CPU[2].label}</p><p className=" col-span-3">{CPU[2].children}</p>
+              <div className="grid grid-cols-7 gap-1">
+                <p className="col-span-3">{CPU[0].label}</p><p className="col-span-4">{CPU[0].children}</p>
+                <p className="col-span-3">{CPU[1].label}</p><p className=" col-span-4">{CPU[1].children}</p>
+                <p className="col-span-3">{CPU[2].label}</p><p className=" col-span-4">{CPU[2].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">RAM</p>
-              <div className="grid grid-cols-5">
+              <div className="grid grid-cols-5 gap-1">
                 <p className="col-span-2">{RAM[0].label}</p><p className="col-span-3">{RAM[0].children}</p>
                 <p className="col-span-2">{RAM[1].label}</p><p className=" col-span-3">{RAM[1].children}</p>
                 <p className="col-span-2">{RAM[2].label}</p><p className=" col-span-3">{RAM[2].children}</p>
@@ -246,16 +181,16 @@ function VariantSpecification({ variant }) {
             </div>
             <div>
               <p className="font-semibold">Màn hình</p>
-              <div className="grid grid-cols-5">
-                <p className="col-span-2">{Display[0].label}</p><p className="col-span-3">{Display[0].children}</p>
-                <p className="col-span-2">{Display[1].label}</p><p className=" col-span-3">{Display[1].children}</p>
-                <p className="col-span-2">{Display[2].label}</p><p className=" col-span-3">{Display[2].children}</p>
-                <p className="col-span-2">{Display[3].label}</p><p className=" col-span-3">{Display[3].children}</p>
+              <div className="grid grid-cols-7 gap-1">
+                <p className="col-span-3">{Display[0].label}</p><p className="col-span-4">{Display[0].children}</p>
+                <p className="col-span-3">{Display[1].label}</p><p className=" col-span-4">{Display[1].children}</p>
+                <p className="col-span-3">{Display[2].label}</p><p className=" col-span-4">{Display[2].children}</p>
+                <p className="col-span-3">{Display[3].label}</p><p className=" col-span-4">{Display[3].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">Card đồ họa</p>
-              <div className="grid grid-cols-5">
+              <div className="grid grid-cols-5 gap-1">
                 <p className="col-span-2">{GPU[0].label}</p><p className="col-span-3">{GPU[0].children}</p>
                 <p className="col-span-2">{GPU[1].label}</p><p className=" col-span-3">{GPU[1].children}</p>
                 <p className="col-span-2">{GPU[2].label}</p><p className=" col-span-3">{GPU[2].children}</p>
@@ -264,26 +199,26 @@ function VariantSpecification({ variant }) {
             </div>
             <div>
               <p className="font-semibold">Ổ cứng</p>
-              <div className="grid grid-cols-5">
-                <p className="col-span-2">{Storage[0].label}</p><p className="col-span-3">{Storage[0].children}</p>
-                <p className="col-span-2">{Storage[1].label}</p><p className=" col-span-3">{Storage[1].children}</p>
+              <div className="grid grid-cols-7 gap-1">
+                <p className="col-span-3">{Storage[0].label}</p><p className="col-span-4">{Storage[0].children}</p>
+                <p className="col-span-3">{Storage[1].label}</p><p className=" col-span-4">{Storage[1].children}</p>
               </div>
             </div>
             <div> 
               <p className="font-semibold">Bàn phím và Touchpad</p>
-              <div className="grid grid-cols-5">
+              <div className="grid grid-cols-5 gap-1">
                 <p className="col-span-2">{Keyboard_Touchpad[0].label}</p><p className="col-span-3">{Keyboard_Touchpad[0].children}</p>
                 <p className="col-span-2">{Keyboard_Touchpad[1].label}</p><p className=" col-span-3">{Keyboard_Touchpad[1].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">Khác</p>
-              <div className="grid grid-cols-5">
-                <p className="col-span-2">{Other[0].label}</p><p className="col-span-3">{Other[0].children}</p>
-                <p className="col-span-2">{Other[1].label}</p><p className=" col-span-3">{Other[1].children}</p>
-                <p className="col-span-2">{Other[2].label}</p><p className=" col-span-3">{Other[2].children}</p>
-                <p className="col-span-2">{Other[3].label}</p><p className=" col-span-3">{Other[3].children}</p>
-                <p className="col-span-2">{Other[4].label}</p><p className=" col-span-3">{Other[4].children}</p>
+              <div className="grid grid-cols-7 gap-1">
+                <p className="col-span-3">{Other[0].label}</p><p className="col-span-4">{Other[0].children}</p>
+                <p className="col-span-3">{Other[1].label}</p><p className=" col-span-4">{Other[1].children}</p>
+                <p className="col-span-3">{Other[2].label}</p><p className=" col-span-4">{Other[2].children}</p>
+                <p className="col-span-3">{Other[3].label}</p><p className=" col-span-4">{Other[3].children}</p>
+                <p className="col-span-3">{Other[4].label}</p><p className=" col-span-4">{Other[4].children}</p>
               </div>
             </div>
           </div>
