@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Dropdown, DatePicker, Menu, Layout, Radio, Modal, Space, Checkbox, Select } from 'antd';
 import Image from "next/image";
 import logo from "@/public/logo.png"
@@ -16,6 +16,7 @@ import {
 import { LuTicket } from "react-icons/lu";
 import { IoSearch } from 'react-icons/io5';
 import { TbMoodEmpty } from 'react-icons/tb';
+import axios from 'axios';
 
 
 export default function Profile() {
