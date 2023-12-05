@@ -39,20 +39,6 @@ export const ChangePasswordForm = () => {
       className="flex flex-col gap-2"
       onFinish={handleSubmit}
     >
-      <p className="m-0">Mật khẩu cũ</p>
-      <Form.Item
-        name="old_password"
-        rules={[
-          {
-            required: true,
-            message: "Vui lòng nhập mật khẩu cũ!",
-          },
-        ]}
-        className="m-0"
-      >
-        <Input.Password className="w-full" />
-      </Form.Item>
-
       <p className="m-0">Mật khẩu mới</p>
       <Form.Item
         name="new_password"
