@@ -38,7 +38,7 @@ export const useUserController = () => {
       //   message: "Lỗi",
       //   description: error?.response?.data?.message || "Có lỗi xảy ra",
       // });
-      throw error?.reponses?.data?.errors || error?.message || "Có lỗi xảy ra";
+      throw error?.response?.data?.errors || error?.response?.data?.message || error?.message || "Có lỗi xảy ra";
     }
     setLoadingAuth(false);
   };
@@ -62,7 +62,7 @@ export const useUserController = () => {
         message: "Lỗi",
         description: error?.response?.data?.message || "Có lỗi xảy ra",
       });
-      throw error?.reponses?.data?.errors || error?.message || "Có lỗi xảy ra";
+      throw error?.response?.data?.errors || error?.message || "Có lỗi xảy ra";
     }
     setLoadingAuth(false);
   };
