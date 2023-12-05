@@ -36,7 +36,7 @@ export const CartItem = ({ item, editable = true }) => {
       spinning={loading}
       className="flex items-center align-center justify-center w-full h-full"
     >
-      <div className="flex flex-col gap-2 w-full h-fit pt-2">
+      <div className="flex flex-col gap-0 w-full h-fit pt-2">
         <div className="flex gap-3 w-full shrink-0">
           <Image
             src={item?.variant?.product?.image}
@@ -114,7 +114,7 @@ export const CartItem = ({ item, editable = true }) => {
                   )}
                 </div>
               ) : (
-                <p className="font-semibold m-0">SL: {item?.amount}</p>
+                <p className="font-medium m-0">x {item?.amount}</p>
               )}
               {editable && (
                 <Button

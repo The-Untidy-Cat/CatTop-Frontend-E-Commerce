@@ -1,16 +1,7 @@
 import { api } from "@/utils/axios";
-import {
-  addItem,
-  changeAmount,
-  decreaseAmount,
-  increaseAmount,
-  removeItem,
-} from "@/utils/redux/actions/cart";
 import { notification } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { clearCart as clearAllItem } from "@/utils/redux/actions/cart";
 
 export const useUserController = () => {
   const router = useRouter();
@@ -20,7 +11,6 @@ export const useUserController = () => {
   const [loadingCart, setLoadingCart] = useState(false);
   // const cartSelector = useSelector((state) => state.cart);
   const [cart, setCart] = useState([]);
-  const dispatch = useDispatch();
 
   const login = async (account) => {
     setLoadingAuth(true);
@@ -44,10 +34,10 @@ export const useUserController = () => {
       }
     } catch (error) {
       setLoadingAuth(false);
-      notification.error({
-        message: "Lỗi",
-        description: error?.response?.data?.message || "Có lỗi xảy ra",
-      });
+      // notification.error({
+      //   message: "Lỗi",
+      //   description: error?.response?.data?.message || "Có lỗi xảy ra",
+      // });
       throw error?.reponses?.data?.errors || error?.message || "Có lỗi xảy ra";
     }
     setLoadingAuth(false);
@@ -92,15 +82,39 @@ export const useUserController = () => {
       }
     } catch (error) {
       setLoadingAuth(false);
-      notification.error({
-        message: "Lỗi",
-        description: error?.response?.data?.message || "Có lỗi xảy ra",
-      });
-      throw error?.reponses?.data?.errors || error?.message || "Có lỗi xảy ra";
+      throw error?.response?.data?.errors || error?.message || "Có lỗi xảy ra";
     }
     setLoadingAuth(false);
   };
 
+  const updateProfile = async (account) => {
+    setLoadingAuth(true);
+    try {
+      const response = await api.put(`/customer/user`, account);
+      setLoadingAuth(false);
+      setUser(response?.data?.data?.user);
+      return;
+    } catch (error) {
+      setLoadingAuth(false);
+      throw error?.response?.data?.errors || error?.message || "Có lỗi xảy ra";
+    }
+  };
+
+  const changePassword = async (account) => {
+    setLoadingAuth(true);
+    try {
+      const response = await api.post(
+        `/customer/user/change-password`,
+        account
+      );
+      setLoadingAuth(false);
+      setUser(response?.data?.data?.user);
+      return;
+    } catch (error) {
+      setLoadingAuth(false);
+      throw error?.response?.data?.errors || error?.message || "Có lỗi xảy ra";
+    }
+  };
   const logout = async () => {
     setLoadingAuth(true);
     try {
@@ -334,9 +348,11 @@ export const useUserController = () => {
     loadingAuth,
     loadingUser,
     loadingCart,
+    updateProfile,
     register,
     login,
     logout,
+    changePassword,
     forgotPassword,
     verifyOTP,
     resetPassword,
@@ -347,7 +363,7 @@ export const useUserController = () => {
     updateItemFromCart,
     clearCart,
     quickLogin,
-    refreshCart
+    refreshCart,
   };
 };
 

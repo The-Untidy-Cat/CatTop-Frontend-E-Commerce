@@ -23,7 +23,7 @@ export default function CheckoutsPage({ data }) {
     <PrivateWrapper>
       <DefaultLayout data={data}>
         {data?.item?.length > 0 ? (
-          <Checkout cart={data?.item} type={data?.type}/>
+          <Checkout cart={data?.item} type={data?.type} />
         ) : (
           <Empty description="Không có sản phẩm nào trong giỏ hàng" />
         )}

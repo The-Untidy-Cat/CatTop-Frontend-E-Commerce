@@ -143,12 +143,12 @@ body {
   z-index: 0 !important;
 }
 
-.search .ant-input-wrapper.ant-input-group .ant-input-affix-wrapper{
+.search .ant-input-wrapper.ant-input-group .ant-input-affix-wrapper {
   background: transparent !important;
   border: 0px !important;
 }
 
-.search .ant-input-wrapper.ant-input-group .ant-input-affix-wrapper-focused{
+.search .ant-input-wrapper.ant-input-group .ant-input-affix-wrapper-focused {
   box-shadow: none !important;
   border: 0px !important;
 }
@@ -157,20 +157,32 @@ body {
   text-align: center !important;
 }
 
-.c-variant-radio-group .ant-radio-button-wrapper.ant-radio-button-wrapper-in-form-item::before {
+.c-variant-radio-group
+  .ant-radio-button-wrapper.ant-radio-button-wrapper-in-form-item::before {
   display: none !important;
 }
 
 .ant-carousel .slick-dots li button {
-
   background: rgb(144, 144, 144) !important;
 }
 
 .ant-carousel .slick-dots li.slick-active button {
-
   background: rgb(0, 0, 0) !important;
 }
 
 .slick-dots.slick-dots-bottom {
   z-index: 0 !important;
+}
+
+.c-tabs .ant-tabs-nav-list {
+  padding: 0px !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.c-tabs .ant-tabs-tab {
+  width: 100% !important;
+  text-align: center !important;
+  padding: 0px 0px 12px 0px !important;
 }

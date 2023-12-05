@@ -630,14 +630,17 @@ const ProductList = React.memo(function ProductList({ data }) {
       order: ["asc", "desc"].includes(query?.order) ? query?.order : undefined,
       limit: limit,
       offset: (page - 1) * limit,
-    }).then((newItems) => {
-      setItems((prevItems) =>
-        Array.from(new Set(prevItems.concat(newItems?.data?.records)))
-      );
-      setPage(newItems?.data?.offset / limit + 1);
-      setTotal(newItems?.data?.length);
-    });
-    setLoading(false);
+    })
+      .then((newItems) => {
+        setItems((prevItems) =>
+          Array.from(new Set(prevItems.concat(newItems?.data?.records)))
+        );
+        setPage(newItems?.data?.offset / limit + 1);
+        setTotal(newItems?.data?.length);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const loadMore = useCallback(() => {
@@ -702,13 +705,18 @@ const ProductList = React.memo(function ProductList({ data }) {
         <div className="flex flex-wrap items-center align-center justify-start gap-1">
           <p className="font-medium text-ms m-0">Lọc theo: </p>
           {data?.filter?.brand?.split(",")?.map((brand) => (
-            <Tag closable={true} onClose={() => handleCloseTag("brand", brand)}>
+            <Tag
+              key={`brand-${brand}`}
+              closable={true}
+              onClose={() => handleCloseTag("brand", brand)}
+            >
               Thương hiệu: {brand}
             </Tag>
           ))}
           {data?.filter?.price &&
             PRICE_LIST.find((item) => item.key === data?.filter?.price) && (
               <Tag
+                key={`price-${data?.filter?.price}`}
                 closable={true}
                 onClose={() => handleCloseTag("price", data?.filter?.price)}
               >
@@ -765,8 +773,11 @@ const ProductList = React.memo(function ProductList({ data }) {
           <ProductItems data={product} key={product?.id} />
         ))}
       </div>
-      <div ref={loader}>
-        <Spin spinning={loading} indicator={<AiOutlineLoading />} />
+      <div
+        ref={loader}
+        className="flex items-center align-center justify-center w-full"
+      >
+        <Spin spinning={loading} />
       </div>
     </div>
   );

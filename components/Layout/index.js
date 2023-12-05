@@ -14,7 +14,7 @@ const AccountBar = () => {
     {
       key: "account-info",
       label: (
-        <Link href="/profile" className="text-gray-600 text-xs font-medium">
+        <Link href="/user/profile" className="text-gray-600 text-xs font-medium">
           Thông tin tài khoản
         </Link>
       ),
@@ -22,7 +22,7 @@ const AccountBar = () => {
     {
       key: "tracking-order",
       label: (
-        <Link href="#" className="text-gray-600 text-xs font-medium">
+        <Link href="/user/orders" className="text-gray-600 text-xs font-medium">
           Tra cứu đơn hàng
         </Link>
       ),
@@ -116,7 +116,7 @@ const DefaultLayout = ({
         {showCategories == true && <Categories data={data?.brands} />}
       </div>
       {!fullWidth ? (
-        <div className="m-auto mt-0 w-full px-5 py-5 md:py-8 lg:max-w-5xl h-fit shrink-0">
+        <div className="m-auto mt-0 w-full px-5 py-5 md:py-8 lg:px-0 lg:max-w-5xl h-fit shrink-0">
           {children}
         </div>
       ) : (

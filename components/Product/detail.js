@@ -20,7 +20,7 @@ import {
 } from "react-icons/fa";
 import { formatCurrency } from "@/utils/currency";
 import { useUser } from "../Provider/AuthProvider";
-import { LoginForm } from "../Login/login";
+import { QuickLoginForm } from "../Form/Authentication/login";
 import { useRouter } from "next/router";
 
 function VariantSpecification({ variant }) {
@@ -376,7 +376,7 @@ export default function ProductDetail({ data }) {
                       </Button>
                     ) : (
                       <Popover
-                        content={<LoginForm onSuccess={addToCart} />}
+                        content={<QuickLoginForm onSuccess={addToCart} />}
                         title="Đăng nhập để thêm vào giỏ hàng"
                         trigger={"click"}
                       >
@@ -399,7 +399,7 @@ export default function ProductDetail({ data }) {
                       </Button>
                     ) : (
                       <Popover
-                        content={<LoginForm />}
+                        content={<QuickLoginForm />}
                         title="Đăng nhập để mua hàng"
                         trigger={"click"}
                       >

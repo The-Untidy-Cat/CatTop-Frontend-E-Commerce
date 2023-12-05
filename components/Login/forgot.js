@@ -168,7 +168,6 @@ export default function ForgetPassword() {
               onFinish={handleRequestOTP}
               form={checkEmailForm}
             >
-              <Form.ErrorList />
               <p className="m-0">Nhập email đã đăng ký</p>
               <Form.Item
                 name="email"
