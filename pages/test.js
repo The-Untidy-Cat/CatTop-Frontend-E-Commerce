@@ -7,18 +7,10 @@ import Login from "@/components/Login/login";
 // import Detail from "@/components/LapDetail/comp";
 // import Booking from "@/components/book/comp";
 // import Apps from "@/components/LapDetail/phone";
-// import Apps from "@/components/invDetail/detail";
-const { api } = require("@/utils/axios");
+import Apps from "@/components/Order/detail";
+// const { api } = require("@/utils/axios");
 
 const App = () => {
-  try {
-    const response =  api.get(`/web/brands`);
-    console.log(response)
-  } catch (error) {
-    console.log(error);
-  }
-
-  return <div>abx</div>
-  // return <Apps></Apps>;
+  return <Apps></Apps>;
 };
 export default App;
