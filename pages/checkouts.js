@@ -32,7 +32,7 @@ export default function CheckoutsPage({ data }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   try {
     const { query } = context;
     const promiseArr = [
