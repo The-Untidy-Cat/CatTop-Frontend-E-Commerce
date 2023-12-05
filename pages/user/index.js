@@ -22,7 +22,7 @@ export default function ProfilePage({ data }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
     const [brands, newProducts] = await Promise.all([
       await Axios.get("/web/brands"),

@@ -21,7 +21,7 @@ export default function CartPage({ data }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   try {
     const [brands, newProducts] = await Promise.all([
       await Axios.get("/web/brands"),
