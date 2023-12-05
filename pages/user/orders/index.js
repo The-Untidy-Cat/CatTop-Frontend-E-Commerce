@@ -4,7 +4,7 @@ import OrderView from "@/components/Order/display";
 import PrivateWrapper from "@/components/Wrapper";
 import { Axios } from "@/utils/axios";
 
-export default function ProfilePage({ data }) {
+export default function OrderPage({ data }) {
   return (
     <PrivateWrapper>
       <DefaultLayout data={data}>

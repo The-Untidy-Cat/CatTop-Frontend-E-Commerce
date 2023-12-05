@@ -10,7 +10,7 @@ export default function ProfilePage({ data }) {
     <PrivateWrapper>
       <DefaultLayout data={data}>
         <div className="md:hidden">
-          <ProfileLayout/>
+          <ProfileLayout />
         </div>
         <div className="hidden md:block">
           <ProfileLayout activeKey={"my-profile"}>

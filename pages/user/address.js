@@ -4,7 +4,7 @@ import PrivateWrapper from "@/components/Wrapper";
 import { AddressView } from "@/components/Profile";
 import { Axios } from "@/utils/axios";
 
-export default function ProfilePage({ data }) {
+export default function AddressPage({ data }) {
   return (
     <PrivateWrapper>
       <DefaultLayout data={data}>

@@ -4,7 +4,7 @@ import { ChangePasswordView } from "@/components/Profile";
 import PrivateWrapper from "@/components/Wrapper";
 import { Axios } from "@/utils/axios";
 
-export default function ProfilePage({ data }) {
+export default function ChangePasswordPage({ data }) {
   return (
     <PrivateWrapper>
       <DefaultLayout data={data}>
