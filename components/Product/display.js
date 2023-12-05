@@ -160,22 +160,22 @@ const items = [
   },
 ];
 
-const BrandsFilter = ({ data }) => {
+const BrandsFilter = ({ data, onChange }) => {
   const router = useRouter();
   const [form] = Form.useForm();
   const handleCheckAll = () => {
     form.setFieldsValue({
       brand: data?.brands?.map((brand) => brand.name),
     });
-    const { query } = router;
+    onChange && onChange();
     router.push({
       query: {
         ...router.query,
+        brand: undefined
       },
     });
   };
   const handleChange = () => {
-    const { query } = router;
     const brand = form.getFieldValue("brand");
     router.push({
       query: {
@@ -183,6 +183,7 @@ const BrandsFilter = ({ data }) => {
         brand: brand?.length > 0 ? brand?.join(",") : undefined,
       },
     });
+    onChange && onChange();
   };
   useEffect(() => {
     form.setFieldsValue({
@@ -213,12 +214,12 @@ const BrandsFilter = ({ data }) => {
   );
 };
 
-const PriceFilter = () => {
+const PriceFilter = ({ onChange }) => {
   const router = useRouter();
   const handleChange = () => {
-    const { query } = router;
     const price = form.getFieldValue("price");
     const selectedPrice = PRICE_LIST.find((item) => item.key == price);
+    onChange && onChange();
     router.push({
       query: {
         ...router.query,
@@ -251,348 +252,17 @@ const PriceFilter = () => {
   );
 };
 
-const ProductPage = () => {
-  const options1 = [
-    { label: "Dell", value: 1 },
-    { label: "LG", value: 2 },
-    { label: "Asus", value: 3 },
-    { label: "Apple", value: 4 },
-    { label: "Lenovo", value: 5 },
-    { label: "Microsoft", value: 6 },
-    { label: "HP", value: 7 },
-    { label: "Acer", value: 8 },
-  ];
-  const handleCheckboxChange = (e) => {
-    console.log(e);
-  };
-
-  const brands = [
-    {
-      key: 1,
-      label: (
-        <Checkbox.Group className="grid grid-cols-2 gap-2">
-          {options1.map((option) => (
-            <Checkbox value={option.value}>{option.label}</Checkbox>
-          ))}
-        </Checkbox.Group>
-      ),
-    },
-  ];
-  const options2 = [
-    { label: "Văn phòng, học tập", value: 1 },
-    { label: "Quay dựng Video", value: 2 },
-    { label: "Gaming", value: 3 },
-    { label: "2D Design", value: 4 },
-    { label: "3D Design", value: 5 },
-    { label: "Lập trình", value: 6 },
-  ];
-
-  const demands = [
-    {
-      key: 1,
-      label: (
-        <Checkbox.Group className="grid grid-cols-2 gap-2">
-          {options2.map((option) => (
-            <Checkbox value={option.value}>{option.label}</Checkbox>
-          ))}
-        </Checkbox.Group>
-      ),
-    },
-  ];
-
-  const options3 = [
-    { label: "Dưới 10 triệu", value: 1 },
-    { label: "Từ 10 - 15 triệu", value: 2 },
-    { label: "Từ 15 - 20 triệu", value: 3 },
-    { label: "Từ 20 - 25 triệu", value: 4 },
-    { label: "Từ 25 - 30 triệu", value: 5 },
-    { label: "Từ 30 - 40 triệu", value: 6 },
-    { label: "Trên 40 triệu", value: 7 },
-  ];
-
-  const prices = [
-    {
-      key: 1,
-      label: (
-        <Checkbox.Group className="grid grid-cols-2 gap-2">
-          {options3.map((option) => (
-            <Checkbox value={option.value}>{option.label}</Checkbox>
-          ))}
-        </Checkbox.Group>
-      ),
-    },
-  ];
-
-  const options4 = [
-    { label: "Chính hãng", value: 1 },
-    { label: "Nhập khẩu", value: 2 },
-  ];
-
-  const sources = [
-    {
-      key: 1,
-      label: (
-        <Checkbox.Group className="grid grid-cols-1 gap-2">
-          {options4.map((option) => (
-            <Checkbox value={option.value}>{option.label}</Checkbox>
-          ))}
-        </Checkbox.Group>
-      ),
-    },
-  ];
-
-  const options5 = [
-    { label: "Mới, Sealed", value: 1 },
-    { label: "Mới, Full box", value: 2 },
-    { label: "Outlet", value: 3 },
-    { label: "Đã qua sử dụng", value: 4 },
-  ];
-
-  const status = [
-    {
-      key: 1,
-      label: (
-        <Checkbox.Group className="grid grid-cols-1 gap-2">
-          {options5.map((option) => (
-            <Checkbox value={option.value}>{option.label}</Checkbox>
-          ))}
-        </Checkbox.Group>
-      ),
-    },
-  ];
-
-  const options6 = [
-    { label: "Trắng", value: 1 },
-    { label: "Hồng", value: 2 },
-    { label: "Đỏ", value: 3 },
-    { label: "Xanh dương", value: 4 },
-    { label: "Xanh lá", value: 5 },
-    { label: "Đen", value: 6 },
-    { label: "Xám", value: 7 },
-    { label: "Vàng", value: 8 },
-    { label: "Cam", value: 9 },
-    { label: "Tím", value: 10 },
-  ];
-  const color = [
-    {
-      key: 1,
-      label: (
-        <Checkbox.Group className="grid grid-cols-2 gap-2">
-          {options6.map((option) => (
-            <Checkbox value={option.value}>{option.label}</Checkbox>
-          ))}
-        </Checkbox.Group>
-      ),
-    },
-  ];
-  const optionsSX = [
-    {
-      key: 1,
-      label: (
-        <Radio.Group className="flex flex-col gap-2">
-          <Radio value="popular">Nổi bật nhất</Radio>
-          <Radio value="asc">Giá thấp - cao</Radio>
-          <Radio value="desc">Giá cao - thấp</Radio>
-        </Radio.Group>
-      ),
-    },
-  ];
-
-  return (
-    <div className="bg-secondary/[.3] w-full h-max p-12 pt-6">
-      <div className="bg-white rounded-2xl p-6">
-        <p className="text-2xl font-semibold">Laptop</p>
-        <p className="mt-2">
-          Laptop là một thiết bị máy tính có kích thước nhỏ gọn và di động. Nó
-          được thiết kế để sử dụng trong các hoạt động làm việc, giải trí hoặc
-          học tập khi di chuyển mà không cần phải sử dụng những chiếc máy tính
-          để bàn cồng kềnh.
-        </p>
-        <div className="border-b border-gray my-5"></div>
-        <div className="flex space-x-3 overflow-x-auto ">
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">Dell</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">Lenovo</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">LG</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">Microsoft</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">Asus</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">Apple</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">Acer</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">GIGABYTE</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">VAIO</a>
-          </Button>
-          <Button
-            type="primary"
-            size="middle"
-            className="text-black text-xs bg-secondary/[.3]"
-          >
-            <a href="#">MSI</a>
-          </Button>
-        </div>
-      </div>
-
-      <div className="mt-8 flex space-x-3 overflow-x-auto">
-        <Dropdown
-          menu={{
-            items: brands,
-          }}
-          className="h-10 border-white bg-white text-xs font-semibold"
-        >
-          <Button>
-            Thương hiệu <DownOutlined />
-          </Button>
-        </Dropdown>
-
-        <Dropdown
-          menu={{
-            items: demands,
-          }}
-          className="h-10 border-white bg-white text-xs font-semibold"
-        >
-          <Button>
-            Nhu cầu <DownOutlined />
-          </Button>
-        </Dropdown>
-
-        <Dropdown
-          menu={{
-            items: prices,
-          }}
-          className=" h-10 border-white bg-white text-xs font-semibold"
-        >
-          <Button>
-            Khoảng giá <DownOutlined />
-          </Button>
-        </Dropdown>
-
-        <Dropdown
-          menu={{
-            items: sources,
-          }}
-          className="h-10 border-white bg-white text-xs font-semibold"
-        >
-          <Button>
-            Nguồn hàng <DownOutlined />
-          </Button>
-        </Dropdown>
-
-        <Button className="bg-white border-white mr-3 h-10">
-          <Checkbox>
-            <span className="text-xs font-semibold">Có khuyến mãi</span>
-          </Checkbox>
-        </Button>
-        <Dropdown
-          menu={{
-            items: status,
-          }}
-          className="h-10 border-white bg-white text-xs font-semibold"
-        >
-          <Button>
-            Tình trạng <DownOutlined />
-          </Button>
-        </Dropdown>
-
-        <Dropdown
-          menu={{
-            items: color,
-          }}
-          className="h-10 border-white bg-white text-xs font-semibold"
-        >
-          <Button>
-            Màu sắc <DownOutlined />
-          </Button>
-        </Dropdown>
-      </div>
-      <div className="mt-4">
-        <Dropdown
-          menu={{
-            items: optionsSX,
-          }}
-          className="float-right h-10 border-white bg-white text-xs font-semibold"
-        >
-          <Button>
-            Sắp xếp <DownOutlined />
-          </Button>
-        </Dropdown>
-      </div>
-      <div className="mt-24 gap-4 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
-        {items.map((item) => {
-          return <ProductItems data={item} />;
-        })}
-      </div>
-      <div className="mt-10 flex justify-center">
-        <Button
-          size="large"
-          className="border-white bg-white w-96 text-base font-bold text-primary"
-        >
-          Xem thêm
-        </Button>
-      </div>
-    </div>
-  );
-};
-
 const ProductList = React.memo(function ProductList({ data }) {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(true);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const loader = useRef(null);
   const router = useRouter();
 
   const handleCloseTag = (param, value) => {
+    setLoading(true);
     switch (param) {
       case "brand":
         let replacedBrand = data?.filter?.brand
@@ -617,7 +287,7 @@ const ProductList = React.memo(function ProductList({ data }) {
   };
 
   const getProducts = () => {
-    setLoading(true);
+    setLoadingMore(true);
     const { query } = router;
     const limit = 4;
     const selectedPrice = PRICE_LIST.find((item) => item.key == query?.price);
@@ -639,7 +309,7 @@ const ProductList = React.memo(function ProductList({ data }) {
         setTotal(newItems?.data?.length);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadingMore(false);
       });
   };
 
@@ -689,9 +359,9 @@ const ProductList = React.memo(function ProductList({ data }) {
           )}
         </h1>
         <Skeleton
-          loading={loading}
+          loading={loading || loadingMore}
           paragraph={{
-            rows: 1,
+            rows: 4,
           }}
           title={false}
           active
@@ -700,64 +370,70 @@ const ProductList = React.memo(function ProductList({ data }) {
             Tìm thấy <span className="font-medium">{items?.length}</span> sản
             phẩm
           </p>
-        </Skeleton>
-        <div className="border-0 border-t my-1 w-full"></div>
-        <div className="flex flex-wrap items-center align-center justify-start gap-1">
-          <p className="font-medium text-ms m-0">Lọc theo: </p>
-          {data?.filter?.brand?.split(",")?.map((brand) => (
-            <Tag
-              key={`brand-${brand}`}
-              closable={true}
-              onClose={() => handleCloseTag("brand", brand)}
-            >
-              Thương hiệu: {brand}
-            </Tag>
-          ))}
-          {data?.filter?.price &&
-            PRICE_LIST.find((item) => item.key === data?.filter?.price) && (
+          <div className="border-0 border-t my-1 w-full"></div>
+          <div className="flex flex-wrap items-center align-center justify-start gap-1">
+            <p className="font-medium text-ms m-0">Lọc theo: </p>
+            {data?.filter?.brand?.split(",")?.map((brand) => (
               <Tag
-                key={`price-${data?.filter?.price}`}
+                key={`brand-${brand}`}
                 closable={true}
-                onClose={() => handleCloseTag("price", data?.filter?.price)}
+                onClose={() => handleCloseTag("brand", brand)}
               >
-                Giá:{" "}
-                {
-                  PRICE_LIST.find((item) => item.key === data?.filter?.price)
-                    .label
-                }
+                Thương hiệu: {brand}
               </Tag>
-            )}
-        </div>
-        <div className="flex gap-2">
-          <Popover
-            content={<BrandsFilter data={data} />}
-            trigger="click"
-            placement="bottom"
-            className="shadow-0"
-          >
-            <Button
-              type="text"
-              className="flex gap-1 p-3 items-center align-center text-xs font-medium bg-white rounded-lg border border-gray-300"
+            ))}
+            {data?.filter?.price &&
+              PRICE_LIST.find((item) => item.key === data?.filter?.price) && (
+                <Tag
+                  key={`price-${data?.filter?.price}`}
+                  closable={true}
+                  onClose={() => handleCloseTag("price", data?.filter?.price)}
+                >
+                  Giá:{" "}
+                  {
+                    PRICE_LIST.find((item) => item.key === data?.filter?.price)
+                      .label
+                  }
+                </Tag>
+              )}
+          </div>
+          <div className="flex gap-2">
+            <Popover
+              content={
+                <BrandsFilter data={data} onChange={() => setLoading(true)} />
+              }
+              trigger="click"
+              placement="bottom"
+              className="shadow-0"
             >
-              Thương hiệu <FaChevronDown className="text-xs" />
-            </Button>
-          </Popover>
-          <Popover
-            content={<PriceFilter data={data} />}
-            trigger="click"
-            placement="bottom"
-            className="shadow-0"
-          >
-            <Button
-              type="text"
-              className="flex gap-1 p-3 items-center align-center text-xs font-medium bg-white rounded-lg border border-gray-300"
+              <Button
+                type="text"
+                className="flex gap-1 p-3 items-center align-center text-xs font-medium bg-white rounded-lg border border-gray-300"
+              >
+                Thương hiệu <FaChevronDown className="text-xs" />
+              </Button>
+            </Popover>
+            <Popover
+              content={
+                <PriceFilter data={data} onChange={() => setLoading(true)} />
+              }
+              trigger="click"
+              placement="bottom"
+              className="shadow-0"
             >
-              Khoảng giá <FaChevronDown className="text-xs" />
-            </Button>
-          </Popover>
-        </div>
+              <Button
+                type="text"
+                className="flex gap-1 p-3 items-center align-center text-xs font-medium bg-white rounded-lg border border-gray-300"
+              >
+                Khoảng giá <FaChevronDown className="text-xs" />
+              </Button>
+            </Popover>
+          </div>
+        </Skeleton>
       </div>
-      {items?.length == 0 && !loading && (
+      {loading ? (
+        <Spin spinning={true} className="m-auto" />
+      ) : items?.length == 0 ? (
         <div className="flex flex-col items-center justify-center w-full h-64">
           <Empty
             description={
@@ -767,20 +443,17 @@ const ProductList = React.memo(function ProductList({ data }) {
             }
           />
         </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+          {items?.map((product) => (
+            <ProductItems data={product} key={product?.id} />
+          ))}
+        </div>
       )}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-        {items?.map((product) => (
-          <ProductItems data={product} key={product?.id} />
-        ))}
-      </div>
-      <div
-        ref={loader}
-        className="flex items-center align-center justify-center w-full"
-      >
-        <Spin spinning={loading} />
-      </div>
+
+      <div ref={loader} />
     </div>
   );
 });
 
-export { ProductPage, ProductList };
+export { ProductList };
