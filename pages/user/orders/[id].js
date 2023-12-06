@@ -1,6 +1,6 @@
 import { DefaultLayout } from "@/components/Layout";
 import { ProfileLayout } from "@/components/Layout/Profile";
-import OrderView from "@/components/Order/display";
+import OrderDetailView from "@/components/Order/detail";
 import PrivateWrapper from "@/components/Wrapper";
 import { Axios } from "@/utils/axios";
 
@@ -9,7 +9,7 @@ export default function OrderDetailPage({ data }) {
     <PrivateWrapper>
       <DefaultLayout data={data}>
         <ProfileLayout activeKey={"my-order"}>
-          <OrderView />
+          <OrderDetailView />
         </ProfileLayout>
       </DefaultLayout>
     </PrivateWrapper>

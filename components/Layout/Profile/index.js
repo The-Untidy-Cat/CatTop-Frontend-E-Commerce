@@ -7,6 +7,7 @@ import { FaRegEdit, FaUser } from "react-icons/fa";
 import { Button, Drawer } from "antd";
 import { useState } from "react";
 import { MdChevronLeft } from "react-icons/md";
+import { IoCart } from "react-icons/io5";
 
 export const ProfileLayout = ({ children, activeKey }) => {
   const { user } = useUser();
@@ -59,7 +60,7 @@ export const ProfileLayout = ({ children, activeKey }) => {
       name: "Đơn hàng",
       type: "link",
       path: "/user/orders",
-      icon: <FaUser />,
+      icon: <IoCart/>,
     },
   ];
 

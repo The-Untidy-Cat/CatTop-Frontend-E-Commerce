@@ -107,7 +107,7 @@ export default function OrderView() {
     },
     {
       key: "delivering",
-      label: "Giao hàng",
+      label: "Vận chuyển",
       children: (
         <OrderGroup
           data={

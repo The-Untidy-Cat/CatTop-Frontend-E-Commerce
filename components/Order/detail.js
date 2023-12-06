@@ -5,8 +5,7 @@ import Image from 'next/image';
 import logo from '@/public/uit.png'
 import { Steps } from 'antd';
 
-
-export default function Apps() {
+export default function OrderDetailView() {
     const { TextArea } = Input;
     const donHang = {
         maDH: "ABC123XYZ",
