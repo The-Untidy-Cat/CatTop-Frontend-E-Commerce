@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, DatePicker, Radio, notification } from "antd";
 import moment from "moment";
 import { useUser } from "../../Provider/AuthProvider";
@@ -6,7 +6,9 @@ import { useUser } from "../../Provider/AuthProvider";
 export const ChangePasswordForm = () => {
   const [form] = Form.useForm();
   const { changePassword } = useUser();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = (values) => {
+    setLoading(true);
     changePassword(values)
       .then(() => {
         notification.success({
@@ -30,6 +32,9 @@ export const ChangePasswordForm = () => {
             ]);
           });
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   return (
