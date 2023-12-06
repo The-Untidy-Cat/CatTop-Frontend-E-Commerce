@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Rate } from 'antd';
 import Image from 'next/image';
 import logo from '@/public/uit.png'
+import { Steps } from 'antd';
 
 
 export default function Apps() {
@@ -52,15 +53,48 @@ export default function Apps() {
 
     return (
         <div className='flex flex-col bg-white w-full h-full gap-2 p-8 lg:p-40'>
+            <div>
+                {donHang.ptNhanHang === "Giao tận nơi"
+                    ?
+                    <Steps
+                        size="small"
+                        current={2}
+                        items={[
+                            {
+                                title: 'Xác nhận',
+                            },
+                            {
+                                title: 'Vận chuyển',
+                            },
+                            {
+                                title: 'Nhận hàng',
+                            },
+                        ]}
+                    />
+                    :
+                    <Steps
+                        size="small"
+                        current={2}
+                        items={[
+                            {
+                                title: 'Xác nhận',
+                            },
+                            {
+                                title: 'Nhận hàng',
+                            },
+                        ]}
+                    />
+                }
+            </div>
             <div className="grid grid-cols-2">
                 <div>
                     <p className="font-semibold text-primary">Mã đơn hàng </p>
                     <p>{donHang.maDH}</p>
                 </div>
-                <div>
+                {/* <div>
                     <p className="font-semibold text-primary">Trạng thái </p>
                     <p>{donHang.trangThai}</p>
-                </div>
+                </div> */}
             </div>
             <div className="border-t pt-2">
                 <p className="font-semibold text-primary">Thông tin đơn hàng</p>
@@ -118,7 +152,7 @@ export default function Apps() {
                 </div>
                 <div className="flex flex-col gap-4">
                     <Rate allowHalf defaultValue={2.5} />
-                    <TextArea rows={4} placeholder="Nhập đánh giá"/>
+                    <TextArea rows={4} placeholder="Nhập đánh giá" />
                 </div>
             </Modal>
         </div>
