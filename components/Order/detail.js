@@ -29,11 +29,14 @@ export default function OrderDetailView() {
     setLoading(true);
     getOrder(query.id)
       .then((res) => {
+        if (!res?.data?.order) {
+          router.push("/user/orders");
+        }
         setOrder(res?.data?.order || {});
       })
       .catch((err) => {
         console.log(err);
-        // router.push("/user/orders");
+        router.push("/user/orders");
       })
       .finally(() => {
         setLoading(false);

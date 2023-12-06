@@ -29,132 +29,157 @@ function VariantSpecification({ variant }) {
   const CPU = [
     {
       key: 1,
-      label: 'Loại CPU',
-      children: variant?.specifications?.cpu?.name
+      label: "Loại CPU",
+      children: variant?.specifications?.cpu?.name,
     },
     {
       key: 2,
-      label: 'Tốc độ',
-      children: variant?.specifications?.cpu?.turbo_clock ? variant?.specifications?.cpu?.base_clock + ' GHz, Lên tới ' + variant?.specifications?.cpu?.turbo_clock + ' GHz' : variant?.specifications?.cpu?.base_clock + ' GHz'
+      label: "Tốc độ",
+      children: variant?.specifications?.cpu?.turbo_clock
+        ? variant?.specifications?.cpu?.base_clock +
+          " GHz, Lên tới " +
+          variant?.specifications?.cpu?.turbo_clock +
+          " GHz"
+        : variant?.specifications?.cpu?.base_clock + " GHz",
     },
     {
       key: 3,
-      label: 'Bộ nhớ đệm',
-      children: variant?.specifications?.cpu?.cache ? variant?.specifications?.cpu?.cache + ' MB' : ""
-    }
-  ]
+      label: "Bộ nhớ đệm",
+      children: variant?.specifications?.cpu?.cache
+        ? variant?.specifications?.cpu?.cache + " MB"
+        : "",
+    },
+  ];
   const RAM = [
     {
       key: 1,
-      label: 'Loại RAM',
-      children: variant?.specifications?.ram?.type
+      label: "Loại RAM",
+      children: variant?.specifications?.ram?.type,
     },
     {
       key: 2,
-      label: 'Dung lượng',
-      children: variant?.specifications?.ram?.capacity ? variant?.specifications?.ram?.capacity / 1024 + ' GB' : null
+      label: "Dung lượng",
+      children: variant?.specifications?.ram?.capacity
+        ? variant?.specifications?.ram?.capacity / 1024 + " GB"
+        : null,
     },
     {
       key: 3,
-      label: 'Tần số',
-      children: variant?.specifications?.ram?.frequency ? variant?.specifications?.ram?.frequency + ' MHz' : null
-    }
-  ]
+      label: "Tần số",
+      children: variant?.specifications?.ram?.frequency
+        ? variant?.specifications?.ram?.frequency + " MHz"
+        : null,
+    },
+  ];
   const Display = [
     {
       key: 1,
-      label: 'Độ phân giải',
-      children: variant?.specifications?.display?.resolution ? variant?.specifications?.display?.resolution + ' px' : ''
+      label: "Độ phân giải",
+      children: variant?.specifications?.display?.resolution
+        ? variant?.specifications?.display?.resolution + " px"
+        : "",
     },
     {
       key: 2,
-      label: 'Tần số làm mới',
-      children: variant?.specifications?.display?.refresh_rate ? variant?.specifications?.display?.refresh_rate + ' Hz' : ''
+      label: "Tần số làm mới",
+      children: variant?.specifications?.display?.refresh_rate
+        ? variant?.specifications?.display?.refresh_rate + " Hz"
+        : "",
     },
     {
       key: 3,
-      label: 'Công nghệ',
-      children: variant?.specifications?.display?.technology
+      label: "Công nghệ",
+      children: variant?.specifications?.display?.technology,
     },
     {
       key: 4,
-      label: 'Cảm ứng',
-      children: variant?.specifications?.display?.touch ? 'Có' : 'Không'
-    }
-  ]
+      label: "Cảm ứng",
+      children: variant?.specifications?.display?.touch ? "Có" : "Không",
+    },
+  ];
   const GPU = [
     {
       key: 1,
-      label: 'Loại Card',
-      children: variant?.specifications?.gpu?.type
+      label: "Loại Card",
+      children: variant?.specifications?.gpu?.type,
     },
     {
       key: 2,
-      label: 'Tên Card',
-      children: variant?.specifications?.gpu?.name
+      label: "Tên Card",
+      children: variant?.specifications?.gpu?.name,
     },
     {
       key: 3,
-      label: 'Bộ nhớ',
-      children: variant?.specifications?.gpu?.memory ? variant?.specifications?.gpu?.memory + ' MB' : ''
+      label: "Bộ nhớ",
+      children: variant?.specifications?.gpu?.memory
+        ? variant?.specifications?.gpu?.memory + " MB"
+        : "",
     },
     {
       key: 4,
-      label: 'Tần số',
-      children: variant?.specifications?.gpu?.frequency ? variant?.specifications?.gpu?.frequency + ' MHz' : ''
-    }
-  ]
+      label: "Tần số",
+      children: variant?.specifications?.gpu?.frequency
+        ? variant?.specifications?.gpu?.frequency + " MHz"
+        : "",
+    },
+  ];
   const Storage = [
     {
       key: 1,
-      label: 'Dung lượng ' + variant?.specifications?.storage?.drive,
-      children: variant?.specifications?.storage?.capacity ? variant?.specifications?.storage?.capacity + ' GB' : ''
+      label: "Dung lượng " + variant?.specifications?.storage?.drive,
+      children: variant?.specifications?.storage?.capacity
+        ? variant?.specifications?.storage?.capacity + " GB"
+        : "",
     },
     {
       key: 2,
-      label: 'Loại',
-      children: variant?.specifications?.storage?.type
-    }
-  ]
+      label: "Loại",
+      children: variant?.specifications?.storage?.type,
+    },
+  ];
   const Keyboard_Touchpad = [
     {
       key: 1,
-      label: 'Bàn phím',
-      children: variant?.specifications?.keyboard
+      label: "Bàn phím",
+      children: variant?.specifications?.keyboard,
     },
     {
       key: 2,
-      label: 'Touchpad',
-      children: variant?.specifications?.touchpad ? 'Có' : 'Không'
-    }
-  ]
+      label: "Touchpad",
+      children: variant?.specifications?.touchpad ? "Có" : "Không",
+    },
+  ];
   const Other = [
     {
       key: 1,
-      label: 'Hệ điều hành',
-      children: variant?.specifications?.os
+      label: "Hệ điều hành",
+      children: variant?.specifications?.os,
     },
     {
       key: 2,
-      label: 'Cổng kết nối',
-      children: variant?.specifications?.ports
+      label: "Cổng kết nối",
+      children: variant?.specifications?.ports,
     },
     {
       key: 3,
-      label: 'Pin',
-      children: variant?.specifications?.battery ? variant?.specifications?.battery + ' mAh' : ''
+      label: "Pin",
+      children: variant?.specifications?.battery
+        ? variant?.specifications?.battery + " mAh"
+        : "",
     },
     {
       key: 4,
-      label: 'Webcam',
-      children: variant?.specifications?.webcam ? 'Có' : 'Không'
+      label: "Webcam",
+      children: variant?.specifications?.webcam ? "Có" : "Không",
     },
     {
       key: 5,
-      label: 'Khối lượng',
-      children: variant?.specifications?.weight ? variant?.specifications?.weight + ' kg' : ''
-    }
-  ]
+      label: "Khối lượng",
+      children: variant?.specifications?.weight
+        ? variant?.specifications?.weight + " kg"
+        : "",
+    },
+  ];
   return (
     <>
       <div className="flex flex-col bg-white rounded gap-2 p-4">
@@ -162,63 +187,86 @@ function VariantSpecification({ variant }) {
           <div className="flex justify-between">
             <p className="font-semibold text-lg">Cấu hình đặc điểm</p>
           </div>
-          <div className="hidden md:grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <div>
               <p className="font-semibold">Bộ xử lý</p>
               <div className="grid grid-cols-7 gap-1">
-                <p className="col-span-3">{CPU[0].label}</p><p className="col-span-4">{CPU[0].children}</p>
-                <p className="col-span-3">{CPU[1].label}</p><p className=" col-span-4">{CPU[1].children}</p>
-                <p className="col-span-3">{CPU[2].label}</p><p className=" col-span-4">{CPU[2].children}</p>
+                <p className="col-span-3">{CPU[0].label}</p>
+                <p className="col-span-4">{CPU[0].children}</p>
+                <p className="col-span-3">{CPU[1].label}</p>
+                <p className=" col-span-4">{CPU[1].children}</p>
+                <p className="col-span-3">{CPU[2].label}</p>
+                <p className=" col-span-4">{CPU[2].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">RAM</p>
               <div className="grid grid-cols-5 gap-1">
-                <p className="col-span-2">{RAM[0].label}</p><p className="col-span-3">{RAM[0].children}</p>
-                <p className="col-span-2">{RAM[1].label}</p><p className=" col-span-3">{RAM[1].children}</p>
-                <p className="col-span-2">{RAM[2].label}</p><p className=" col-span-3">{RAM[2].children}</p>
+                <p className="col-span-2">{RAM[0].label}</p>
+                <p className="col-span-3">{RAM[0].children}</p>
+                <p className="col-span-2">{RAM[1].label}</p>
+                <p className=" col-span-3">{RAM[1].children}</p>
+                <p className="col-span-2">{RAM[2].label}</p>
+                <p className=" col-span-3">{RAM[2].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">Màn hình</p>
               <div className="grid grid-cols-7 gap-1">
-                <p className="col-span-3">{Display[0].label}</p><p className="col-span-4">{Display[0].children}</p>
-                <p className="col-span-3">{Display[1].label}</p><p className=" col-span-4">{Display[1].children}</p>
-                <p className="col-span-3">{Display[2].label}</p><p className=" col-span-4">{Display[2].children}</p>
-                <p className="col-span-3">{Display[3].label}</p><p className=" col-span-4">{Display[3].children}</p>
+                <p className="col-span-3">{Display[0].label}</p>
+                <p className="col-span-4">{Display[0].children}</p>
+                <p className="col-span-3">{Display[1].label}</p>
+                <p className=" col-span-4">{Display[1].children}</p>
+                <p className="col-span-3">{Display[2].label}</p>
+                <p className=" col-span-4">{Display[2].children}</p>
+                <p className="col-span-3">{Display[3].label}</p>
+                <p className=" col-span-4">{Display[3].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">Card đồ họa</p>
               <div className="grid grid-cols-5 gap-1">
-                <p className="col-span-2">{GPU[0].label}</p><p className="col-span-3">{GPU[0].children}</p>
-                <p className="col-span-2">{GPU[1].label}</p><p className=" col-span-3">{GPU[1].children}</p>
-                <p className="col-span-2">{GPU[2].label}</p><p className=" col-span-3">{GPU[2].children}</p>
-                <p className="col-span-2">{GPU[3].label}</p><p className=" col-span-3">{GPU[3].children}</p>
+                <p className="col-span-2">{GPU[0].label}</p>
+                <p className="col-span-3">{GPU[0].children}</p>
+                <p className="col-span-2">{GPU[1].label}</p>
+                <p className=" col-span-3">{GPU[1].children}</p>
+                <p className="col-span-2">{GPU[2].label}</p>
+                <p className=" col-span-3">{GPU[2].children}</p>
+                <p className="col-span-2">{GPU[3].label}</p>
+                <p className=" col-span-3">{GPU[3].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">Ổ cứng</p>
               <div className="grid grid-cols-7 gap-1">
-                <p className="col-span-3">{Storage[0].label}</p><p className="col-span-4">{Storage[0].children}</p>
-                <p className="col-span-3">{Storage[1].label}</p><p className=" col-span-4">{Storage[1].children}</p>
+                <p className="col-span-3">{Storage[0].label}</p>
+                <p className="col-span-4">{Storage[0].children}</p>
+                <p className="col-span-3">{Storage[1].label}</p>
+                <p className=" col-span-4">{Storage[1].children}</p>
               </div>
             </div>
-            <div> 
+            <div>
               <p className="font-semibold">Bàn phím và Touchpad</p>
               <div className="grid grid-cols-5 gap-1">
-                <p className="col-span-2">{Keyboard_Touchpad[0].label}</p><p className="col-span-3">{Keyboard_Touchpad[0].children}</p>
-                <p className="col-span-2">{Keyboard_Touchpad[1].label}</p><p className=" col-span-3">{Keyboard_Touchpad[1].children}</p>
+                <p className="col-span-2">{Keyboard_Touchpad[0].label}</p>
+                <p className="col-span-3">{Keyboard_Touchpad[0].children}</p>
+                <p className="col-span-2">{Keyboard_Touchpad[1].label}</p>
+                <p className=" col-span-3">{Keyboard_Touchpad[1].children}</p>
               </div>
             </div>
             <div>
               <p className="font-semibold">Khác</p>
               <div className="grid grid-cols-7 gap-1">
-                <p className="col-span-3">{Other[0].label}</p><p className="col-span-4">{Other[0].children}</p>
-                <p className="col-span-3">{Other[1].label}</p><p className=" col-span-4">{Other[1].children}</p>
-                <p className="col-span-3">{Other[2].label}</p><p className=" col-span-4">{Other[2].children}</p>
-                <p className="col-span-3">{Other[3].label}</p><p className=" col-span-4">{Other[3].children}</p>
-                <p className="col-span-3">{Other[4].label}</p><p className=" col-span-4">{Other[4].children}</p>
+                <p className="col-span-3">{Other[0].label}</p>
+                <p className="col-span-4">{Other[0].children}</p>
+                <p className="col-span-3">{Other[1].label}</p>
+                <p className=" col-span-4">{Other[1].children}</p>
+                <p className="col-span-3">{Other[2].label}</p>
+                <p className=" col-span-4">{Other[2].children}</p>
+                <p className="col-span-3">{Other[3].label}</p>
+                <p className=" col-span-4">{Other[3].children}</p>
+                <p className="col-span-3">{Other[4].label}</p>
+                <p className=" col-span-4">{Other[4].children}</p>
               </div>
             </div>
           </div>
