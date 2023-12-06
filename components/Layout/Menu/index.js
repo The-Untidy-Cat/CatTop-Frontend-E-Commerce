@@ -105,7 +105,7 @@ export const SidebarMenu = ({ menu, activeKey = null }) => {
 
 const CategoriesMenu = ({ data }) => {
   return (
-    <div className="grid grid-flow-col auto-cols-max h-full min-w-48 w-full p-1">
+    <div className="grid md:grid-flow-col md:auto-cols-max h-full w-full p-1">
       <div className="flex flex-col gap-1 px-2">
         <p className="text-sm font-semibold text-gray-900">Thương hiệu</p>
         <div className="grid grid-cols-2 gap-x-2">
@@ -117,7 +117,7 @@ const CategoriesMenu = ({ data }) => {
                   query: { brand: item?.name || "#" },
                 }}
                 key={item.id}
-                className="font-medium text-sm text-gray-600 hover:text-primary transition-all duration-300 py-1"
+                className="font-medium text-sm text-gray-600 hover:text-primary transition-all duration-300 py-0.5"
               >
                 {item?.name}
               </Link>
@@ -139,7 +139,7 @@ const CategoriesMenu = ({ data }) => {
                   },
                 }}
                 key={item?.key}
-                className="font-medium text-sm text-gray-600 hover:text-primary transition-all duration-300 py-1"
+                className="font-medium text-sm text-gray-600 hover:text-primary transition-all duration-300 py-0.5"
               >
                 {item?.label}
               </Link>

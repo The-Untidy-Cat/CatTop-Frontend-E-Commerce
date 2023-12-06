@@ -79,7 +79,7 @@ const AccountBar = () => {
                   items: accountMenu,
                 }}
                 trigger={["click"]}
-                placement="bottom"
+                placement="bottomRight"
               >
                 <span className="flex justify-end items-center align-center text-gray-600 text-xs font-medium capitalize cursor-pointer gap-1">
                   {String(user?.first_name).toLowerCase()}
