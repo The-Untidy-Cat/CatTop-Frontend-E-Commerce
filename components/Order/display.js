@@ -52,7 +52,7 @@ const OrderCard = ({ order }) => {
       </div>
       <div className="flex flex-col divide-y">
         {order?.items?.map((item) => (
-          <OrderItem item={item} key={item?.variant?.id}/>
+          <OrderItem item={item} key={item?.variant?.id} />
         ))}
       </div>
       <div className="flex justify-end items-center p-2">
@@ -68,7 +68,7 @@ const OrderCard = ({ order }) => {
 
 const OrderGroup = ({ data }) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col w-full gap-1">
       {data?.length ? (
         data?.map((order) => <OrderCard order={order} />)
       ) : (
@@ -106,26 +106,21 @@ export default function OrderView() {
       ),
     },
     {
-      key: "confirmed",
-      label: "Chờ giao hàng",
-      children: (
-        <OrderGroup
-          data={orders?.filter((order) => order?.state == "confirmed") || []}
-        />
-      ),
-    },
-    {
       key: "delivering",
       label: "Giao hàng",
       children: (
         <OrderGroup
-          data={orders?.filter((order) => order?.state == "delivering") || []}
+          data={
+            orders?.filter((order) =>
+              ["confirmed", "delivering"].includes(order?.state)
+            ) || []
+          }
         />
       ),
     },
     {
       key: "delivered",
-      label: "Đã giao",
+      label: "Hoàn thành",
       children: (
         <OrderGroup
           data={orders?.filter((order) => order?.state == "delivered") || []}
@@ -152,16 +147,20 @@ export default function OrderView() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col w-full gap-2">
       <h1 className="text-lg font-semibold">Đơn hàng</h1>
-      <Spin spinning={loading} className="m-auto">
+
+      <Spin spinning={loading} className="m-auto w-full">
         <Tabs
           defaultActiveKey="1"
           items={items}
           onChange={onChange}
-          // className="c-tabs"
+          className="w-fit min-w-full"
+          rootClassName="w-full"
         />
       </Spin>
     </div>
   );
 }
+
+export { OrderItem, OrderCard, OrderGroup };
