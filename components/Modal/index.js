@@ -1,5 +1,6 @@
-import { Button, Modal } from "antd";
+import { Button, Drawer, Modal } from "antd";
 import React, { useState } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 
 export const ModalToggle = ({
   children,
@@ -34,16 +35,28 @@ export const ModalToggle = ({
       >
         {button.label}
       </Button>
-      <Modal
-        title={modal.title}
-        open={visible}
-        onCancel={() => setVisible(false)}
-        footer={null}
-        className={modal.className}
-        centered
-      >
-        {clonedChildren}
-      </Modal>
+      <BrowserView>
+        <Modal
+          title={modal.title}
+          open={visible}
+          onCancel={() => setVisible(false)}
+          footer={null}
+          className={modal.className}
+          centered
+        >
+          {clonedChildren}
+        </Modal>
+      </BrowserView>
+      <MobileView>
+        <Drawer
+          open={visible}
+          onClose={() => setVisible(false)}
+          title={modal.title}
+          placement="bottom"
+        >
+          {clonedChildren}
+        </Drawer>
+      </MobileView>
     </>
   );
 };

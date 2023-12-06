@@ -16,9 +16,12 @@ const OrderItem = ({ item }) => {
         className="w-20 md:w-24 shrink-0 object-cover rounded"
       />
       <div className="flex flex-col w-full">
-        <p className="font-semibold w-full break-words">
+        <Link
+          className="font-semibold w-full break-words"
+          href={`/products/${item?.variant?.product?.slug}`}
+        >
           {item?.variant?.product?.name}
-        </p>
+        </Link>
         <div className="flex justify-between">
           <div className="flex flex-col gap-1 m-0">
             <p className="p-1 rounded bg-gray-100 text-xs w-fit">

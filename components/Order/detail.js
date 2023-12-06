@@ -16,6 +16,8 @@ import { useUser } from "../Provider/AuthProvider";
 import { OrderItem } from "./display";
 import { formatCurrency } from "@/utils/currency";
 import { BankingBox } from "../Payment";
+import { ModalToggle } from "../Modal";
+import { RatingForm } from "../Form/Rating";
 const { TextArea } = Input;
 
 export default function OrderDetailView() {
@@ -31,6 +33,7 @@ export default function OrderDetailView() {
       .then((res) => {
         if (!res?.data?.order) {
           router.push("/user/orders");
+          return;
         }
         setOrder(res?.data?.order || {});
       })
@@ -162,7 +165,24 @@ export default function OrderDetailView() {
           <p className="font-semibold text-primary">Sản phẩm</p>
           <div className="flex flex-col gap-2">
             {order?.items?.map((item, index) => (
-              <OrderItem item={item} key={index} />
+              <div className="block" key={item?.id}>
+                <OrderItem item={item}  />
+                {order?.state === "delivered" && (
+                  <ModalToggle
+                    modal={{
+                      title: "Đánh giá sản phẩm",
+                    }}
+                    button={{
+                      label: "Đánh giá",
+                      size: "small",
+                      type: "default",
+                      className: "float-right bg-primary text-white",
+                    }}
+                  >
+                    <RatingForm data={item} onSuccess={getData} />
+                  </ModalToggle>
+                )}
+              </div>
             ))}
           </div>
         </div>

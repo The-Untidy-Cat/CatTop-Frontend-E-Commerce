@@ -8,6 +8,7 @@ import {
   Modal,
   Popover,
   Radio,
+  Rate,
   Tag,
 } from "antd";
 import { useEffect, useState } from "react";
@@ -23,7 +24,8 @@ import { formatCurrency } from "@/utils/currency";
 import { useUser } from "../Provider/AuthProvider";
 import { QuickLoginForm } from "../Form/Authentication/login";
 import { useRouter } from "next/router";
-import storage from "redux-persist/lib/storage";
+import { MobileView } from "react-device-detect";
+import RateItems from "../Rate/items";
 
 function VariantSpecification({ variant }) {
   const CPU = [
@@ -565,9 +567,9 @@ export default function ProductDetail({ data }) {
               </div>
             </div>
           </Form>
-          <div className="block md:hidden w-full h-fit">
+          <MobileView>
             <VariantSpecification variant={currentVariant} />
-          </div>
+          </MobileView>
           <div className="flex gap-2 justify-between items-center bg-white rounded p-4">
             <Image
               src={data?.brand?.image}
@@ -580,6 +582,69 @@ export default function ProductDetail({ data }) {
             >
               Laptop {data?.brand?.name} <FaAngleRight />
             </Link>
+          </div>
+          <div className="flex flex-col gap-2 p-4 bg-white rounded h-fit">
+            <div className="flex justify-between">
+              <p className="sticky font-semibold text-lg top-0">
+                Đánh giá (
+                {data?.variants?.reduce((total, variant) => {
+                  return total + variant?.reviews?.length;
+                }, 0) || 0}
+                )
+              </p>
+              <div className="flex gap-1">
+                <Rate
+                  allowHalf
+                  value={
+                    Number(
+                      data?.variants?.reduce((total, variant) => {
+                        return (
+                          total +
+                          variant?.reviews?.reduce((total, review) => {
+                            return total + Number(review?.rating);
+                          }, 0)
+                        );
+                      }, 0)
+                    ) /
+                    Number(
+                      data?.variants?.reduce((total, variant) => {
+                        return total + Number(variant?.reviews?.length);
+                      }, 0)
+                    )
+                  }
+                  disabled={true}
+                />
+                <p className="text-gray-500">
+                  {Number(
+                    data?.variants?.reduce((total, variant) => {
+                      return (
+                        total +
+                        variant?.reviews?.reduce((total, review) => {
+                          return total + Number(review?.rating);
+                        }, 0)
+                      );
+                    }, 0)
+                  ) /
+                    Number(
+                      data?.variants?.reduce((total, variant) => {
+                        return total + Number(variant?.reviews?.length);
+                      }, 0)
+                    )}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex w-full h-full relative overflow-y-auto grow-0 max-h-36">
+              <div className="flex flex-col w-full divide-y h-fit">
+                {data?.variants?.map((variant) => {
+                  return variant?.reviews?.map((review) => {
+                    return (
+                      <RateItems data={review} key={"review-" + review?.id} />
+                    );
+                  });
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -44,3 +44,12 @@ export const getOrder = async (id) => {
     throw error;
   }
 }
+
+export const rateOrderItem = async ({ orderId, itemId, data }) => {
+  try {
+    const response = await api.post(`/customer/orders/${orderId}/items/${itemId}/rate`, data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
