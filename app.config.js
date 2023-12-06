@@ -50,6 +50,22 @@ const PRICE_LIST = [
   },
 ];
 
+const ORDER_STATE = {
+  draft: "Đang xử lý",
+  pending: "Chờ xác nhận",
+  confirmed: "Đã xác nhận",
+  delivering: "Đang giao",
+  delivered: "Hoàn thành",
+  cancelled: "Đã hủy",
+  refunded: "Đã hoàn tiền",
+  failed: "Thất bại",
+}
+
+const PAYMENT_METHOD = {
+  cash: "Tiền mặt",
+  banking: "Chuyển khoản"
+}
+
 const PROVINCES = [
   {
     name: "Thành phố Hà Nội",
@@ -81150,4 +81166,6 @@ module.exports = {
   OFFLINE_STORES,
   PRICE_LIST,
   PROVINCES,
+  ORDER_STATE,
+  PAYMENT_METHOD
 };

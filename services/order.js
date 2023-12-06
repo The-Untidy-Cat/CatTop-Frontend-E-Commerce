@@ -35,3 +35,12 @@ export const getOrders = async () => {
     throw error;
   }
 }
+
+export const getOrder = async (id) => {
+  try {
+    const response = await api.get(`/customer/orders/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

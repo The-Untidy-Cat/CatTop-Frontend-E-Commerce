@@ -8,8 +8,9 @@ import { Button, Drawer } from "antd";
 import { useState } from "react";
 import { MdChevronLeft } from "react-icons/md";
 import { IoCart } from "react-icons/io5";
+import { BrowserView, MobileView } from "react-device-detect";
 
-export const ProfileLayout = ({ children, activeKey }) => {
+export const ProfileMenu = ({ activeKey }) => {
   const { user } = useUser();
   const menu = [
     {
@@ -60,27 +61,33 @@ export const ProfileLayout = ({ children, activeKey }) => {
       name: "Đơn hàng",
       type: "link",
       path: "/user/orders",
-      icon: <IoCart/>,
+      icon: <IoCart />,
     },
   ];
+  return <SidebarMenu menu={menu} activeKey={activeKey} />;
+};
 
-  return children ? (
-    <div className="flex flex-col md:flex-row align-center items-start gap-2 w-full h-full">
-      <div className="hidden md:block md:w-60 shrink-0 px-1">
-        <SidebarMenu menu={menu} activeKey={activeKey} />
-      </div>
-      <Link href="/user" className="md:hidden h-fit w-fit">
-        <Button
-          type="text"
-          className="md:hidden flex items-center align-center p-0 px-1 font-medium"
-          icon={<MdChevronLeft />}
-        >
-          Quay lại
-        </Button>
-      </Link>
-      <div className="w-full p-5 rounded bg-white grow-0">{children}</div>
+export const ProfileLayout = ({ children, activeKey, backPath = "/user" }) => {
+  return (
+    <div className="flex flex-col align-center items-start gap-2 w-full h-full">
+      <BrowserView className="flex flex-row align-center items-start gap-2 w-full h-full">
+        <div className="w-60 shrink-0 px-1">
+          <ProfileMenu activeKey={activeKey} />
+        </div>
+        <div className="w-full p-5 rounded bg-white grow-0">{children}</div>
+      </BrowserView>
+      <MobileView className="flex flex-col align-center items-start gap-2 w-full h-full">
+        <Link href={backPath} className="h-fit w-fit">
+          <Button
+            type="text"
+            className="flex items-center align-center p-0 px-1 font-medium"
+            icon={<MdChevronLeft />}
+          >
+            Quay lại
+          </Button>
+        </Link>
+        <div className="w-full p-5 rounded bg-white grow-0">{children}</div>
+      </MobileView>
     </div>
-  ) : (
-    <SidebarMenu menu={menu} activeKey={activeKey} />
   );
 };

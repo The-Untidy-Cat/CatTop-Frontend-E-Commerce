@@ -1,159 +1,193 @@
-import { Button, Modal, Input } from "antd";
-import { useState } from 'react';
-import { Rate } from 'antd';
-import Image from 'next/image';
-import logo from '@/public/uit.png'
-import { Steps } from 'antd';
+import { Button, Modal, Input, Spin } from "antd";
+import { useEffect, useState } from "react";
+import { Rate } from "antd";
+import Image from "next/image";
+import logo from "@/public/uit.png";
+import { Steps } from "antd";
+import { useRouter } from "next/router";
+import { getOrder } from "@/services/order";
+import Link from "next/link";
+import { MdChevronLeft } from "react-icons/md";
+import { ORDER_STATE, PAYMENT_METHOD, PROVINCES } from "@/app.config";
+import moment from "moment";
+import { FaBoxOpen, FaTruck } from "react-icons/fa";
+import { FaCircleCheck } from "react-icons/fa6";
+import { useUser } from "../Provider/AuthProvider";
+import { OrderItem } from "./display";
+import { formatCurrency } from "@/utils/currency";
+import { BankingBox } from "../Payment";
+const { TextArea } = Input;
 
 export default function OrderDetailView() {
-    const { TextArea } = Input;
-    const donHang = {
-        maDH: "ABC123XYZ",
-        trangThai: "Đã giao",
-        ptNhanHang: "Giao tận nơi",
-        ptThanhToan: "Khi nhận hàng",
-        ngDatHang: "01/01/2023",
-        ngNhanHang: "03/01/2023",
-        diaChi: "298, Trần Hưng Đạo, Phú Phong, Tây Sơn, Bình Định"
-    }
-    const ctDonHang = {
-        tenSP: "Máy A",
-        dg: 10000000,
-        sl: 2
-    }
-    const KhachHang = {
-        ten: "Trịnh Thị Mỹ Chung",
-        sdt: "0984797117"
-    }
-    const tongThanhToan = 20000000;
+  const router = useRouter();
+  const { query } = router;
+  const { user } = useUser();
+  const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState({});
 
-    // Function format giá tiền
-    let formatMoney = (money) => {
-        let str = money.toString()
-        let arr = [...str];
-        str = arr[arr.length - 1]
-        let d = 1
-        for (let i = arr.length - 2; i >= 0; i--) {
-            if (d % 3 == 0) {
-                d++;
-                str = arr[i] + '.' + str
-            } else {
-                d++;
-                str = arr[i] + str
-            }
-        }
-        return str;
-    }
+  const getData = async () => {
+    setLoading(true);
+    getOrder(query.id)
+      .then((res) => {
+        setOrder(res?.data?.order || {});
+      })
+      .catch((err) => {
+        console.log(err);
+        // router.push("/user/orders");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-    // Mở/Đóng modal đánh giá
-    const [RateModal, setRateModal] = useState(false)
-    const openRate = () => setRateModal(true)
-    const closeRate = () => setRateModal(false)
+  // Mở/Đóng modal đánh giá
+  const [RateModal, setRateModal] = useState(false);
+  const openRate = () => setRateModal(true);
+  const closeRate = () => setRateModal(false);
 
-    return (
-        <div className='flex flex-col bg-white w-full h-full gap-2 p-8 lg:p-40'>
-            <div>
-                {donHang.ptNhanHang === "Giao tận nơi"
-                    ?
-                    <Steps
-                        size="small"
-                        current={2}
-                        items={[
-                            {
-                                title: 'Xác nhận',
-                            },
-                            {
-                                title: 'Vận chuyển',
-                            },
-                            {
-                                title: 'Nhận hàng',
-                            },
-                        ]}
-                    />
-                    :
-                    <Steps
-                        size="small"
-                        current={2}
-                        items={[
-                            {
-                                title: 'Xác nhận',
-                            },
-                            {
-                                title: 'Nhận hàng',
-                            },
-                        ]}
-                    />
-                }
-            </div>
-            <div className="grid grid-cols-2">
-                <div>
-                    <p className="font-semibold text-primary">Mã đơn hàng </p>
-                    <p>{donHang.maDH}</p>
-                </div>
-                {/* <div>
-                    <p className="font-semibold text-primary">Trạng thái </p>
-                    <p>{donHang.trangThai}</p>
-                </div> */}
-            </div>
-            <div className="border-t pt-2">
-                <p className="font-semibold text-primary">Thông tin đơn hàng</p>
-                <div className="grid grid-cols-2 gap-2">
-                    <p>Tên khách hàng: {KhachHang.ten}</p>
-                    <p>Số điện thoại: {KhachHang.sdt}</p>
-                    <p>Ngày đặt hàng: {donHang.ngDatHang}</p>
-                    <p>Ngày nhận hàng: {donHang.ngNhanHang}</p>
-                    <p>Phương thức nhận hàng: {donHang.ptNhanHang}</p>
-                    <p>Phương thức thanh toán: {donHang.ptThanhToan}</p>
-                    <p>Địa chỉ: {donHang.diaChi}</p>
-                </div>
-            </div>
-            <div className="grid border-t pt-2 gap-2">
-                <div className="grid grid-cols-5 text-primary font-semibold">
-                    <p>Sản phẩm</p>
-                    <p>Đơn giá</p>
-                    <p>Số lượng</p>
-                    <p>Thành tiền</p>
-                </div>
-                <div className="grid grid-cols-5 items-center">
-                    <p>{ctDonHang.tenSP}</p>
-                    <p>{formatMoney(ctDonHang.dg)}</p>
-                    <p>{ctDonHang.sl}</p>
-                    <p>{formatMoney(ctDonHang.dg * ctDonHang.sl)}</p>
-                    <div className="">
-                        <Button className="bg-primary hover:bg-primary/[.8] text-white" onClick={openRate}>Đánh giá</Button>
-                    </div>
-                </div>
-            </div>
-            <div className="border-t grid grid-cols-4 pt-2">
-                <p className="col-span-3">&nbsp;</p>
-                <div className="flex items-center">
-                    <p className="font-semibold">Tổng thanh toán: &nbsp;</p>
-                    <p className="text-xl text-red-600">{formatMoney(tongThanhToan)}</p>
-                </div>
-            </div>
-            <Modal
-                centered
-                open={RateModal}
-                onOk={closeRate}
-                onCancel={closeRate}
-                okText="Xác nhận"
-                cancelText="Trở lại"
-                okButtonProps={
-                    {
-                        className: 'bg-primary hover:bg-primary/[.8]'
-                    }
-                }
-            >
-                <p className="border-b pb-2 text-primary font-semibold text-center">Đánh giá sản phẩm</p>
-                <div className="pt-2 flex items-center gap-5 justify-start">
-                    <Image src={logo} className="w-1/2" />
-                    <p className="text-lg font-semibold">DELL G5</p>
-                </div>
-                <div className="flex flex-col gap-4">
-                    <Rate allowHalf defaultValue={2.5} />
-                    <TextArea rows={4} placeholder="Nhập đánh giá" />
-                </div>
-            </Modal>
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <Spin spinning={loading} rootClassName="m-auto bg-white w-full h-full">
+      <div className="flex flex-col gap-2 w-full h-full">
+        <div className="flex justify-between items-center ">
+          <p className="font-semibold text-primary">Đơn hàng: #{order?.id}</p>
+          <p className="flex gap-1 divide-x m-0 text-sm font-medium">
+            <span>
+              Thời gian đặt:{" "}
+              {moment(order?.created_at).format("DD/MM/YYYY HH:mm:ss")}
+            </span>
+            <span className="pl-1 text-primary">
+              {ORDER_STATE[order?.state]}
+            </span>
+          </p>
         </div>
-    );
+        {!["refunded", "cancelled"].includes(order?.state) ? (
+          <Steps
+            size="small"
+            labelPlacement="vertical"
+            className="py-1"
+            current={
+              order?.state === "pending"
+                ? 0
+                : ["confirmed", "delivering"].includes(order?.state)
+                ? 1
+                : 2
+            }
+            items={[
+              {
+                title: <p className="font-semibold">Đặt hàng</p>,
+                description: moment(
+                  order?.histories?.find(
+                    (history) => history?.state === "pending"
+                  )?.created_at
+                ).format("DD/MM/YYYY HH:mm:ss"),
+                icon: <FaBoxOpen className="md:text-3xl" />,
+              },
+              {
+                title: <p className="font-semibold">Vận chuyển</p>,
+                description: (
+                  <div className="flex flex-col">
+                    {order?.histories?.find((history) =>
+                      ["confirmed", "delivering"].includes(history?.state)
+                    )?.created_at && (
+                      <p>
+                        {" "}
+                        {moment(
+                          order?.histories?.find((history) =>
+                            ["confirmed", "delivering"].includes(history?.state)
+                          )?.created_at
+                        ).format("DD/MM/YYYY HH:mm:ss")}
+                      </p>
+                    )}
+                    {order?.tracking_no && (
+                      <p>Mã vận đơn: {order?.tracking_no}</p>
+                    )}
+                  </div>
+                ),
+                icon: <FaTruck className="md:text-3xl" />,
+              },
+              {
+                title: <p className="font-semibold">Hoàn thành</p>,
+                description:
+                  order?.histories?.find((history) =>
+                    ["delivered"].includes(history?.state)
+                  )?.created_at &&
+                  moment(
+                    order?.histories?.find((history) =>
+                      ["delivered"].includes(history?.state)
+                    )?.created_at
+                  ).format("DD/MM/YYYY HH:mm:ss"),
+                icon: <FaCircleCheck className="md:text-3xl" />,
+              },
+            ]}
+          />
+        ) : null}
+        <div className="flex flex-col">
+          <p className="font-semibold text-primary">Thông tin nhận hàng</p>
+          <p className="text-sm font-semibold">
+            {order?.address?.name ||
+              String(user?.last_name + " " + user?.first_name).trim()}
+          </p>
+          <p className="text-sm">
+            {order?.address?.phone || user?.phone_number}
+          </p>
+          {order?.address?.address_line ? (
+            <p className="text-sm">
+              {order?.address?.address_line}
+              <br />
+              {`${
+                PROVINCES.find((p) => p.code == order?.address?.province)
+                  ?.districts?.find((d) => d.code == order?.address?.district)
+                  ?.wards?.find((w) => w.code == order?.address?.ward)?.name
+              }, ${
+                PROVINCES.find(
+                  (p) => p.code == order?.address?.province
+                )?.districts?.find((d) => d.code == order?.address?.district)
+                  ?.name
+              }, ${
+                PROVINCES.find((p) => p.code == order?.address?.province)?.name
+              }`}
+            </p>
+          ) : (
+            <p className="text-sm">Nhận tại cửa hàng</p>
+          )}
+        </div>
+        <div className="flex flex-col">
+          <p className="font-semibold text-primary">Sản phẩm</p>
+          <div className="flex flex-col gap-2">
+            {order?.items?.map((item, index) => (
+              <OrderItem item={item} key={index} />
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col justify-end items-end p-2 border-t">
+          <p className="flex flex-col md:flex-row w-full gap-1 items-end justify-between m-0 text-sm">
+            <span className="font-medium text-end w-full grow-0 ">
+              Thành tiền:
+            </span>
+            <span className="font-semibold text-lg md:w-1/4 text-end shrink-0 text-red-500">
+              {formatCurrency(order?.total)}
+            </span>
+          </p>
+          <p className="flex flex-col md:flex-row w-full gap-1 items-end justify-between m-0 text-sm">
+            <span className="font-medium text-end w-full grow-0 ">
+              Phương thức thanh toán:
+            </span>
+            <span className="font-semibold md:w-1/4 text-end shrink-0">
+              {PAYMENT_METHOD[order?.payment_method]}
+            </span>
+          </p>
+        </div>
+        {order?.state === "pending" && (
+          <BankingBox
+            amount={order?.total}
+            description={`CatTop ${order?.id}`}
+          />
+        )}
+      </div>
+    </Spin>
+  );
 }

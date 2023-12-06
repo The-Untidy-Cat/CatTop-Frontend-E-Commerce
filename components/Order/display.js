@@ -3,27 +3,28 @@ import { Empty, Image, Spin, Tabs } from "antd";
 import { useEffect, useState } from "react";
 import { CartItem } from "../Cart/item";
 import { formatCurrency } from "@/utils/currency";
+import Link from "next/link";
+import { ORDER_STATE } from "@/app.config";
 
 const OrderItem = ({ item }) => {
   return (
-    <div className="flex gap-1 p-2">
+    <div className="flex gap-2 p-2">
       <Image
         src={item?.variant?.product?.image}
         alt={item?.variant?.product?.name}
         preview={false}
-        className="w-20 shrink-0 h-20 object-cover rounded"
-        rootClassName="w-20 shrink-0 h-20 object-cover rounded"
+        className="w-20 md:w-24 shrink-0 object-cover rounded"
       />
-      <div className="flex flex-col gap-1 w-full">
+      <div className="flex flex-col w-full">
         <p className="font-semibold w-full break-words">
           {item?.variant?.product?.name}
         </p>
         <div className="flex justify-between">
-          <div className="m-0">
+          <div className="flex flex-col gap-1 m-0">
             <p className="p-1 rounded bg-gray-100 text-xs w-fit">
               {item?.variant?.name}
             </p>
-            <p className="m-0 text-sm">Số lượng: {item?.amount}</p>
+            <p className="m-0 text-sm font-medium">Số lượng: {item?.amount}</p>
           </div>
           <div className="m-0 text-sm">
             {item?.standard_price > item?.sale_price && (
@@ -43,7 +44,10 @@ const OrderItem = ({ item }) => {
 
 const OrderCard = ({ order }) => {
   return (
-    <div className="flex flex-col divide-y border rounded">
+    <Link
+      href={`/user/orders/${order?.id}`}
+      className="flex flex-col divide-y border rounded"
+    >
       <div className="flex justify-between items-center bg-secondary/[.2] text-gray-900 p-2">
         <p className="m-0 text-sm">Mã đơn hàng: #{order?.id}</p>
         <p className="m-0 text-sm">
@@ -55,20 +59,23 @@ const OrderCard = ({ order }) => {
           <OrderItem item={item} key={item?.variant?.id} />
         ))}
       </div>
-      <div className="flex justify-end items-center p-2">
-        <p className="m-0 text-sm">
+      <div className="flex justify-between items-center p-2">
+        <p className="m-0 text-sm text-primary font medium">
+          {ORDER_STATE[order?.state] || "Không xác định"}
+        </p>
+        <p className="m-0 text-sm font-medium">
           Tổng tiền:{" "}
           <span className="font-bold">{formatCurrency(order?.total)}</span>
         </p>
         {/* <p className="m-0 text-sm">Trạng thái: {order?.state}</p> */}
       </div>
-    </div>
+    </Link>
   );
 };
 
 const OrderGroup = ({ data }) => {
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className="flex flex-col w-full gap-2">
       {data?.length ? (
         data?.map((order) => <OrderCard order={order} />)
       ) : (
@@ -96,6 +103,11 @@ export default function OrderView() {
   };
 
   const items = [
+    {
+      key: "all",
+      label: "Tất cả",
+      children: <OrderGroup data={orders} />,
+    },
     {
       key: "pending",
       label: "Chờ xác nhận",

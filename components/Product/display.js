@@ -310,6 +310,7 @@ const ProductList = React.memo(function ProductList({ data }) {
       })
       .finally(() => {
         setLoadingMore(false);
+        setLoading(false);
       });
   };
 

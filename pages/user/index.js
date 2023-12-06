@@ -1,22 +1,23 @@
 import { DefaultLayout } from "@/components/Layout";
 import { SidebarMenu } from "@/components/Layout/Menu";
-import { ProfileLayout } from "@/components/Layout/Profile";
+import { ProfileLayout, ProfileMenu } from "@/components/Layout/Profile";
 import ProfileView from "@/components/Profile";
 import PrivateWrapper from "@/components/Wrapper";
 import { Axios } from "@/utils/axios";
+import { BrowserView, MobileView } from "react-device-detect";
 
 export default function ProfilePage({ data }) {
   return (
     <PrivateWrapper>
       <DefaultLayout data={data}>
-        <div className="md:hidden">
-          <ProfileLayout />
-        </div>
-        <div className="hidden md:block">
+        <MobileView>
+          <ProfileMenu />
+        </MobileView>
+        <BrowserView>
           <ProfileLayout activeKey={"my-profile"}>
             <ProfileView />
           </ProfileLayout>
-        </div>
+        </BrowserView>
       </DefaultLayout>
     </PrivateWrapper>
   );
