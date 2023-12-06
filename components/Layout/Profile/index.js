@@ -77,7 +77,7 @@ export const ProfileLayout = ({ children, activeKey }) => {
           Quay lại
         </Button>
       </Link>
-      <div className="w-full p-5 rounded bg-white">{children}</div>
+      <div className="w-full p-5 rounded bg-white shrink-0">{children}</div>
     </div>
   ) : (
     <SidebarMenu menu={menu} activeKey={activeKey} />

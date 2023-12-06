@@ -4,6 +4,43 @@ import { useEffect, useState } from "react";
 import { CartItem } from "../Cart/item";
 import { formatCurrency } from "@/utils/currency";
 
+const OrderItem = ({ item }) => {
+  return (
+    <div className="flex gap-1 p-2">
+      <Image
+        src={item?.variant?.product?.image}
+        alt={item?.variant?.product?.name}
+        preview={false}
+        className="w-20 shrink-0 h-20 object-cover rounded"
+        rootClassName="w-20 shrink-0 h-20 object-cover rounded"
+      />
+      <div className="flex flex-col gap-1 w-full">
+        <p className="font-semibold w-full break-words">
+          {item?.variant?.product?.name}
+        </p>
+        <div className="flex justify-between">
+          <div className="m-0">
+            <p className="p-1 rounded bg-gray-100 text-xs w-fit">
+              {item?.variant?.name}
+            </p>
+            <p className="m-0 text-sm">Số lượng: {item?.amount}</p>
+          </div>
+          <div className="m-0 text-sm">
+            {item?.standard_price > item?.sale_price && (
+              <p className="line-through text-gray-400">
+                {formatCurrency(item?.standard_price)}
+              </p>
+            )}
+            <p className="text-red-600 font-semibold">
+              {formatCurrency(item?.sale_price)}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const OrderCard = ({ order }) => {
   return (
     <div className="flex flex-col divide-y border rounded">
@@ -15,38 +52,7 @@ const OrderCard = ({ order }) => {
       </div>
       <div className="flex flex-col divide-y">
         {order?.items?.map((item) => (
-          <div className="flex gap-1 p-2">
-            <Image
-              src={item?.variant?.product?.image}
-              alt={item?.variant?.product?.name}
-              preview={false}
-              className="w-20 shrink-0 h-20 object-cover rounded"
-              rootClassName="w-20 shrink-0 h-20 object-cover rounded"
-            />
-            <div className="flex flex-col gap-1 w-full">
-              <p className="font-semibold w-full break-words">
-                {item?.variant?.product?.name}
-              </p>
-              <div className="flex justify-between">
-                <div className="m-0">
-                  <p className="p-1 rounded bg-gray-100 text-xs w-fit">
-                    {item?.variant?.name}
-                  </p>
-                  <p className="m-0 text-sm">Số lượng: {item?.amount}</p>
-                </div>
-                <div className="m-0 text-sm">
-                  {item?.standard_price > item?.sale_price && (
-                    <p className="line-through text-gray-400">
-                      {formatCurrency(item?.standard_price)}
-                    </p>
-                  )}
-                  <p className="text-red-600 font-semibold">
-                    {formatCurrency(item?.sale_price)}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <OrderItem item={item} key={item?.variant?.id}/>
         ))}
       </div>
       <div className="flex justify-end items-center p-2">

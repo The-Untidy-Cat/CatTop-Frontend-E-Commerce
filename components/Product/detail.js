@@ -442,7 +442,7 @@ export default function ProductDetail({ data }) {
               </div>
             </div>
             <div className="fixed left-0 bottom-0 z-50 w-screen p-5 bg-white drop-shadow md:w-full md:static md:top-0 md:z-0 md:p-0 md:bg-trasparent md:drop-shadow-none">
-              <div className="flex items-center align-center justify-between">
+              <div className="flex md:mt-2 items-center align-center justify-between">
                 <div className="block">
                   <p className="text-red-600 text-lg font-semibold">
                     {formatCurrency(currentVariant?.sale_price)}
