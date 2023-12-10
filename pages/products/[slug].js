@@ -2,8 +2,10 @@ import ProductDetail from "@/components/Product/detail";
 import { DefaultLayout } from "@/components/Layout";
 import { Axios } from "@/utils/axios";
 import { useEffect } from "react";
+import Error from "next/error";
 
-export default function ProductDetailPage({ data }) {
+export default function ProductDetailPage({ data, statusCode }) {
+  if (statusCode) return <Error statusCode={statusCode} />;
   useEffect(() => {
     console.log(data);
   }, []);
@@ -40,13 +42,9 @@ export async function getServerSideProps(context) {
     };
   } catch (error) {
     console.log(error);
-    context.res.statusCode = 404;
     return {
-      redirect: {
-        permanent: false,
-        destination: "/products",
-      },
       props: {
+        statusCode: 404,
         data: {
           brands: [],
           newProducts: [],
