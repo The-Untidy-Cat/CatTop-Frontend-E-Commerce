@@ -58,7 +58,7 @@ export default function Home({ data }) {
                 >
                   <Image
                     src={brand.image}
-                    className="w-16 object-contain"
+                    className="w-20 h-20 object-contain"
                     alt={brand.name}
                     preview={false}
                   />
