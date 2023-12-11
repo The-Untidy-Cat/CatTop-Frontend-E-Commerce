@@ -399,6 +399,7 @@ export default function ProductDetail({ data }) {
             "slick-slide > div": "h-full",
           }}
         >
+          
           {data?.variants?.map((variant, index) => {
             return (
               <Image
@@ -409,16 +410,6 @@ export default function ProductDetail({ data }) {
               />
             );
           })}
-          <Image
-            key={"img-"}
-            src={
-              "https://images.thinkgroup.vn/unsafe/fit-in/686x686/https://media-api-beta.thinkpro.vn/media/core/products/2022/6/13/xps139315%201.png"
-            }
-            alt={
-              "https://images.thinkgroup.vn/unsafe/fit-in/686x686/https://media-api-beta.thinkpro.vn/media/core/products/2022/6/13/xps139315%201.png"
-            }
-            className="cursor-pointer m-0 aspect-square"
-          />
         </Carousel>
         <div className="hidden md:block w-full h-fit">
           <VariantSpecification variant={currentVariant} />
