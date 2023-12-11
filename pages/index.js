@@ -53,12 +53,12 @@ export default function Home({ data }) {
               {brands?.map((brand) => (
                 <Link
                   href={`/products?brand=${brand.name}`}
-                  className="flex flex-col items-center justify-center"
+                  className="flex flex-col items-center justify-center p-2"
                   key={brand.name}
                 >
                   <Image
                     src={brand.image}
-                    className="w-24 h-24 object-contain"
+                    className="w-16 object-contain"
                     alt={brand.name}
                     preview={false}
                   />
