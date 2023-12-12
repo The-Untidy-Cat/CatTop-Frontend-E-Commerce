@@ -27,139 +27,7 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { PRICE_LIST } from "@/app.config";
 import { FaChevronDown } from "react-icons/fa";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-const items = [
-  {
-    name: "Dell Inspiron 14 5430",
-    img: logo,
-    price: "20790000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "AMD 7000, 8 Cores",
-      ram: "16GB, 4800Mhz",
-      storage: "SSD 512GB",
-      screen: "16, 2560 x 1600, 60Hz",
-      card: "AMD Radeon 680M",
-    },
-  },
-  {
-    name: "Dell Inspiron 15 3520",
-    img: logo,
-    price: "12990000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Core i5 1235U, 10 Cores",
-      ram: "16GB, 3200Mhz",
-      storage: "SSD 512GB",
-      screen: "15.6, 1920 x 1080, 60Hz",
-      card: "Intel Iris Xe Graphics",
-    },
-  },
-  {
-    name: "Dell Inspiron 14 5425",
-    img: logo,
-    price: "14790000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Ryzen 5 5625U, 6 Cores",
-      ram: "16GB, 3200Mhz",
-      storage: "SSD 512GB",
-      screen: "14, 2240 x 1400, 60Hz",
-      card: "AMD Radeon Graphics",
-    },
-  },
-  {
-    name: "ASUS Zenbook 14 OLED",
-    img: logo,
-    price: "17390000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Core i5 1240P, 12 Cores",
-      ram: "16GB, Mhz",
-      storage: "SSD 512GB",
-      screen: "14, 2880 x 1800, 60Hz",
-      card: "Intel Iris Xe",
-    },
-  },
-  {
-    name: "HP Pavilion 14 x360 2022",
-    img: logo,
-    price: "13490000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Core i5 1235U, 6 Cores",
-      ram: "8GB, 3200Mhz",
-      storage: "SSD 512GB",
-      screen: "14, 1920 x 1080, 60Hz",
-      card: "Intel UHD Graphics",
-    },
-  },
-  {
-    name: "Dell Inspiron 14 5430",
-    img: logo,
-    price: "20790000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "AMD 7000, 8 Cores",
-      ram: "16GB, 4800Mhz",
-      storage: "SSD 512GB",
-      screen: "16, 2560 x 1600, 60Hz",
-      card: "AMD Radeon 680M",
-    },
-  },
-  {
-    name: "Dell Inspiron 15 3520",
-    img: logo,
-    price: "12990000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Core i5 1235U, 10 Cores",
-      ram: "16GB, 3200Mhz",
-      storage: "SSD 512GB",
-      screen: "15.6, 1920 x 1080, 60Hz",
-      card: "Intel Iris Xe Graphics",
-    },
-  },
-  {
-    name: "Dell Inspiron 14 5425",
-    img: logo,
-    price: "14790000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Ryzen 5 5625U, 6 Cores",
-      ram: "16GB, 3200Mhz",
-      storage: "SSD 512GB",
-      screen: "14, 2240 x 1400, 60Hz",
-      card: "AMD Radeon Graphics",
-    },
-  },
-  {
-    name: "ASUS Zenbook 14 OLED",
-    img: logo,
-    price: "17390000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Core i5 1240P, 12 Cores",
-      ram: "16GB, Mhz",
-      storage: "SSD 512GB",
-      screen: "14, 2880 x 1800, 60Hz",
-      card: "Intel Iris Xe",
-    },
-  },
-  {
-    name: "HP Pavilion 14 x360 2022",
-    img: logo,
-    price: "13490000",
-    color: ["#FFFF"],
-    specification: {
-      cpu: "Core i5 1235U, 6 Cores",
-      ram: "8GB, 3200Mhz",
-      storage: "SSD 512GB",
-      screen: "14, 1920 x 1080, 60Hz",
-      card: "Intel UHD Graphics",
-    },
-  },
-];
+import { isMobile } from "react-device-detect";
 
 const BrandsFilter = ({ data, onChange }) => {
   const router = useRouter();
@@ -255,21 +123,20 @@ const PriceFilter = ({ onChange }) => {
 
 const ProductList = React.memo(function ProductList({ data }) {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [loadingMore, setLoadingMore] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [loadingFilter, setLoadingFilter] = useState(false);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
-  const limit = 4;
-  const loader = useRef(null);
+  const limit = isMobile ? 3 : 4;
   const router = useRouter();
 
   const handleCloseTag = (param, value) => {
-    setLoading(true);
     switch (param) {
       case "brand":
         let replacedBrand = data?.filter?.brand
           ?.split(",")
           ?.filter((brand) => brand !== value);
+        setLoadingFilter(true);
         router.push({
           query: {
             ...router.query,
@@ -278,6 +145,7 @@ const ProductList = React.memo(function ProductList({ data }) {
         });
         break;
       case "price":
+        setLoadingFilter(true);
         router.push({
           query: {
             ...router.query,
@@ -288,9 +156,9 @@ const ProductList = React.memo(function ProductList({ data }) {
     }
   };
 
-  const getProducts = async () => {
+  const getProducts = async (renew = false) => {
     setLoading(true);
-    setLoadingMore(true);
+    if (renew) setItems([]);
     const { query } = router;
     const selectedPrice = PRICE_LIST.find((item) => item.key == query?.price);
     searchProduct({
@@ -301,25 +169,26 @@ const ProductList = React.memo(function ProductList({ data }) {
       order_by: query?.order_by,
       order: ["asc", "desc"].includes(query?.order) ? query?.order : undefined,
       limit: limit,
-      offset: offset || 0,
+      offset: renew ? 0 : offset,
     })
       .then((response) => {
+        if (renew) setItems([]);
         setItems((prev) => [...prev, ...response?.data?.records]);
         setTotal(response?.data?.length);
         setOffset(response?.data?.offset + limit);
       })
       .finally(() => {
-        setLoadingMore(false);
         setLoading(false);
+        setLoadingFilter(false);
       });
   };
 
   useEffect(() => {
-    setItems([]);
-    setOffset(0);
     setTotal(0);
-    getProducts();
-  }, [router]);
+    setOffset(0);
+    setItems([]);
+    getProducts(true);
+  }, [data]);
 
   return (
     <div className="flex flex-col gap-3 w-full h-fit">
@@ -335,7 +204,7 @@ const ProductList = React.memo(function ProductList({ data }) {
           )}
         </h1>
         <Skeleton
-          loading={loading || loadingMore}
+          loading={loading || loadingFilter}
           paragraph={{
             rows: 4,
           }}
@@ -343,8 +212,7 @@ const ProductList = React.memo(function ProductList({ data }) {
           active
         >
           <p className="text-sm m-0">
-            Tìm thấy <span className="font-medium">{items?.length}</span> sản
-            phẩm
+            Tìm thấy <span className="font-medium">{total}</span> sản phẩm
           </p>
           <div className="border-0 border-t my-1 w-full"></div>
           <div className="flex flex-wrap items-center align-center justify-start gap-1">
@@ -376,7 +244,15 @@ const ProductList = React.memo(function ProductList({ data }) {
           <div className="flex gap-2">
             <Popover
               content={
-                <BrandsFilter data={data} onChange={() => setLoading(true)} />
+                <BrandsFilter
+                  data={data}
+                  onChange={() => {
+                    setLoadingFilter(true);
+                    // setItems([]);
+                    // setOffset(0);
+                    // setTotal(0);
+                  }}
+                />
               }
               trigger="click"
               placement="bottom"
@@ -391,7 +267,15 @@ const ProductList = React.memo(function ProductList({ data }) {
             </Popover>
             <Popover
               content={
-                <PriceFilter data={data} onChange={() => setLoading(true)} />
+                <PriceFilter
+                  data={data}
+                  onChange={() => {
+                    setLoadingFilter(true);
+                    // setItems([]);
+                    // setOffset(0);
+                    // setTotal(0);
+                  }}
+                />
               }
               trigger="click"
               placement="bottom"
@@ -410,15 +294,21 @@ const ProductList = React.memo(function ProductList({ data }) {
       <InfiniteScroll
         dataLength={total}
         next={getProducts}
-        hasMore={offset < total} // Replace with a condition based on your data source
-        loader={<Spin spinning={true} className="w-full m-auto" />}
-        endMessage={<p className="w-full text-center">Không còn gì cả.</p>}
+        hasMore={offset < total}
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+        <Skeleton
+          loading={loadingFilter}
+          active
+          paragraph={{
+            rows: 3,
+          }}
+          title={false}
+        >
           {items?.map((product) => (
             <ProductItems data={product} key={product?.id} />
           ))}
-        </div>
+        </Skeleton>
       </InfiniteScroll>
     </div>
   );

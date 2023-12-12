@@ -1,14 +1,25 @@
 import { formatCurrency } from "@/utils/currency";
 import { Image, Tag } from "antd";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function ProductItems({ data }) {
   return (
-    <div className="bg-white rounded-lg p-4">
-      <Link href={`/products/${data?.slug}`} className="flex flex-col items-center text-gray-900">
+    <motion.div className="flex flex-col w-full h-full bg-white rounded-lg p-4"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.2 }}
+    >
+      <Link
+        href={`/products/${data?.slug}`}
+        className="flex flex-col items-start w-full text-gray-900"
+      >
         <Image src={data?.image} alt={data?.name} preview={false} />
         <div className="mt-2">
-          <p className="font-semibold text-black text-xs md:text-sm mb-2">{data?.name}</p>
+          <p className="font-semibold text-black text-xs md:text-sm mb-2">
+            {data?.name}
+          </p>
           <p className="flex gap-1 items-center align-center">
             Từ:
             <span className="text-base text-red-500 font-semibold">
@@ -36,6 +47,6 @@ export default function ProductItems({ data }) {
           </div>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 }

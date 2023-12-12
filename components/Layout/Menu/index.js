@@ -1,11 +1,12 @@
 import { Button, Dropdown, Image, Popover } from "antd";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { getAllBrand } from "@/services/brand";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Collapse } from "antd";
 import Link from "next/link";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { PRICE_LIST } from "@/app.config";
+import { FaArrowLeft, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const MenuItem = ({ item, activeKey }) => {
   switch (item?.type) {
@@ -134,8 +135,7 @@ const CategoriesMenu = ({ data }) => {
                 href={{
                   pathname: "/products",
                   query: {
-                    min_price: item?.min_price || undefined,
-                    max_price: item?.max_price || undefined,
+                    price: item?.key || undefined,
                   },
                 }}
                 key={item?.key}
@@ -153,6 +153,8 @@ const CategoriesMenu = ({ data }) => {
 
 export default function CategoriesBar({ data }) {
   const [brands, setBrands] = useState([]);
+  const brandSlider = useRef(null);
+
   const handleGetAllBrand = async () => {
     const { data } = await getAllBrand();
     setBrands(data);
@@ -164,6 +166,14 @@ export default function CategoriesBar({ data }) {
       handleGetAllBrand();
     }
   }, [data]);
+
+  const handleScrollLeft = () => {
+    brandSlider.current.scrollLeft -= 100;
+  };
+
+  const handleScrollRight = () => {
+    brandSlider.current.scrollLeft += 100;
+  };
   return (
     <header className="flex justify-center px-5 gap-3 bg-white shrink-0 h-16">
       <div className="flex justify-between lg:max-w-5xl w-full items-center align-center gap-2 py-2">
@@ -182,25 +192,31 @@ export default function CategoriesBar({ data }) {
             </span>
           </Button>
         </Popover>
-        <div className="flex w-full h-full overflow-hidden overflow-x-auto c-logo-slider">
-          <div className="flex flex-nowrap gap-2 w-fit">
-            {brands?.map((brand) => {
-              return (
-                <Link
-                  href={`/products?brand=${brand?.name || "#"}`}
-                  className="hover:bg-secondary/[.2] rounded-md px-3 py-2 text-sm font-semibold flex justify-start items-center align-center text-gray-900 gap-2 w-fit shrink-0"
-                  key={brand.id}
-                >
-                  <Image
-                    src={brand?.image}
-                    alt={brand?.name}
-                    className="h-5 shrink-0"
-                    preview={false}
-                  />
-                  {/* <span className="hidden md:block">{brand?.name}</span> */}
-                </Link>
-              );
-            })}
+        <div className="flex items-center align-center gap-1">
+          <div className="flex w-full h-full overflow-hidden" ref={brandSlider}>
+            <div className="flex flex-nowrap gap-2 w-fit">
+              {brands?.map((brand) => {
+                return (
+                  <Link
+                    href={`/products?brand=${brand?.name || "#"}`}
+                    className="hover:bg-secondary/[.2] rounded-md px-3 py-2 text-sm font-semibold flex justify-start items-center align-center text-gray-900 gap-2 w-fit shrink-0"
+                    key={brand.id}
+                  >
+                    <Image
+                      src={brand?.image}
+                      alt={brand?.name}
+                      className="h-5 shrink-0"
+                      preview={false}
+                    />
+                    {/* <span className="hidden md:block">{brand?.name}</span> */}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+          <div className="flex items-center align-center gap-2 shrink-0">
+            <Button type="text" className="p-0 flex items-center" onClick={handleScrollLeft}><FaChevronLeft/></Button>
+            <Button type="text" className="p-0 flex items-center" onClick={handleScrollRight}><FaChevronRight/></Button>
           </div>
         </div>
       </div>

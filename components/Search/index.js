@@ -92,7 +92,7 @@ function SearchResults({ data, form, open, keyword = "" }) {
             {searchResult?.length > 0 ? (
               <div className="flex flex-col divide-y w-full">
                 {searchResult?.map((item) => {
-                  return <SearchItems data={item} key={item?.slug}/>;
+                  return <SearchItems data={item} key={item?.slug} />;
                 })}
               </div>
             ) : (
@@ -114,7 +114,7 @@ export function SearchBox({ data }) {
   const [loading, setLoading] = useState(true);
   const handleSearchSubmit = async (value) => {
     const { keyword } = value;
-    dispatch(addKeyword(keyword));
+    if (keyword !== "" || keyword) dispatch(addKeyword(keyword));
     setShowDropdown(false);
     router.push({
       pathname: "/products",
@@ -177,7 +177,7 @@ export function SearchBoxMobile({ data }) {
   const [loading, setLoading] = useState(true);
   const handleSearchSubmit = async (value) => {
     const { keyword } = value;
-    dispatch(addKeyword(keyword));
+    if (keyword !== "" || keyword) dispatch(addKeyword(keyword));
     setShowDropdown(false);
     router.push({
       pathname: "/products",
@@ -198,8 +198,8 @@ export function SearchBoxMobile({ data }) {
       </Button>
       <Drawer
         title="Tìm kiếm"
-        width={'100%'}
-        height={'100%'}
+        width={"100%"}
+        height={"100%"}
         placement="bottom"
         open={open}
         onClose={() => setOpen(false)}
@@ -233,12 +233,12 @@ export function SearchBoxMobile({ data }) {
           </Form.Item>
         </Form>
         <SearchResults
-            form={form}
-            open={[open, setOpen]}
-            data={data}
-            loading={loading}
-            keyword={temporalKeyword}
-          />
+          form={form}
+          open={[open, setOpen]}
+          data={data}
+          loading={loading}
+          keyword={temporalKeyword}
+        />
       </Drawer>
     </>
   );
