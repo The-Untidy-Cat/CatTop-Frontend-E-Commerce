@@ -165,7 +165,7 @@ export default function CategoriesBar({ data }) {
     }
   }, [data]);
   return (
-    <header className="flex justify-center px-5 gap-3 bg-white shrink-0">
+    <header className="flex justify-center px-5 gap-3 bg-white shrink-0 h-16">
       <div className="flex justify-between lg:max-w-5xl w-full items-center align-center gap-2 py-2">
         <Popover
           content={<CategoriesMenu data={brands} />}
@@ -182,22 +182,22 @@ export default function CategoriesBar({ data }) {
             </span>
           </Button>
         </Popover>
-        <div className="flex w-full overflow-x-auto">
-          <div className="flex gap-2 w-fit min-w-full">
+        <div className="flex w-full h-full overflow-hidden overflow-x-auto c-logo-slider">
+          <div className="flex flex-nowrap gap-2 w-fit">
             {brands?.map((brand) => {
               return (
                 <Link
                   href={`/products?brand=${brand?.name || "#"}`}
-                  className="hover:bg-secondary/[.2] rounded-md px-3 py-2.5 text-sm font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
+                  className="hover:bg-secondary/[.2] rounded-md px-3 py-2 text-sm font-semibold flex justify-start items-center align-center text-gray-900 gap-2 w-fit shrink-0"
                   key={brand.id}
                 >
                   <Image
                     src={brand?.image}
                     alt={brand?.name}
-                    className="w-8 h-8 object-contain c-brand-logo"
+                    className="h-5 shrink-0"
                     preview={false}
                   />
-                  <span className="hidden md:block">{brand?.name}</span>
+                  {/* <span className="hidden md:block">{brand?.name}</span> */}
                 </Link>
               );
             })}

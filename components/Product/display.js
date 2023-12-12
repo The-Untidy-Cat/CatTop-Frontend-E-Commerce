@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { AiOutlineLoading } from "react-icons/ai";
 import { PRICE_LIST } from "@/app.config";
 import { FaChevronDown } from "react-icons/fa";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const items = [
   {
@@ -171,7 +172,7 @@ const BrandsFilter = ({ data, onChange }) => {
     router.push({
       query: {
         ...router.query,
-        brand: undefined
+        brand: undefined,
       },
     });
   };
@@ -257,7 +258,8 @@ const ProductList = React.memo(function ProductList({ data }) {
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(true);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
+  const [offset, setOffset] = useState(0);
+  const limit = 4;
   const loader = useRef(null);
   const router = useRouter();
 
@@ -286,10 +288,10 @@ const ProductList = React.memo(function ProductList({ data }) {
     }
   };
 
-  const getProducts = () => {
+  const getProducts = async () => {
+    setLoading(true);
     setLoadingMore(true);
     const { query } = router;
-    const limit = 4;
     const selectedPrice = PRICE_LIST.find((item) => item.key == query?.price);
     searchProduct({
       name: query?.name,
@@ -299,14 +301,12 @@ const ProductList = React.memo(function ProductList({ data }) {
       order_by: query?.order_by,
       order: ["asc", "desc"].includes(query?.order) ? query?.order : undefined,
       limit: limit,
-      offset: (page - 1) * limit,
+      offset: offset || 0,
     })
-      .then((newItems) => {
-        setItems((prevItems) =>
-          Array.from(new Set(prevItems.concat(newItems?.data?.records)))
-        );
-        setPage(newItems?.data?.offset / limit + 1);
-        setTotal(newItems?.data?.length);
+      .then((response) => {
+        setItems((prev) => [...prev, ...response?.data?.records]);
+        setTotal(response?.data?.length);
+        setOffset(response?.data?.offset + limit);
       })
       .finally(() => {
         setLoadingMore(false);
@@ -314,34 +314,9 @@ const ProductList = React.memo(function ProductList({ data }) {
       });
   };
 
-  const loadMore = useCallback(() => {
-    getProducts();
-  }, [items]);
-
-  const handleObserver = useCallback(
-    (entries) => {
-      const target = entries[0];
-      if (target.isIntersecting && items?.length < total) {
-        console.log("load more");
-        loadMore();
-      }
-    },
-    [loadMore]
-  );
-
-  useEffect(() => {
-    const option = {
-      root: null,
-      rootMargin: "20px",
-      threshold: 0,
-    };
-    const observer = new IntersectionObserver(handleObserver, option);
-    if (loader.current) observer.observe(loader.current);
-  }, [handleObserver]);
-
   useEffect(() => {
     setItems([]);
-    setPage(1);
+    setOffset(0);
     setTotal(0);
     getProducts();
   }, [router]);
@@ -432,27 +407,19 @@ const ProductList = React.memo(function ProductList({ data }) {
           </div>
         </Skeleton>
       </div>
-      {loading ? (
-        <Spin spinning={true} className="m-auto" />
-      ) : items?.length == 0 ? (
-        <div className="flex flex-col items-center justify-center w-full h-64">
-          <Empty
-            description={
-              <p className="m-0 text-sm font-medium text-gray-600">
-                Không có kết quả
-              </p>
-            }
-          />
-        </div>
-      ) : (
+      <InfiniteScroll
+        dataLength={total}
+        next={getProducts}
+        hasMore={offset < total} // Replace with a condition based on your data source
+        loader={<Spin spinning={true} className="w-full m-auto" />}
+        endMessage={<p className="w-full text-center">Không còn gì cả.</p>}
+      >
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {items?.map((product) => (
             <ProductItems data={product} key={product?.id} />
           ))}
         </div>
-      )}
-
-      <div ref={loader} />
+      </InfiniteScroll>
     </div>
   );
 });
