@@ -31,55 +31,38 @@ import { isMobile } from "react-device-detect";
 
 const BrandsFilter = ({ data, onChange }) => {
   const router = useRouter();
-  const [form] = Form.useForm();
-  const handleCheckAll = () => {
-    form.setFieldsValue({
-      brand: data?.brands?.map((brand) => brand.name),
-    });
-    onChange && onChange();
-    router.push({
-      query: {
-        ...router.query,
-        brand: undefined,
-      },
-    });
-  };
   const handleChange = () => {
     const brand = form.getFieldValue("brand");
+    onChange && onChange();
     router.push({
       query: {
         ...router.query,
-        brand: brand?.length > 0 ? brand?.join(",") : undefined,
+        brand: brand || undefined,
       },
     });
-    onChange && onChange();
   };
+  const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
-      brand: data?.filter?.brand?.split(",") || [],
+      brand: router.query?.brand,
     });
-  }, [data]);
+  }, [router]);
   return (
-    <>
-      <Button type="link" onClick={() => handleCheckAll()} className="p-0">
-        Tất cả
-      </Button>
-      <Form
-        className="flex flex-wrap gap-1 items-center align-center"
-        form={form}
-        onFieldsChange={handleChange}
-      >
-        <Form.Item name="brand">
-          <Checkbox.Group className="grid grid-cols-2 gap-1.5">
-            {data?.brands?.map((brand) => (
-              <Checkbox value={brand.name} key={brand.name}>
-                {brand.name}
-              </Checkbox>
-            ))}
-          </Checkbox.Group>
-        </Form.Item>
-      </Form>
-    </>
+    <Form
+      className="flex flex-wrap gap-1 items-center align-center m-0"
+      form={form}
+      onFieldsChange={handleChange}
+    >
+      <Form.Item name="brand" className="m-0">
+        <Radio.Group className="grid grid-cols-2 gap-1.5">
+          {data?.brands?.map((brand) => (
+            <Radio value={brand.name} key={brand.name}>
+              {brand.name}
+            </Radio>
+          ))}
+        </Radio.Group>
+      </Form.Item>
+    </Form>
   );
 };
 
