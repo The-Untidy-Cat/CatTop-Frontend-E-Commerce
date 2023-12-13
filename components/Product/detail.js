@@ -399,7 +399,6 @@ export default function ProductDetail({ data }) {
             "slick-slide > div": "h-full",
           }}
         >
-          
           {data?.variants?.map((variant, index) => {
             return (
               <Image
@@ -505,51 +504,52 @@ export default function ProductDetail({ data }) {
                 {currentVariant?.state == "published" ? (
                   <div className="flex gap-1 flex-row md:flex-col lg:flex-row items-center">
                     {user ? (
-                      <Button
-                        type="text"
-                        className="flex flex-col items-center gap-1 font-semibold text-primary text-sm h-fit"
-                        icon={<FaCartPlus />}
-                        onClick={addToCart}
-                        loading={loading}
-                      >
-                        Thêm
-                      </Button>
-                    ) : (
-                      <Popover
-                        content={<QuickLoginForm onSuccess={addToCart} />}
-                        title="Đăng nhập để thêm vào giỏ hàng"
-                        trigger={"click"}
-                      >
+                      <>
                         <Button
                           type="text"
                           className="flex flex-col items-center gap-1 font-semibold text-primary text-sm h-fit"
                           icon={<FaCartPlus />}
+                          onClick={addToCart}
+                          loading={loading}
                         >
                           Thêm
                         </Button>
-                      </Popover>
-                    )}
-                    {user ? (
-                      <Button
-                        htmlType="submit"
-                        className="flex items-center gap-1 bg-primary text-white"
-                        loading={loading}
-                      >
-                        Mua ngay
-                      </Button>
-                    ) : (
-                      <Popover
-                        content={<QuickLoginForm />}
-                        title="Đăng nhập để mua hàng"
-                        trigger={"click"}
-                      >
                         <Button
                           htmlType="submit"
                           className="flex items-center gap-1 bg-primary text-white"
+                          loading={loading}
                         >
                           Mua ngay
                         </Button>
-                      </Popover>
+                      </>
+                    ) : (
+                      <>
+                        <Popover
+                          content={<QuickLoginForm onSuccess={addToCart} />}
+                          title="Đăng nhập để thêm vào giỏ hàng"
+                          trigger={"click"}
+                        >
+                          <Button
+                            type="text"
+                            className="flex flex-col items-center gap-1 font-semibold text-primary text-sm h-fit"
+                            icon={<FaCartPlus />}
+                          >
+                            Thêm
+                          </Button>
+                        </Popover>
+                        <Popover
+                          content={<QuickLoginForm />}
+                          title="Đăng nhập để mua hàng"
+                          trigger={"click"}
+                        >
+                          <Button
+                            // htmlType="submit"
+                            className="flex items-center gap-1 bg-primary text-white"
+                          >
+                            Mua ngay
+                          </Button>
+                        </Popover>
+                      </>
                     )}
                   </div>
                 ) : (

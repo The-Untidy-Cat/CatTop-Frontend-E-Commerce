@@ -9,7 +9,7 @@ const QuickLoginForm = ({ onSuccess }) => {
   const router = useRouter();
   const handleSubmmit = async (values) => {
     quickLogin(values)
-      .then(() => onSuccess())
+      .then(() => onSuccess && onSuccess())
       .catch(() => {
         console.log("error");
       });
