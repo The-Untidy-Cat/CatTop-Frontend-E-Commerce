@@ -123,7 +123,7 @@ const PriceFilter = ({ onChange }) => {
 
 const ProductList = React.memo(function ProductList({ data }) {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadingFilter, setLoadingFilter] = useState(false);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -157,7 +157,7 @@ const ProductList = React.memo(function ProductList({ data }) {
   };
 
   const getProducts = async (renew = false) => {
-    setLoading(true);
+    // setLoading(true);
     if (renew) setItems([]);
     const { query } = router;
     const selectedPrice = PRICE_LIST.find((item) => item.key == query?.price);
@@ -178,17 +178,17 @@ const ProductList = React.memo(function ProductList({ data }) {
         setOffset(response?.data?.offset + limit);
       })
       .finally(() => {
-        setLoading(false);
+        // setLoading(false);
         setLoadingFilter(false);
       });
   };
 
-  useEffect(() => {
-    setTotal(0);
-    setOffset(0);
-    setItems([]);
-    getProducts(true);
-  }, [data]);
+  // useEffect(() => {
+  //   setTotal(0);
+  //   setOffset(0);
+  //   setItems([]);
+  //   getProducts(true);
+  // }, [data]);
 
   return (
     <div className="flex flex-col gap-3 w-full h-fit">
@@ -293,6 +293,24 @@ const ProductList = React.memo(function ProductList({ data }) {
       </div>
       <InfiniteScroll
         dataLength={total}
+        loader={
+          <Skeleton
+            loading={true}
+            avatar={{
+              shape: "square",
+              className: "w-full"
+            }}
+            // title={{
+            //   width: "100%",
+            // }}
+            paragraph={{
+              rows: 9,
+            }}
+            className="flex flex-col w-full h-full min-h-full gap-2 bg-white rounded-lg p-4"
+          >
+            <div className="flex flex-col w-full h-full min-h-full bg-white rounded-lg p-4"></div>
+          </Skeleton>
+        }
         next={getProducts}
         hasMore={offset <= total}
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"

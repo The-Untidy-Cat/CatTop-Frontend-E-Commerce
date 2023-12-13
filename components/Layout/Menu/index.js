@@ -175,25 +175,24 @@ export default function CategoriesBar({ data }) {
     brandSlider.current.scrollLeft += 100;
   };
   return (
-    <header className="flex justify-center px-5 gap-3 bg-white shrink-0 h-16">
-      <div className="flex justify-between lg:max-w-5xl w-full items-center align-center gap-2 py-2">
+    <header className="flex justify-center px-5 gap-3 bg-white w-full grow-0 h-16">
+      <div className="flex justify-between lg:max-w-5xl w-full items-center align-center gap-2 grow-0 py-2">
         <Popover
           content={<CategoriesMenu data={brands} />}
           trigger={"click"}
           placement="bottomLeft"
         >
           <Button
+            size="small"
             type="text"
-            className="flex items-center py-6"
-            icon={<AiOutlineUnorderedList />}
+            className="flex items-center w-fit py-6"
           >
+            <AiOutlineUnorderedList />
             <span className="hidden lg:block text-sm w-full font-semibold">
               Danh mục
             </span>
           </Button>
-        </Popover>
-        <div className="flex items-center align-center grow-0 gap-1">
-          <div className="flex w-full h-full grow-0 overflow-hidden" ref={brandSlider}>
+        </Popover><div className="flex w-full h-full overflow-hidden" ref={brandSlider}>
             <div className="flex flex-nowrap gap-2 w-fit">
               {brands?.map((brand) => {
                 return (
@@ -214,11 +213,10 @@ export default function CategoriesBar({ data }) {
               })}
             </div>
           </div>
-          <div className="flex items-center align-center gap-2 shrink-0">
+          <div className="flex items-center align-center gap-2 w-fit shrink-0">
             <Button size="small" type="text" className="p-0 flex items-center" onClick={handleScrollLeft}><FaChevronLeft/></Button>
             <Button size="small" type="text" className="p-0 flex items-center" onClick={handleScrollRight}><FaChevronRight/></Button>
           </div>
-        </div>
       </div>
     </header>
   );
