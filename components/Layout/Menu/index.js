@@ -192,8 +192,8 @@ export default function CategoriesBar({ data }) {
             </span>
           </Button>
         </Popover>
-        <div className="flex items-center align-center gap-1">
-          <div className="flex w-full h-full overflow-hidden" ref={brandSlider}>
+        <div className="flex items-center align-center grow-0 gap-1">
+          <div className="flex w-full h-full grow-0 overflow-hidden" ref={brandSlider}>
             <div className="flex flex-nowrap gap-2 w-fit">
               {brands?.map((brand) => {
                 return (
@@ -215,8 +215,8 @@ export default function CategoriesBar({ data }) {
             </div>
           </div>
           <div className="flex items-center align-center gap-2 shrink-0">
-            <Button type="text" className="p-0 flex items-center" onClick={handleScrollLeft}><FaChevronLeft/></Button>
-            <Button type="text" className="p-0 flex items-center" onClick={handleScrollRight}><FaChevronRight/></Button>
+            <Button size="small" type="text" className="p-0 flex items-center" onClick={handleScrollLeft}><FaChevronLeft/></Button>
+            <Button size="small" type="text" className="p-0 flex items-center" onClick={handleScrollRight}><FaChevronRight/></Button>
           </div>
         </div>
       </div>

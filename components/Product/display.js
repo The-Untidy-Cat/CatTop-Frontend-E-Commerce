@@ -294,7 +294,7 @@ const ProductList = React.memo(function ProductList({ data }) {
       <InfiniteScroll
         dataLength={total}
         next={getProducts}
-        hasMore={offset < total}
+        hasMore={offset <= total}
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"
       >
         <Skeleton
