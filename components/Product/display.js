@@ -127,7 +127,7 @@ const ProductList = React.memo(function ProductList({ data }) {
   const [loadingFilter, setLoadingFilter] = useState(false);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
-  const limit = isMobile ? 3 : 4;
+  const limit = isMobile ? 6 : 8;
   const router = useRouter();
 
   const handleCloseTag = (param, value) => {
@@ -157,8 +157,6 @@ const ProductList = React.memo(function ProductList({ data }) {
   };
 
   const getProducts = async (renew = false) => {
-    // setLoading(true);
-    if (renew) setItems([]);
     const { query } = router;
     const selectedPrice = PRICE_LIST.find((item) => item.key == query?.price);
     searchProduct({
@@ -172,7 +170,6 @@ const ProductList = React.memo(function ProductList({ data }) {
       offset: renew ? 0 : offset,
     })
       .then((response) => {
-        if (renew) setItems([]);
         setItems((prev) => [...prev, ...response?.data?.records]);
         setTotal(response?.data?.length);
         setOffset(response?.data?.offset + limit);
@@ -183,12 +180,12 @@ const ProductList = React.memo(function ProductList({ data }) {
       });
   };
 
-  // useEffect(() => {
-  //   setTotal(0);
-  //   setOffset(0);
-  //   setItems([]);
-  //   getProducts(true);
-  // }, [data]);
+  useEffect(() => {
+    setItems([]);
+    setTotal(0);
+    setOffset(0);
+    getProducts(true);
+  }, [data]);
 
   return (
     <div className="flex flex-col gap-3 w-full h-fit">
@@ -204,7 +201,7 @@ const ProductList = React.memo(function ProductList({ data }) {
           )}
         </h1>
         <Skeleton
-          loading={loading || loadingFilter}
+          loading={loadingFilter}
           paragraph={{
             rows: 4,
           }}
@@ -292,17 +289,11 @@ const ProductList = React.memo(function ProductList({ data }) {
         </Skeleton>
       </div>
       <InfiniteScroll
-        dataLength={total}
+        dataLength={total || 99}
         loader={
           <Skeleton
             loading={true}
-            avatar={{
-              shape: "square",
-              className: "w-full"
-            }}
-            // title={{
-            //   width: "100%",
-            // }}
+            title={false}
             paragraph={{
               rows: 9,
             }}
@@ -312,21 +303,12 @@ const ProductList = React.memo(function ProductList({ data }) {
           </Skeleton>
         }
         next={getProducts}
-        hasMore={offset <= total}
+        hasMore={offset < total}
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"
       >
-        <Skeleton
-          loading={loadingFilter}
-          active
-          paragraph={{
-            rows: 3,
-          }}
-          title={false}
-        >
-          {items?.map((product) => (
-            <ProductItems data={product} key={product?.id} />
-          ))}
-        </Skeleton>
+        {items?.map((product) => (
+          <ProductItems data={product} key={product?.id} />
+        ))}
       </InfiniteScroll>
     </div>
   );
