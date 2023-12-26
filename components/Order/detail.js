@@ -1,4 +1,4 @@
-import { Button, Modal, Input, Spin } from "antd";
+import { Button, Modal, Input, Spin, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { Rate } from "antd";
 import Image from "next/image";
@@ -57,80 +57,91 @@ export default function OrderDetailView() {
 
   return (
     <Spin spinning={loading} rootClassName="m-auto bg-white w-full h-full">
-      <div className="flex flex-col gap-2 w-full h-full">
+      <div className="flex flex-col gap-3 w-full h-full">
         <div className="flex justify-between items-center ">
-          <p className="font-semibold text-primary">Đơn hàng: #{order?.id}</p>
-          <p className="flex gap-1 divide-x m-0 text-sm font-medium">
-            <span>
+          <p className="font-semibold text-primary">
+            Đơn hàng: #{order?.id}
+            <Tag
+              className="ml-2"
+              color={
+                ["failed", "cancelled", "refunded"].includes(order?.state)
+                  ? "red"
+                  : order?.state == "delivered"
+                  ? "green"
+                  : "default"
+              }
+            >
+              <span className="font-semi-bold">
+                {ORDER_STATE[order?.state]}
+              </span>
+            </Tag>
+          </p>
+          <p className="flex gap-1 divide-x m-0 text-sm">
+            <span className=" font-medium">
               Thời gian đặt:{" "}
               {moment(order?.created_at).format("DD/MM/YYYY HH:mm:ss")}
             </span>
-            <span className="pl-1 text-primary">
-              {ORDER_STATE[order?.state]}
-            </span>
           </p>
         </div>
-        {!["refunded", "cancelled"].includes(order?.state) ? (
-          <Steps
-            size="small"
-            labelPlacement="vertical"
-            className="py-1"
-            current={
-              order?.state === "pending"
-                ? 0
-                : ["confirmed", "delivering"].includes(order?.state)
-                ? 1
-                : 2
-            }
-            items={[
-              {
-                title: <p className="font-semibold">Đặt hàng</p>,
-                description: moment(
-                  order?.histories?.find(
-                    (history) => history?.state === "pending"
-                  )?.created_at
-                ).format("DD/MM/YYYY HH:mm:ss"),
-                icon: <FaBoxOpen className="md:text-3xl" />,
-              },
-              {
-                title: <p className="font-semibold">Vận chuyển</p>,
-                description: (
-                  <div className="flex flex-col">
-                    {order?.histories?.find((history) =>
-                      ["confirmed", "delivering"].includes(history?.state)
-                    )?.created_at && (
-                      <p>
-                        {" "}
-                        {moment(
-                          order?.histories?.find((history) =>
-                            ["confirmed", "delivering"].includes(history?.state)
-                          )?.created_at
-                        ).format("DD/MM/YYYY HH:mm:ss")}
-                      </p>
-                    )}
-                    {order?.tracking_no && (
-                      <p>Mã vận đơn: {order?.tracking_no}</p>
-                    )}
-                  </div>
-                ),
-                icon: <FaTruck className="md:text-3xl" />,
-              },
-              {
-                title: <p className="font-semibold">Hoàn thành</p>,
-                description:
+        <Steps
+          size="small"
+          labelPlacement="vertical"
+          className="py-1"
+          current={
+            order?.state === "pending"
+              ? 0
+              : ["confirmed", "delivering"].includes(order?.state)
+              ? 1
+              : 2
+          }
+          items={[
+            {
+              title: <p className="font-semibold">Đặt hàng</p>,
+              description: moment(
+                order?.histories?.find(
+                  (history) => history?.state === "pending"
+                )?.created_at
+              ).format("DD/MM/YYYY HH:mm:ss"),
+              icon: <FaBoxOpen className="md:text-3xl" />,
+            },
+            {
+              title: <p className="font-semibold">Vận chuyển</p>,
+              description: (
+                <div className="flex flex-col">
+                  {order?.histories?.find((history) =>
+                    ["confirmed", "delivering"].includes(history?.state)
+                  )?.created_at && (
+                    <p>
+                      {" "}
+                      {moment(
+                        order?.histories?.find((history) =>
+                          ["confirmed", "delivering"].includes(history?.state)
+                        )?.created_at
+                      ).format("DD/MM/YYYY HH:mm:ss")}
+                    </p>
+                  )}
+                  {order?.tracking_no && (
+                    <p>Mã vận đơn: {order?.tracking_no}</p>
+                  )}
+                </div>
+              ),
+              icon: <FaTruck className="md:text-3xl" />,
+            },
+            {
+              title: <p className="font-semibold">Đã giao</p>,
+              description:
+                order?.histories?.find((history) =>
+                  ["delivered"].includes(history?.state)
+                )?.created_at &&
+                moment(
                   order?.histories?.find((history) =>
                     ["delivered"].includes(history?.state)
-                  )?.created_at &&
-                  moment(
-                    order?.histories?.find((history) =>
-                      ["delivered"].includes(history?.state)
-                    )?.created_at
-                  ).format("DD/MM/YYYY HH:mm:ss"),
-                icon: <FaCircleCheck className="md:text-3xl" />,
-              },
-            ]}
-          />
-        ) : null}
+                  )?.created_at
+                ).format("DD/MM/YYYY HH:mm:ss"),
+              icon: <FaCircleCheck className="md:text-3xl" />,
+            },
+          ]}
+        />
         <div className="flex flex-col">
           <p className="font-semibold text-primary">Thông tin nhận hàng</p>
           <p className="text-sm font-semibold">
@@ -166,7 +177,7 @@ export default function OrderDetailView() {
           <div className="flex flex-col gap-2">
             {order?.items?.map((item, index) => (
               <div className="block" key={item?.id}>
-                <OrderItem item={item}  />
+                <OrderItem item={item} />
                 {order?.state === "delivered" && (
                   <ModalToggle
                     modal={{

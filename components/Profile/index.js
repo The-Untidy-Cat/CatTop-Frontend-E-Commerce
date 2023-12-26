@@ -42,9 +42,9 @@ export const AddressView = () => {
     getData();
   }, []);
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex justify-between gap-1">
-        <h1 className="text-lg font-semibold">Địa chỉ</h1>
+    <div className="flex flex-col w-full gap-2">
+      <div className="flex justify-between w-full gap-1">
+        <h1 className="text-lg font-semibold w-full">Địa chỉ</h1>
         <ModalToggle
           modal={{
             title: "Thêm địa chỉ",
@@ -60,16 +60,16 @@ export const AddressView = () => {
           <NewAddressForm onSuccess={getData} />
         </ModalToggle>
       </div>
-      <Spin spinning={loading} className="m-auto">
-        <div className="flex flex-col divide-y">
+      <Spin spinning={loading} className="flex flex-col w-full justify-center items-center align-center w-full h-full">
+        <div className="flex flex-col w-full divide-y">
           {addressBook.length ? (
             addressBook?.map((address) => (
               <div
                 key={address.id}
-                className="flex flex-col p-2"
+                className="flex flex-col w-full p-2"
               >
-                <div className="flex justify-between items-center align-center">
-                  <p className="m-0 text-sm">
+                <div className="flex justify-between items-center align-center w-full">
+                  <p className="m-0 text-sm w-full">
                     <span className="font-semibold">{address.name}</span> |{" "}
                     <span>{address.phone}</span>
                   </p>
@@ -81,13 +81,13 @@ export const AddressView = () => {
                       size: "small",
                       label: "Sửa",
                       type: "link",
-                      className: "p-0",
+                      className: " w-fit float-right p-0",
                     }}
                   >
                     <EditAddressForm onSuccess={getData} data={address} />
                   </ModalToggle>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col w-full">
                   <p className="m-0">{address.address_line}</p>
                   <p className="m-0">
                     {

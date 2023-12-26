@@ -16,7 +16,7 @@ export default function ProductItems({ data }) {
         className="flex flex-col items-start w-full text-gray-900"
       >
         <Image src={data?.image} alt={data?.name} preview={false} />
-        <div className="mt-2">
+        <div className="mt-2 w-full">
           <p className="font-semibold text-black text-xs md:text-sm mb-2">
             {data?.name}
           </p>

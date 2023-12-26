@@ -348,6 +348,7 @@ export const useUserController = () => {
     loadingAuth,
     loadingUser,
     loadingCart,
+    setLoadingUser,
     updateProfile,
     register,
     login,

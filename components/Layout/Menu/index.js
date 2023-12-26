@@ -175,7 +175,7 @@ export default function CategoriesBar({ data }) {
     brandSlider.current.scrollLeft += 100;
   };
   return (
-    <header className="flex justify-center px-5 gap-3 bg-white w-full grow-0 h-16">
+    <header className="flex justify-center px-5 gap-3 bg-white w-full grow-0 h-12 md:h-16">
       <div className="flex justify-between lg:max-w-5xl w-full items-center align-center gap-2 grow-0 py-2">
         <Popover
           content={<CategoriesMenu data={brands} />}
@@ -185,9 +185,9 @@ export default function CategoriesBar({ data }) {
           <Button
             size="small"
             type="text"
-            className="flex items-center w-fit py-6"
+            className="flex items-center w-fit gap-2 py-6"
           >
-            <AiOutlineUnorderedList />
+            <AiOutlineUnorderedList className="text-xl"/>
             <span className="hidden lg:block text-sm w-full font-semibold">
               Danh mục
             </span>

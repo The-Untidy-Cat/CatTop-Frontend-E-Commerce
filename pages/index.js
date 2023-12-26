@@ -40,7 +40,24 @@ export default function Home({ data }) {
 
   return (
     <DefaultLayout data={data}>
-      <div className="flex flex-col gap-2 w-full h-fit">
+      <div className="flex flex-col gap-5 w-full h-fit">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-primary/[.9] rounded shadow">
+          <div className="flex flex-col w-full col-span-1 px-5 py-10 gap-1">
+            <p className="m-0 text-2xl font-semibold text-white">
+              Đón Xuân Giáp Thìn 2024 ️🎉
+            </p>
+            <p className="m-0 font-medium text-secondary md:text-lg">
+              Tận hưởng ưu đãi <span className="text-red-300">lên đến 50% </span>khi mua sắm tại CatTop
+            </p>
+          </div>
+          <Image
+            preview={false}
+            alt="thumbnail"
+            src="https://png.pngtree.com/background/20230401/original/pngtree-dragon-boat-festival-water-dragon-boat-red-flowers-picture-image_2250848.jpg"
+            rootClassName="object-cover w-full h-full lg:col-span-2 rounded-r"
+            className="object-cover w-full h-full rounded-r"
+          />
+        </div>
         <div className="flex flex-col gap-2 w-full h-fit">
           <p className="m-0 text-lg font-semibold">Thương hiệu nổi bật</p>
           <div className="grid grid-cols-3 md:grid-cols-4 gap-2 bg-white rounded-lg p-5">
@@ -58,7 +75,7 @@ export default function Home({ data }) {
                 >
                   <Image
                     src={brand.image}
-                    className="w-20 h-20 object-contain"
+                    className="w-16 h-16 lg:w-20 lg:h-20 p-3 object-contain"
                     alt={brand.name}
                     preview={false}
                   />
@@ -73,7 +90,7 @@ export default function Home({ data }) {
         </div>
         <div className="flex flex-col gap-2 w-full h-fit">
           <p className="m-0 text-lg font-semibold">Sản phẩm mới</p>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 bg-secondary/[.2] rounded-lg p-5">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-secondary/[.2] rounded-lg p-5">
             <Skeleton
               loading={loading}
               active

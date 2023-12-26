@@ -62,7 +62,7 @@ export default function Footer() {
             <p className="text-primary text-base font-bold uppercase">
               thông tin hữu ích
             </p>
-            <ol className="flex flex-col gap-1 font-medium text-sm mb-2">
+            <ol className="flex flex-col gap-2 font-medium text-sm">
               <li>
                 <Link
                   className="text-gray-900 hover:text-primary transition-all duration-200"

@@ -14,8 +14,8 @@ import { useUser } from "../Provider/AuthProvider";
 export default function Checkout({ cart, type }) {
   const [form] = Form.useForm();
   const router = useRouter();
-  const { refreshCart } = useUser();
-  const [loading, setLoading] = useState(false);
+  const { refreshCart, setLoadingUser } = useUser();
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
   const [fromData, setFormData] = useState(form.getFieldsValue());
   const [addressList, setAddressList] = useState([]);
 
@@ -29,11 +29,15 @@ export default function Checkout({ cart, type }) {
   };
 
   const handleFinish = (values) => {
-    setLoading(true);
+    setLoadingCheckout(true);
+    setLoadingUser(true)
     checkOut({ data: { ...values, cart }, type })
       .then((response) => {
         refreshCart();
-        router.push(`/user/orders/${response?.data?.detail?.id}`);
+        router.push(`/user/orders/${response?.data?.detail?.id}`).then(() => {
+          setLoadingCheckout(false);
+          setLoadingUser(false);
+        });
       })
       .catch((error) => {
         Modal.error({
@@ -58,10 +62,9 @@ export default function Checkout({ cart, type }) {
           cancelButtonProps: { hidden: true },
           okButtonProps: { hidden: true },
         });
+        setLoadingCheckout(false);
+        setLoadingUser(false)
       })
-      .finally(() => {
-        setLoading(false);
-      });
   };
 
   return (
@@ -76,7 +79,7 @@ export default function Checkout({ cart, type }) {
           payment_method: "cash",
         }}
         onFinish={handleFinish}
-        disabled={loading}
+        disabled={loadingCheckout}
       >
         <div className="flex flex-col w-full h-full md:col-span-7 gap-2 bg-white rounded p-5">
           <p className="font-semibold text-lg">Thông tin đơn hàng</p>

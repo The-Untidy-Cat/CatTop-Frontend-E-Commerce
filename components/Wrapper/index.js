@@ -11,6 +11,7 @@ export default function PrivateWrapper({ children }) {
         spinning={true}
         className="flex items-center align-center justify-center fixed w-screen h-screen z-50"
         size="large"
+        tip="Đang xử lý..."
       />
     );
   else if (!user)
