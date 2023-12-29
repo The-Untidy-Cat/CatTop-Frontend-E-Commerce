@@ -14,9 +14,6 @@ export default function Cart() {
     setLoading(true);
     clearCart().finally(() => setLoading(false));
   };
-  useEffect(() => {
-    console.log(cart);
-  }, []);
   return (
     <div className="flex flex-col md:flex-row gap-5 lg:gap-8 w-full">
       <div className="bg-white rounded p-5 w-full md:w-7/12 shrink-0 gap-2">
