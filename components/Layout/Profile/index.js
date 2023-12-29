@@ -4,9 +4,6 @@ import Image from "next/image";
 import logo from "@/public/logo.png";
 import { useUser } from "@/components/Provider/AuthProvider";
 import { FaRegEdit, FaUser } from "react-icons/fa";
-import { Button, Drawer } from "antd";
-import { useState } from "react";
-import { MdChevronLeft } from "react-icons/md";
 import { IoCart } from "react-icons/io5";
 import { BrowserView, MobileView } from "react-device-detect";
 
@@ -77,15 +74,6 @@ export const ProfileLayout = ({ children, activeKey, backPath = "/user" }) => {
         <div className="w-full p-5 rounded bg-white grow-0">{children}</div>
       </BrowserView>
       <MobileView className="flex flex-col align-center items-start gap-2 w-full h-full">
-        <Link href={backPath} className="h-fit w-fit">
-          <Button
-            type="text"
-            className="flex items-center align-center p-0 px-1 font-medium"
-            icon={<MdChevronLeft />}
-          >
-            Quay lại
-          </Button>
-        </Link>
         <div className="w-full p-5 rounded bg-white grow-0">{children}</div>
       </MobileView>
     </div>

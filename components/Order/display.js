@@ -162,18 +162,19 @@ export default function OrderView() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full gap-2">
+    <div className="flex flex-col w-full gap-2 grow-0">
       <h1 className="text-lg font-semibold">Đơn hàng</h1>
-
-      <Spin spinning={loading} className="m-auto w-full">
-        <Tabs
-          defaultActiveKey="1"
-          items={items}
-          onChange={onChange}
-          className="w-fit min-w-full"
-          rootClassName="w-full"
-        />
-      </Spin>
+      <div className="flex flex-col w-full grow-0 overflow-hidden">
+        <Spin spinning={loading} className="m-auto w-full">
+          <Tabs
+            defaultActiveKey="1"
+            items={items}
+            onChange={onChange}
+            className="w-fit min-w-full"
+            rootClassName="w-full"
+          />
+        </Spin>{" "}
+      </div>
     </div>
   );
 }
