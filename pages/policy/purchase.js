@@ -4,6 +4,7 @@ import GuaranteePolicy from "@/components/Guarantee";
 import ReturnPolicy from "@/components/Return";
 import PurchasePolicy from "@/components/Purchase";
 import { DefaultLayout } from "@/components/Layout";
+import { Axios } from "@/utils/axios";
 
 export default function PurchasePage({data}) {
   return (

@@ -66,7 +66,7 @@ export default function Footer() {
               <li>
                 <Link
                   className="text-gray-900 hover:text-primary transition-all duration-200"
-                  href="#"
+                  href="/about"
                 >
                   Về chúng tôi
                 </Link>
@@ -74,15 +74,23 @@ export default function Footer() {
               <li>
                 <Link
                   className="text-gray-900 hover:text-primary transition-all duration-200"
-                  href="#"
+                  href="/policy/return"
                 >
-                  Chính sách đổi trả/bảo hành
+                  Chính sách đổi trả
                 </Link>
               </li>
               <li>
                 <Link
                   className="text-gray-900 hover:text-primary transition-all duration-200"
-                  href="#"
+                  href="/policy/guarantee"
+                >
+                  Chính sách bảo hành
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-gray-900 hover:text-primary transition-all duration-200"
+                  href="/policy/purchase"
                 >
                   Chính sách mua hàng
                 </Link>
@@ -90,19 +98,18 @@ export default function Footer() {
             </ol>
           </div>
           <div className="flex flex-col gap-1 text-xs text-gray-900">
-            <p className="flex items-center align-center m-0 gap-1">
-              <AiOutlineCopyrightCircle className="text-sm" /> The Untidy Cat
-              2023
-            </p>
             <p className="m-0 mb-2">
-              ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH<br></br>
-              TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN VNUHCM - UIT
+              Đồ án môn học<br/>
+              VNUHCM-UIT
             </p>
 
             <span className="flex gap-2">
               <Image src={uit} className="w-6" alt="logo" />
               <AiFillGithub className="text-3xl" />
             </span>
+            <p className="flex items-center align-center m-0 gap-1">
+              <AiOutlineCopyrightCircle className="text-xs" />{new Date().getFullYear()} CatTop by The Untidy Cat
+            </p>
           </div>
         </div>
       </div>

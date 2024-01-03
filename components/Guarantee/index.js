@@ -2,7 +2,8 @@ import Image from "next/image";
 import cat from "@/public/logo.png";
 export default function GuaranteePolicy() {
     return (
-        <div className="my-5 mx-20 text-base flex flex-col gap-2">
+        <div className="p-5 md: p-7 text-base flex flex-col gap-2 bg-white rounded-md">
+            <p className="text-xs italic">Sửa đổi lần cuối: 06/01/2024 08:00:00</p>
             <p className="font-bold text-3xl">Chính sách bảo hành</p>
             <hr />
             {/* Bảo hành */}
@@ -16,7 +17,7 @@ export default function GuaranteePolicy() {
 
                         <li>Các phần mềm được cung cấp kèm theo máy.</li>
 
-                        <li>Sản phẩm hết thời hạn bảo hành (thời hạn bảo hành sản phẩm được ghi trên tem hoặc kiểm tra theo serial của sản phẩm tại website thinkpro.vn, …)</li>
+                        <li>Sản phẩm hết thời hạn bảo hành (thời hạn bảo hành sản phẩm được ghi trên tem hoặc kiểm tra theo serial của sản phẩm tại website cattop.theuntidycat.tech, …)</li>
 
                         <li>Không có tem bảo hành của Công ty/nhà phân phối/hãng sản xuất hoặc có nhưng tem bảo hành đó không hợp lệ (bị rách, bị tẩy xoá, sửa chữa, mờ không đọc được, bong/tróc, …).</li>
 
@@ -26,7 +27,7 @@ export default function GuaranteePolicy() {
 
                         <li>Sản phẩm bị lỗi hình thức, biến dạng vật lý do bị rơi, va đập, vận chuyển/lắp đặt sai quy cách, hư hỏng do chuột bọ hoặc côn trùng xâm nhập, sản phẩm bị mốc, bị hoen rỉ, ẩm ướt, bị biến dạng như: trầy, xước, lồi, lõm, móp méo, ố vàng, mờ chữ, nứt, vỡ, viết chữ không tẩy được...</li>
 
-                        <li>Sản phẩm tự ý tháo dỡ, sửa chữa bởi các cá nhân hoặc kỹ thuật viên không được sự ủy quyền của ThinkPro .</li>
+                        <li>Sản phẩm tự ý tháo dỡ, sửa chữa bởi các cá nhân hoặc kỹ thuật viên không được sự ủy quyền của CatTop .</li>
                     </ul>
                 </p>
             </div>

@@ -55,7 +55,7 @@ export default function Header({ showSearch = true, data }) {
                 </div>
               )}
               <Link
-                href="tel:1900633579"
+                href="tel:1500.10.0912"
                 className="hover:bg-secondary/[.2] rounded-md text-xs px-3 py-2.5 font-semibold flex justify-center items-center align-center text-gray-900 gap-2 w-fit"
               >
                 <IoCallSharp className="text-lg text-primary" />
