@@ -6,7 +6,7 @@ const searchProduct = async ({
   max_price,
   brand,
   offset,
-  limit,
+  limit = 5,
   order,
   order_by,
 }) => {
