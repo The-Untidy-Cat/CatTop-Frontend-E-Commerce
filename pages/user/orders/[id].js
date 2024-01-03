@@ -6,6 +6,7 @@ import { Axios } from "@/utils/axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { MobileView } from "react-device-detect";
+import { FaChevronLeft } from "react-icons/fa";
 
 export default function OrderDetailPage({ data }) {
   const router = useRouter();
