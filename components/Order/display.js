@@ -17,7 +17,7 @@ const OrderItem = ({ item }) => {
       />
       <div className="flex flex-col w-full">
         <Link
-          className="font-semibold w-full break-words"
+          className="font-semibold w-full break-words hover:text-primary"
           href={`/products/${item?.variant?.product?.slug}`}
         >
           {item?.variant?.product?.name}
@@ -49,7 +49,7 @@ const OrderCard = ({ order }) => {
   return (
     <Link
       href={`/user/orders/${order?.id}`}
-      className="flex flex-col divide-y border rounded"
+      className="flex flex-col divide-y border rounded text-gray-900"
     >
       <div className="flex justify-between items-center bg-secondary/[.2] text-gray-900 p-2">
         <p className="m-0 text-sm">Mã đơn hàng: #{order?.id}</p>
