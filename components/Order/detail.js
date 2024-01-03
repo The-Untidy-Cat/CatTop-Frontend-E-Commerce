@@ -190,7 +190,7 @@ export default function OrderDetailView() {
                       className: "float-right bg-primary text-white",
                     }}
                   >
-                    <RatingForm data={item} onSuccess={getData} />
+                    <RatingForm data={{...item, order_id: order?.id}} onSuccess={getData} />
                   </ModalToggle>
                 )}
               </div>

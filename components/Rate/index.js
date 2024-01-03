@@ -1,170 +1,170 @@
-import { Button, Form, Pagination, Rate } from "antd";
+import { Button, Form, Pagination, Radio, Rate } from "antd";
 import RateItems from "./items";
 import { useState } from "react";
 
-export default function RateProduct() {
-    const items5 = [
-        {
-            name: 'user1',
-            rate: <Rate disabled defaultValue={5} className="text-xs"></Rate>,
-            date: '2023-10-23 11:00',
-            color: 'Xám',
-            comment: 'Hàng đúng với mô tả, máy đẹp, test sơ các chức năng cần dùng đều ổn hết'
-        },
-        {
-            name: 'user2',
-            rate: <Rate disabled defaultValue={5} className="text-xs"></Rate>,
-            date: '2023-11-02 09:15',
-            color: 'Đen',
-            comment: 'Hàng đẹp khỏi phải bàn, shop tư vấn nhiệt tình và có tâm'
-        },
-        {
-            name: 'user3',
-            rate: <Rate disabled defaultValue={5} className="text-xs"></Rate>,
-            date: '2023-11-18 08:30',
-            color: 'Xám',
-            comment: 'Hàng đóng gói cẩn thận mở ra y như mới'
-        },
-        {
-            name: 'user4',
-            rate: <Rate disabled defaultValue={5} className="text-xs"></Rate>,
-            date: '2023-11-29 16:45',
-            color: 'Đen',
-            comment: 'Giao hàng nhanh và đặc biệt đóng gói cẩn thận. Nhận được trong vòng ba ngày'
-        },
-        {
-            name: 'user5',
-            rate: <Rate disabled defaultValue={5} className="text-xs"></Rate>,
-            date: '2023-11-19 12:21',
-            color: 'Xám',
-            comment: 'Sản phẩm tốt, giao hàng nhanh, đúng thông số kỹ thuật'
-        },
-    ];
-    const items4 = [
-        {
-            name: 'user6',
-            rate: <Rate disabled defaultValue={4} className="text-xs"></Rate>,
-            date: '2022-01-19 17:45',
-            color: 'Xám',
-            comment: 'Test sơ các chức năng cần dùng đều ổn hết'
-        },
-        {
-            name: 'user7',
-            rate: <Rate disabled defaultValue={4} className="text-xs"></Rate>,
-            date: '2022-10-10 07:46',
-            color: 'Đen',
-            comment: 'Shop tư vấn nhiệt tình và có tâm'
-        },
-        {
-            name: 'user8',
-            rate: <Rate disabled defaultValue={4} className="text-xs"></Rate>,
-            date: '2023-12-31 06:24',
-            color: 'Xám',
-            comment: 'Nhân viên tư vấn nhiệt tình, máy chạy êm'
-        },
-        {
-            name: 'user9',
-            rate: <Rate disabled defaultValue={4} className="text-xs"></Rate>,
-            date: '2023-04-04 17:59',
-            color: 'Đen',
-            comment: 'Giao hàng nhanh, đóng gói cẩn thận'
-        },
-        {
-            name: 'user10',
-            rate: <Rate disabled defaultValue={4} className="text-xs"></Rate>,
-            date: '2023-09-12 14:41',
-            color: 'Xám',
-            comment: 'Sản phẩm tốt, giao hàng nhanh, đúng thông số kỹ thuật'
-        },
-    ];
-    const items3 = [
-        {
-            name: 'user11',
-            rate: <Rate disabled defaultValue={3} className="text-xs"></Rate>,
-            date: '2022-12-16 14:46',
-            color: 'Xám',
-            comment: 'Nhân viên tư vấn chưa nhiệt tình, hàng giống với mô tả, gói hàng còn sơ xài'
-        },
-    ];
-    const [valueRate, setValueRate] = useState();
-    const [selectedValueRate, setSelectedValueRate] = useState();
-    const handleMenu = (e) => {
-        const key = e.currentTarget.getAttribute('data-key');
-        setValueRate(key);
-        setSelectedValueRate('items' + key);
-    }
+export default function ProductRatingList({ data }) {
+  const [selected, setSelected] = useState("all");
 
-    return (
-        <div className='bg-white lg:px-7 pl-6 py-6'>
-            <p className="text-xl font-medium mb-4">ĐÁNH GIÁ SẢN PHẨM</p>
-            <div className="grid grid-cols-3 gap-4 h-40 bg-secondary/[.2] border-secondary/[.6] border-[1px] py-10">
-                <div className="flex flex-col items-center gap-2">
-                    <p><span className="text-3xl text-primary/[.9] font-semibold">4.5 </span><span className="text-base text-primary/[.9] font-medium">trên 5</span></p>
-                    <Rate allowHalf defaultValue={4.5} disabled className="w-full flex justify-center"/>
-                </div>
-                <div className="flex gap-4 col-span-2">
-                    <Button
-                        className="bg-white rounded-none"
-                        data-key='all'
-                        onClick={handleMenu}>Tất cả</Button>
-                    <Button
-                        className="bg-white rounded-none"
-                        data-key='5'
-                        onClick={handleMenu}
-                    >5 sao (5)
-                    </Button>
-                    <Button
-                        className="bg-white rounded-none"
-                        data-key='4'
-                        onClick={handleMenu}>4 sao (5)
-                    </Button>
-                    <Button
-                        className="bg-white rounded-none"
-                        data-key='3'
-                        onClick={handleMenu}>3 sao (1)
-                    </Button>
-
-                    <Button
-                        className="bg-white rounded-none"
-                        data-key='2'
-                        onClick={handleMenu}>2 sao (0)
-                    </Button>
-
-                    <Button
-                        className="bg-white rounded-none"
-                        data-key='1'
-                        // onClick={handleRate}
-                        onClick={handleMenu}>1 sao (0)
-                    </Button>
-
-                </div>
-            </div>
-            {valueRate === '5' || valueRate === 'all' ? (
-                <div className="mt-5">
-                    {/* <p>Hello world</p> */}
-                    {items5.map((item) => {
-                        return <RateItems data={item} value={valueRate} />
-                    })}
-                </div>
-            ) : null}
-            {valueRate === '4' ? (
-                <div className="mt-5">
-                    {/* <p>Hello world</p> */}
-                    {items4.map((item) => {
-                        return <RateItems data={item} value={valueRate} />
-                    })}
-                </div>
-            ) : null}
-            {valueRate === '3' ? (
-                <div className="mt-5">
-                    {/* <p>Hello world</p> */}
-                    {items3.map((item) => {
-                        return <RateItems data={item} value={valueRate} />
-                    })}
-                </div>
-            ) : null}
-
-            <Pagination defaultCurrent={1} className="mt-4 flex justify-center" />
+  return (
+    <div className="flex flex-col w-full h-fit">
+      <div className="flex justify-between items-center align-center w-full">
+        <p className="sticky font-semibold text-lg top-0">
+          Đánh giá (
+          {data?.variants?.reduce((total, variant) => {
+            return total + variant?.reviews?.length;
+          }, 0) || 0}
+          )
+        </p>
+        <div className="flex gap-1">
+          <Rate
+            allowHalf
+            value={
+              Number(
+                data?.variants?.reduce((total, variant) => {
+                  return (
+                    total +
+                    variant?.reviews?.reduce((total, review) => {
+                      return total + Number(review?.rating);
+                    }, 0)
+                  );
+                }, 0)
+              ) /
+              Number(
+                data?.variants?.reduce((total, variant) => {
+                  return total + Number(variant?.reviews?.length);
+                }, 0)
+              )
+            }
+            disabled={true}
+          />
+          <p className="text-gray-500">
+            {Number(
+              data?.variants?.reduce((total, variant) => {
+                return (
+                  total +
+                  variant?.reviews?.reduce((total, review) => {
+                    return total + Number(review?.rating);
+                  }, 0)
+                );
+              }, 0)
+            ) /
+              Number(
+                data?.variants?.reduce((total, variant) => {
+                  return total + Number(variant?.reviews?.length);
+                }, 0)
+              )}
+          </p>
         </div>
-    )
+      </div>
+      <Radio.Group
+        defaultValue={"all"}
+        value={selected}
+        onChange={(e) => {
+          setSelected(e.target.value);
+        }}
+        optionType="button"
+        className="w-full grid grid-cols-3 gap-2 py-2 c-variant-radio-group"
+        rootClassName="w-full"
+      >
+        <Radio value="all" className="border rounded">
+          Tất cả (
+          {Number(
+            data?.variants?.reduce((total, variant) => {
+              return (
+                total +
+                variant?.reviews?.reduce((total, review) => {
+                  return total + Number(review?.rating);
+                }, 0)
+              );
+            }, 0)
+          )}
+          )
+        </Radio>
+        <Radio value="5" className="border rounded">
+          5 sao (
+          {Number(
+            data?.variants?.reduce((total, variant) => {
+              return (
+                total +
+                variant?.reviews?.reduce((total, review) => {
+                  return total + (Number(review?.rating) === 5 ? 1 : 0);
+                }, 0)
+              );
+            }, 0)
+          )}
+          )
+        </Radio>
+        <Radio value="4" className="border rounded">
+          4 sao (
+          {Number(
+            data?.variants?.reduce((total, variant) => {
+              return (
+                total +
+                variant?.reviews?.reduce((total, review) => {
+                  return total + (Number(review?.rating) === 4 ? 1 : 0);
+                }, 0)
+              );
+            }, 0)
+          )}
+          )
+        </Radio>
+        <Radio value="3" className="border rounded">
+          3 sao (
+          {Number(
+            data?.variants?.reduce((total, variant) => {
+              return (
+                total +
+                variant?.reviews?.reduce((total, review) => {
+                  return total + (Number(review?.rating) === 3 ? 1 : 0);
+                }, 0)
+              );
+            }, 0)
+          )}
+          )
+        </Radio>
+        <Radio value="2" className="border rounded">
+          2 sao (
+          {Number(
+            data?.variants?.reduce((total, variant) => {
+              return (
+                total +
+                variant?.reviews?.reduce((total, review) => {
+                  return total + (Number(review?.rating) === 2 ? 1 : 0);
+                }, 0)
+              );
+            }, 0)
+          )}
+          )
+        </Radio>
+        <Radio value="1" className="border rounded">
+          1 sao (
+          {Number(
+            data?.variants?.reduce((total, variant) => {
+              return (
+                total +
+                variant?.reviews?.reduce((total, review) => {
+                  return total + (Number(review?.rating) === 1 ? 1 : 0);
+                }, 0)
+              );
+            }, 0)
+          )}
+          )
+        </Radio>
+      </Radio.Group>
+      <div className="flex w-full h-full relative overflow-y-auto grow-0 max-h-36">
+        <div className="flex flex-col w-full divide-y h-fit">
+          {data?.variants?.map((variant) => {
+            return variant?.reviews
+              ?.filter((review) => {
+                if (selected === "all") return true;
+                return Number(review?.rating) === Number(selected);
+              })
+              .map((review) => {
+                return <RateItems data={review} key={review?.id}/>;
+              });
+          })}
+        </div>
+      </div>
+    </div>
+  );
 }

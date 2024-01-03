@@ -162,6 +162,11 @@ body {
   display: none !important;
 }
 
+.c-variant-radio-group
+  .ant-radio-button-wrapper::before {
+  display: none !important;
+}
+
 .ant-carousel .slick-dots li button {
   background: rgb(144, 144, 144) !important;
 }

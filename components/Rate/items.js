@@ -7,7 +7,7 @@ export default function RateItems({ data }) {
       <p className="font-semibold m-0">
         {String(data?.last_name + " " + data?.first_name)?.trim()}
       </p>
-      <Rate value={data?.rating} disabled={true} />
+      <Rate value={data?.rating} disabled={true}/>
       <p className="m-0">{data?.review}</p>
     </div>
   );
