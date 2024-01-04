@@ -123,7 +123,7 @@ export const useUserController = () => {
         .delete(`/auth/logout`)
         .then(() => {
           setUser(null);
-          router.reload();
+          setCart([]);
         })
         .catch((e) => {
           notification.error({
