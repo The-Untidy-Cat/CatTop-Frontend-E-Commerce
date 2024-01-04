@@ -10,7 +10,7 @@ export default function RegistrationPage() {
         showFooter={false}
         showSearch={false}
         // showAccountBar={false}
-        title="Đăng ký thành viên CatTop"
+        title="Đăng ký - CatTop"
       >
         <RegistrationForm />
       </FullWidthLayout>

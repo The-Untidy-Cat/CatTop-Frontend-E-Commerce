@@ -21,7 +21,9 @@ export default function CheckoutsPage({ data }) {
   }, []);
   return (
     <PrivateWrapper>
-      <DefaultLayout data={data}>
+      <DefaultLayout data={data}
+      title="Đặt hàng - CatTop"
+      >
         {data?.item?.length > 0 ? (
           <Checkout cart={data?.item} type={data?.type} />
         ) : (

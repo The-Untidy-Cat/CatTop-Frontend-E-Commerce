@@ -8,7 +8,9 @@ import { Axios } from "@/utils/axios";
 
 export default function GuaranteePage({data}) {
   return (
-    <DefaultLayout data={data}>
+    <DefaultLayout data={data}
+    title="Chính sách bảo hành - CatTop"
+    >
       <GuaranteePolicy />
     </DefaultLayout>
   );

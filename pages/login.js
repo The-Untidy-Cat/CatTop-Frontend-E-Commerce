@@ -9,7 +9,7 @@ export default function LoginPage() {
         showCategories={false}
         showFooter={false}
         showSearch={false}
-        title="Đăng nhập vào CatTop"
+        title="Đăng nhập - CatTop"
       >
         <LoginView />
       </FullWidthLayout>

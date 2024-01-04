@@ -8,7 +8,7 @@ import { Axios } from "@/utils/axios";
 
 export default function AboutUsPage({data}) {
   return (
-    <DefaultLayout data={data}>
+    <DefaultLayout data={data} title="Giới thiệu - CatTop">
       <AboutUs />
     </DefaultLayout>
   );

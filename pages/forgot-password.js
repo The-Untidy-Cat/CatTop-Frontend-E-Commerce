@@ -10,7 +10,7 @@ export default function ForgotPasswordPage() {
         showFooter={false}
         showSearch={false}
         // showAccountBar={false}
-        title="Đặt lại mật khẩu"
+        title="Đặt lại mật khẩu - CatTop"
       >
         <ForgetPassword />
       </FullWidthLayout>

@@ -6,9 +6,9 @@ import PurchasePolicy from "@/components/Purchase";
 import { DefaultLayout } from "@/components/Layout";
 import { Axios } from "@/utils/axios";
 
-export default function ReturnPage({data}) {
+export default function ReturnPage({ data }) {
   return (
-    <DefaultLayout data={data}>
+    <DefaultLayout data={data} title="Chính sách đổi trả - CatTop">
       <ReturnPolicy />
     </DefaultLayout>
   );

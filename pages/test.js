@@ -5,7 +5,7 @@ import ReturnPolicy from "@/components/Return";
 import PurchasePolicy from "@/components/Purchase";
 import { DefaultLayout } from "@/components/Layout";
 
-export default function PurchasePage({data}) {
+export default function PurchasePage({ data }) {
   return (
     <DefaultLayout data={data}>
       <PurchasePolicy />

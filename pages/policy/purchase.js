@@ -8,7 +8,9 @@ import { Axios } from "@/utils/axios";
 
 export default function PurchasePage({data}) {
   return (
-    <DefaultLayout data={data}>
+    <DefaultLayout data={data}
+    title="Chính sách mua hàng - CatTop"
+    >
       <PurchasePolicy />
     </DefaultLayout>
   );

@@ -14,7 +14,9 @@ export default function CartPage({ data }) {
   , []);
   return (
     <PrivateWrapper>
-      <DefaultLayout data={data}>
+      <DefaultLayout data={data} 
+      title="Giỏ hàng - CatTop"
+      >
         <Cart />
       </DefaultLayout>
     </PrivateWrapper>
