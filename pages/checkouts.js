@@ -48,8 +48,6 @@ export async function getServerSideProps(context) {
         await Axios.get("/customer/cart", {
           headers: {
             Cookie: context.req.headers.cookie,
-            Origin: process.env.NEXT_PUBLIC_CLIENT_URL,
-            Referer: process.env.NEXT_PUBLIC_CLIENT_URL,
           },
         })
       );
