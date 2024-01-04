@@ -20,6 +20,14 @@ const AccountBar = () => {
       ),
     },
     {
+      key: "change-password",
+      label: (
+        <Link href="/user/change-password" className="text-gray-600 text-xs font-medium">
+          Đổi mật khẩu
+        </Link>
+      ),
+    },
+    {
       key: "tracking-order",
       label: (
         <Link href="/user/orders" className="text-gray-600 text-xs font-medium">
